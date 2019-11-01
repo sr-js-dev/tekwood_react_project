@@ -13,7 +13,7 @@ class Sidebar extends Component {
       return (
         <div>
             <aside className="sidebar">
-                <a href="/" className="sidebar__logo"><img src={require('../assets/images/appmakerz.svg')} alt="appzmakerz"></img></a>
+                <a href="/" className="sidebar__logo"><img src='https://www.tekwoods.nl/wordpress/wp-content/uploads/Logo_TW_RGB-1-300x100.png' alt="appzmakerz"></img></a>
                 <nav className="menu">
                     <ul className="menu__list">
                         <li id="0" className="menu__item">
@@ -26,14 +26,14 @@ class Sidebar extends Component {
                         </li>
                         <li className="menu__separator"></li>
                         <li id="1" className="menu__item">
-                            <Link to={'/product'} className={window.location.pathname === "/product" || window.location.pathname === "/product-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'}>
+                            <Link to={'/user'} className={window.location.pathname === "/user" || window.location.pathname === "/product-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'}>
                                 <span className="menu__link-img-wrap">
-                                    <img src={require("../assets/images/icon-orders.svg")} alt="Orders"/>
+                                    <img src={require("../assets/images/icon-orders.svg")} alt="User"/>
                                 </span>
-                                <span>Products</span>
+                                <span>Users</span>
                             </Link>
                         </li>
-                        <li id="2" className="menu__item">
+                        {/* <li id="2" className="menu__item">
                             <Link to={'/sales-order'} className={window.location.pathname === "/sales-order" || window.location.pathname === "/sales-order-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'} >
                                 <span className="menu__link-img-wrap">
                                     <img src={require("../assets/images/icon-orders.svg")} alt="Orders"/>
@@ -48,7 +48,7 @@ class Sidebar extends Component {
                                 </span>
                                 <span>Purchase Order</span>
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </nav>
             </aside>

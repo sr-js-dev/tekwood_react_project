@@ -4,6 +4,7 @@ import { Col } from 'react-bootstrap';
 import Sidebar from '../components/sidebar'
 import Header from '../components/header'
 import { Route, Switch,Router } from 'react-router-dom';
+import User from '../pages/User/user_register'
 import history from '../history';
 import 'bootstrap/dist/css/bootstrap.min.css';
 window.localStorage.setItem('AWT', true);
@@ -17,9 +18,7 @@ class Layout extends Component {
             <Header/>
                 <Router history={history}>
                   <Switch>
-                  />
-                  {/* <Route path="/product" component={Product} /> */}
-                  />
+                  <Route path="/user" component={User} />
                   {/* <Route path="/product-detail" component={Productdetail} /> */}
                   {/* <Route path="/sales-order" component={Salesorder} /> */}
                   {/* <Route path="/sales-order-detail" component={Salesorderdetail} /> */}

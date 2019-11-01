@@ -1,7 +1,8 @@
-const BASEURL = 'https://app-test.organisatie.freepeat.com/api/factory/execute';
+const BASEURL = 'http://brandnewkey.sohosted-vps.nl:1020';
 export default {
-    GetSalesData: `${BASEURL}//Appmakerz-Test/getSalesOrders`,
-    GetCustomerData: `${BASEURL}/Exact-Test/getCustomersDropdown`,
+    Login: `${BASEURL}/api/Login/Login`,
+    GetUserData: `${BASEURL}/api/users/SearchUser`,
+    PostUserData: `${BASEURL}/api/users/Create`,
     PostSalesOrder: `${BASEURL}/Appmakerz-Test/postSalesOrder`,
     GetSalesDetail: `${BASEURL}/Appmakerz-Test/getSalesOrder`,
     GetSalesItems: `${BASEURL}/Appmakerz-Test/getSalesItemsDropdown`,

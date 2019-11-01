@@ -1,6 +1,5 @@
 import * as types from '../constants/actionTypes';
 export const initialState = {
-    salesData: [],
     error: null
 }
 export default function (state = initialState, action) {
