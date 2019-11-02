@@ -2,19 +2,20 @@ import React, {Component} from 'react'
 import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import * as salesAction  from '../../actions/salesAction';
-import DatePicker from "react-datepicker";
+import * as salesAction  from '../../actions/authAction';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
-import history from '../../history';
+import ListErrors from '../../components/listerrors';
 const mapStateToProps = state => ({ 
     ...state.auth,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+    postUserError: (params) =>
+        dispatch(salesAction.dataServerFail(params)),
+    removeState: () =>
+        dispatch(salesAction.blankdispatch()),
 });
 class Purchaseform extends Component {
     _isMounted = false;
@@ -32,7 +33,6 @@ class Purchaseform extends Component {
         this._isMounted = false;
     }
     componentDidMount() {
-        
     }
     handleSubmit = (event) => {
         event.preventDefault();
@@ -41,22 +41,52 @@ class Purchaseform extends Component {
         for (let key of clientFormData.keys()) {
             data[key] = clientFormData.get(key);
         }
-        var params = {
-            "firstName": data.firstname,
-            "lastName": data.lastname,
-            "email": data.email1,
-            "password": data.password1,
-            "confirmPassword": data.confirmpassword1,
-            "roles": [
-                data.roles
-            ]
+        if(this.props.mode==="add"){
+            var params = {
+                "firstName": data.firstname,
+                "lastName": data.lastname,
+                "email": data.email1,
+                "password": data.password1,
+                "confirmPassword": data.confirmpassword1,
+                "roles": [
+                    data.roles
+                ]
+            }
+            var headers = SessionManager.shared().getAuthorizationHeader();
+            Axios.post(API.PostUserData, params, headers)
+            .then(result => {
+                this.props.onGetUser()
+                this.props.onHide();
+                this.setState({selectflag:true})
+                this.props.removeState();
+            })
+            .catch(err => {
+                this.props.postUserError(err.response.data.Password)
+            });
+        }else{
+            params = {
+                "firstName": data.firstname,
+                "lastName": data.lastname,
+                "password": data.password1,
+                "confirmPassword": data.confirmpassword1,
+                "roles": [
+                    data.roles
+                ]
+            }
+            headers = SessionManager.shared().getAuthorizationHeader();
+            Axios.put(API.PostUserUpdate+this.props.userID, params, headers)
+            .then(result => {
+                this.props.onGetUser()
+                this.props.onHide();
+                this.setState({selectflag:true})
+                this.props.removeState();
+            })
+            .catch(err => {
+                this.props.postUserError(err.response.data.PasswordTooShort)
+                
+
+            });
         }
-        var headers = SessionManager.shared().getAuthorizationHeader();
-        Axios.post(API.PostUserData, params, headers)
-        .then(result => {
-            this.props.onGetUser()
-            this.props.onHide();
-        });
     }
     getRoles (value) {
         this.setState({selectrollabel:value.label, selectrolvalue:value.value})
@@ -69,12 +99,10 @@ class Purchaseform extends Component {
         let roledata=''
         if(this.props.userUpdateData){
             updateData=this.props.userUpdateData;
-            console.log('1123123123123', updateData);
             roles = updateData.roles;
             if(roles){
                 roledata=roles[0].name;
             }
-             
         }
       
         return (
@@ -219,6 +247,7 @@ class Purchaseform extends Component {
                             Password     
                         </Form.Label>
                         <Col sm="9" className="product-text">
+                            <ListErrors errors={this.props.error} />
                             <Form.Control type="password" name="password1" required placeholder="Password" />
                         </Col>
                     </Form.Group>
@@ -249,7 +278,7 @@ class Purchaseform extends Component {
                                 />
                             }
                             
-                            {!this.props.disabled && (
+                            {!this.props.disabled&&this.props.mode==="add" && (
                                 <input
                                     onChange={val=>console.log()}
                                     tabIndex={-1}

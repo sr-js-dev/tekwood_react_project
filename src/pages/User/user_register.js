@@ -7,7 +7,6 @@ import $ from 'jquery';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-import { MDBDataTable } from 'mdbreact';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
@@ -17,7 +16,6 @@ const mapStateToProps = state => ({ ...state.auth });
 const mapDispatchToProps = dispatch => ({
     
 });
-
 class Product extends Component {
     _isMounted = false
     constructor(props) {
@@ -38,13 +36,13 @@ class Product extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetUserData, headers)
         .then(result => {
-            console.log('123123', result.data.data);
             this.setState({userData:result.data.data})
         });
     }
     userUpdate = (event) => {
+        let userID=event.currentTarget.id;
         var settings = {
-            "url": "http://brandnewkey.sohosted-vps.nl:1020/api/users/GetById/"+event.currentTarget.id,
+            "url": API.GetUserDataById+event.currentTarget.id,
             "method": "GET",
             "headers": {
                 "Content-Type": "application/json",
@@ -55,12 +53,12 @@ class Product extends Component {
         })
         .then(response => {
             this.setState({userUpdateData: response})
-            this.setState({modalShow:true, mode:"update", flag:true})
+            this.setState({modalShow:true, mode:"update",userID:userID, flag:true})
         });
     }
     viewUserData = (event) => {
         var settings = {
-            "url": "http://brandnewkey.sohosted-vps.nl:1020/api/users/GetById/"+event.currentTarget.id,
+            "url": API.GetUserDataById+event.currentTarget.id,
             "method": "GET",
             "headers": {
                 "Content-Type": "application/json",
@@ -76,7 +74,7 @@ class Product extends Component {
     }
     userDelte = (event) => {
         var settings = {
-            "url": "http://brandnewkey.sohosted-vps.nl:1020/api/users/DeactivateUser/"+event.currentTarget.id,
+            "url": "https://brandnewkey.sohosted-vps.nl:44402/api/users/DeactivateUser/"+event.currentTarget.id,
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json",
@@ -106,6 +104,7 @@ class Product extends Component {
                                 onHide={() => this.setState({modalShow: false})}
                                 onGetUser={() => this.getUserData()}
                                 userUpdateData={this.state.userUpdateData}
+                                userID={this.state.userID}
                             />  
                         </Form>
                     </div>

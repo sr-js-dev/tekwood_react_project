@@ -8,6 +8,10 @@ export default function (state = initialState, action) {
         return { ...state, UserName: action.UserName, UserEmail: action.UserEmail, Role: action.Role, error: null }
     case types.FETCH_LOGIN_FAIL:
         return { ...state, error: action.error }
+    case types.FETCH_SERVER_FAIL:
+          return { ...state, error: action.error }
+    case types.FETCH_BlANK_DATA:
+            return { ...state, error: action.error }
     default:
         return state
     }
