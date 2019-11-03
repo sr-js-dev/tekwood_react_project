@@ -195,7 +195,7 @@ class Purchaseform extends Component {
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            SsActive     
+                            Active     
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
