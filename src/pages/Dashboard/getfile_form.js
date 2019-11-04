@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import $ from 'jquery';
-import SessionManager from '../../components/session_manage';
-import API from '../../components/api'
+// import $ from 'jquery';
+// import SessionManager from '../../components/session_manage';
+// import API from '../../components/api'
 import * as Auth   from '../../components/auth';
 import Axios from 'axios';
 const mapStateToProps = state => ({ 
@@ -47,7 +47,7 @@ class Buycreditform extends Component {
                 'Content-Type': 'multipart/form-data',
               }
         }
-        Axios.post("https://brandnewkey.sohosted-vps.nl:44402/api/hundegger/Upload", file, headers)
+        Axios.post("http://brandnewkey.sohosted-vps.nl:1020/api/hundegger/Upload", file, headers)
         .then(result => {
             console.log('111222333', result)
         })
@@ -76,7 +76,7 @@ class Buycreditform extends Component {
                             Upload File    
                         </Form.Label>
                         <Col sm="8">
-                            <Form.Control type="file" name="number" required accept=".twsbdb" onChange={this.onChange} />
+                            <Form.Control type="file" name="file" required accept=".twsbdb" onChange={this.onChange} />
                         </Col>
                     </Form.Group>
                     <Form.Group style={{textAlign:"center"}}>
