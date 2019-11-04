@@ -9,4 +9,5 @@ export default {
     PostSetting: `${BASEURL}/api/Settings`,
     GetSettingData: `${BASEURL}/api/Settings`,
     PostSisowData: `${BASEURL}/api/Sisow`,
+    PostHundeggerFile: `${BASEURL}/api/hundegger/Upload`,
   };

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Buycreditform from './buycredit_form'
+import Getfileform from './getfile_form'
 import Axios from 'axios';
 import * as Auth   from '../../components/auth';
 const mapStateToProps = state => ({ 
@@ -55,7 +56,7 @@ class Dashboard extends Component {
                                 <p className="dashboard__top-long-description">Credit card, PayPal, Worldpay, On Account</p>
                             </div>
                             <div className="dashboard__top-long-img">
-                                <img src={require("../../assets/images/icon-payment-white.svg")} alt="payment"/>
+                                <img src={require("../../assets/images/icon-payment-white.svg")} alt="payment" onClick={()=>this.setState({modalShowFile:true})}/>
                             </div>
                         </div>
                     </div>
@@ -87,8 +88,11 @@ class Dashboard extends Component {
                 </div>
                 <Buycreditform
                     show={this.state.modalShow}
-                    // onGetSetting={() => this.getSettingData()}
                     onHide={() => this.setState({modalShow: false})}
+                />
+                <Getfileform
+                    show={this.state.modalShowFile}
+                    onHide={() => this.setState({modalShowFile: false})}
                 />
             </div>
         );
