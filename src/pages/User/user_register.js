@@ -74,7 +74,7 @@ class Product extends Component {
     }
     userDelte = (event) => {
         var settings = {
-            "url": "https://brandnewkey.sohosted-vps.nl:44402/api/users/DeactivateUser/"+event.currentTarget.id,
+            "url": API.DeactivateUser+event.currentTarget.id,
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json",

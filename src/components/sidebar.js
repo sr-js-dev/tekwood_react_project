@@ -33,15 +33,15 @@ class Sidebar extends Component {
                                 <span>Users</span>
                             </Link>
                         </li>
-                        {/* <li id="2" className="menu__item">
-                            <Link to={'/sales-order'} className={window.location.pathname === "/sales-order" || window.location.pathname === "/sales-order-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'} >
+                        <li id="2" className="menu__item">
+                            <Link to={'/setting'} className={window.location.pathname === "/setting" || window.location.pathname === "/sales-order-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'} >
                                 <span className="menu__link-img-wrap">
                                     <img src={require("../assets/images/icon-orders.svg")} alt="Orders"/>
                                 </span>
-                                <span>Sales Order</span>
+                                <span>Settings</span>
                             </Link>
                         </li>
-                        <li id="3" className="menu__item">
+                        {/* <li id="3" className="menu__item">
                             <Link to={'/purchase-order'} className={window.location.pathname === "/purchase-order" || window.location.pathname === "/purchase-order-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'} >
                                 <span className="menu__link-img-wrap">
                                     <img src={require("../assets/images/icon-orders.svg")} alt="Orders"/>

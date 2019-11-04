@@ -5,5 +5,7 @@ export default {
     PostUserData: `${BASEURL}/api/users/Create`,
     GetUserDataById: `${BASEURL}/api/users/GetById/`,
     PostUserUpdate: `${BASEURL}/api/users/Update/`,
-    
+    DeactivateUser: `${BASEURL}/api/users/DeactivateUser/`,
+    PostSetting: `${BASEURL}/api/Settings`,
+    GetSettingData: `${BASEURL}/api/Settings`,
   };
