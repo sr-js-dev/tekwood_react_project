@@ -33,7 +33,6 @@ class Settings extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetSettingData, headers)
         .then(result => {
-            console.log('123123', result);
             this.setState({settingData:result.data})
         });
     }

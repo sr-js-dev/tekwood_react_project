@@ -6,6 +6,7 @@ import Header from '../components/header'
 import { Route, Switch,Router } from 'react-router-dom';
 import User from '../pages/User/user_register'
 import Settings from '../pages/Settings/setting'
+import Dashboard from '../pages/Dashboard/dashboard'
 import history from '../history';
 import 'bootstrap/dist/css/bootstrap.min.css';
 window.localStorage.setItem('AWT', true);
@@ -19,13 +20,12 @@ class Layout extends Component {
             <Header/>
                 <Router history={history}>
                   <Switch>
-                  <Route path="/user" component={User} />
-                  <Route path="/setting" component={Settings} />
-                  {/* <Route path="/sales-order" component={Salesorder} /> */}
-                  {/* <Route path="/sales-order-detail" component={Salesorderdetail} /> */}
-                  {/* <Route path="/purchase-order" component={Purchaseorder} /> */}
-                  {/* <Route path="/purchase-order-detail" component={Purchaseorderdetail} /> */}
-                  />
+                    <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/user" component={User} />
+                    <Route path="/setting" component={Settings} />
+                    {/* <Route path="/sales-order-detail" component={Salesorderdetail} /> */}
+                    {/* <Route path="/purchase-order" component={Purchaseorder} /> */}
+                    {/* <Route path="/purchase-order-detail" component={Purchaseorderdetail} /> */}
                   </Switch>
                 </Router>
             </Col>

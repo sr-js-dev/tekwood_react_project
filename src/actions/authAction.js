@@ -17,8 +17,10 @@ export const fetchLoginData = (params) => {
         })
         .then(response => {
             window.localStorage.setItem('token', response.token);
+            window.localStorage.setItem('userID', response.claims.UserId);
+            window.localStorage.setItem('role', response.claims.Role);
             dispatch(fetchLoginDataSuccess(response.claims));
-            history.push('/user')
+            history.push('/dashboard')
         })
         .catch(err => {
             dispatch(fetchLoginDataFail());

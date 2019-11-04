@@ -8,4 +8,5 @@ export default {
     DeactivateUser: `${BASEURL}/api/users/DeactivateUser/`,
     PostSetting: `${BASEURL}/api/Settings`,
     GetSettingData: `${BASEURL}/api/Settings`,
+    PostSisowData: `${BASEURL}/api/Sisow`,
   };
