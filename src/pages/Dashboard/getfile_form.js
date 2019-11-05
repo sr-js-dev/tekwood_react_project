@@ -7,6 +7,7 @@ import API from '../../components/api'
 import $ from 'jquery';
 import * as Auth   from '../../components/auth';
 import ListErrors from '../../components/listerrors';
+// import Confim from '../../components/confirm';
 import Axios from 'axios';
 const mapStateToProps = state => ({ 
     ...state.auth,
@@ -28,7 +29,8 @@ class Buycreditform extends Component {
             downHundeggerFileList:[],
             creditsNeededToBuyFile:'',
             referenceId:'',
-            uploadflag:0
+            uploadflag:0,
+            downloadflag:false
             
         };
         this.onFormSubmit = this.onFormSubmit.bind(this)
@@ -70,6 +72,8 @@ class Buycreditform extends Component {
             $.ajax(settings).done(function (response) {
             })
             .then(response => {
+                this.setState({downloadflag:true})
+                this.setState({confirmshow:true})
                 this.getHundegger();
             })
             .catch(err => {
@@ -135,7 +139,7 @@ class Buycreditform extends Component {
                             }  
                         </Form.Label>
                         <Col sm="6">
-                            <button className="btn-small place-and-orders__add-row-btn payment" onClick={this.completePayment}>Add row</button>
+                            <button className="btn-small place-and-orders__add-row-btn payment" onClick={this.completePayment}>Approve</button>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword" className={hundeggerFileDetails.length!==0 ? 'file-table' : ''}>
@@ -160,10 +164,18 @@ class Buycreditform extends Component {
                             </table>
                         </div>
                     </Form.Group>
-                    <Form.Group style={{textAlign:"center"}}>
-                        <Button type="button" style={{width:"150px"}} onClick={this.downHundeggerFile}>Download</Button>
-                    </Form.Group>
+                    { this.state.downloadflag ?(
+                         <Form.Group style={{textAlign:"center"}}>
+                            <Button type="button" style={{width:"150px"}} onClick={this.downHundeggerFile}>Download</Button>
+                        </Form.Group>
+                    ) : <div></div>
+                    } 
+                   
                 </Form>
+                {/* <Confim
+                    show={this.state.confirmshow}
+                    onHide={() => this.setState({confirmshow: false})}
+                /> */}
             </Modal.Body>
             </Modal>
         );
