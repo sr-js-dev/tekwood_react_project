@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
 import Select from 'react-select';
 import { connect } from 'react-redux';
-import * as salesAction  from '../../actions/authAction';
+import * as authAction  from '../../actions/authAction';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
@@ -13,9 +13,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     postUserError: (params) =>
-        dispatch(salesAction.dataServerFail(params)),
+        dispatch(authAction.dataServerFail(params)),
     removeState: () =>
-        dispatch(salesAction.blankdispatch()),
+        dispatch(authAction.blankdispatch()),
 });
 class Purchaseform extends Component {
     _isMounted = false;

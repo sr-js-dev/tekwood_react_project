@@ -201,3 +201,11 @@ dl, ol, ul {
 .credit-form{
   padding-bottom:10px
 }
+.payment{
+  margin-top: 8px;
+  width: 60%;
+  height: 53%;
+}
+.file-table{
+  height: 260px;
+}

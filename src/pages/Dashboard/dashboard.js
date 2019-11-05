@@ -52,7 +52,7 @@ class Dashboard extends Component {
                         </div>
                         <div className="dashboard__top-long">
                             <div>
-                                <h6 className="dashboard__top-long-title">Make a Payment</h6>
+                                <h6 className="dashboard__top-long-title">Get Files</h6>
                                 <p className="dashboard__top-long-description">Credit card, PayPal, Worldpay, On Account</p>
                             </div>
                             <div className="dashboard__top-long-img">
