@@ -6,6 +6,7 @@ import Buycreditform from './buycredit_form'
 import Getfileform from './getfile_form'
 import Axios from 'axios';
 import * as Auth   from '../../components/auth';
+import { trls } from '../../components/translate';
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -37,26 +38,24 @@ class Dashboard extends Component {
         return (
             <div>
                 <div className="content__header content__header--with-line">
-                    <h2 className="title">Dashboard</h2>
+                    <h2 className="title">{trls('Dashboard')}</h2>
                 </div>
                 <div className="dashboard__top dashboard_">
                     <div className="dashboard__top-long-wrap">
                         <div className="dashboard__top-long">
                             <div>
-                                <h6 className="dashboard__top-long-title">Buy Credits</h6>
-                                <p className="dashboard__top-long-description">Buy credits</p>
+                                <h6 className="dashboard__top-long-title">{trls('Buy_Credits')}</h6>
                             </div>
                             <div className="dashboard__top-long-img">
-                                <img src={require("../../assets/images/icon-cart-white.svg")} alt="cart" onClick={()=>this.setState({modalShow:true})}/>
+                                <img src={require("../../assets/images/icon-payment-white.svg")} style={{cursor: "pointer"}} alt="payment" onClick={()=>this.setState({modalShow:true})}/>
                             </div>
                         </div>
                         <div className="dashboard__top-long">
                             <div>
-                                <h6 className="dashboard__top-long-title">Get Files</h6>
-                                <p className="dashboard__top-long-description">Credit card, PayPal, Worldpay, On Account</p>
+                                <h6 className="dashboard__top-long-title">{trls('Get_File')}</h6>
                             </div>
                             <div className="dashboard__top-long-img">
-                                <img src={require("../../assets/images/icon-payment-white.svg")} alt="payment" onClick={()=>this.setState({modalShowFile:true})}/>
+                                <img src={require("../../assets/images/icon-cart-white.svg")} style={{cursor: "pointer"}} alt="cart" onClick={()=>this.setState({modalShowFile:true})}/>
                             </div>
                         </div>
                     </div>
@@ -64,26 +63,10 @@ class Dashboard extends Component {
                         <div className="dashboard__top-small">
                             <div className="dashboard__top-small-header">
                                 <img src={require("../../assets/images/icon-exclamation.svg")} alt="exclamation"/>
-                                <span>Available Credits</span>
+                                <span>{trls('Available_Credits')}</span>
                             </div>
-                            <div className="dashboard__top-small-value">Credits: {this.state.userCredits} </div>
+                            <div className="dashboard__top-small-value">{trls('Credits')}: {this.state.userCredits} </div>
                         </div>
-                        {/* <div className="dashboard__top-small">
-                            <div className="dashboard__top-small-header">
-                                <img src={require("../../assets/images/icon-time.svg")} alt="time"/>
-                                <span>Due Soon</span>
-                            </div>
-                            <div className="dashboard__top-small-value">
-                                € 369.22
-                            </div>
-                        </div>
-                        <div className="dashboard__top-small">
-                            <div className="dashboard__top-small-header">
-                                <img src={require("../../assets/images/icon-flag.svg")} alt="flag"/>
-                                <span>Total Outstanding</span>
-                            </div>
-                            <div className="dashboard__top-small-value">€ 1568.50</div>
-                        </div> */}
                     </div>
                 </div>
                 <Buycreditform
@@ -93,6 +76,7 @@ class Dashboard extends Component {
                 <Getfileform
                     show={this.state.modalShowFile}
                     onHide={() => this.setState({modalShowFile: false})}
+                    onGetCradit={this.getCreditsByuserId}
                 />
             </div>
         );

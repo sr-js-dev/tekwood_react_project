@@ -11,6 +11,7 @@ import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
 import { getUserToken } from '../../components/auth';
+import { trls } from '../../components/translate';
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +28,7 @@ class Product extends Component {
         };
       }
     componentDidMount() {
+        this._isMounted=true
         this.getUserData()
     }
     componentWillUnmount() {
@@ -36,7 +38,10 @@ class Product extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetUserData, headers)
         .then(result => {
-            this.setState({userData:result.data.data})
+            if(this._isMounted){
+                this.setState({userData:result.data.data})
+            }
+                
         });
     }
     userUpdate = (event) => {
@@ -92,12 +97,12 @@ class Product extends Component {
         return (
             <div className="order_div">
                 <div className="content__header content__header--with-line">
-                    <h2 className="title">Users</h2>
+                    <h2 className="title">{trls('Users')}</h2>
                 </div>
                 <div className="orders">
                     <div className="orders__filters justify-content-between">
                         <Form inline style={{width:"100%"}}>
-                            <Button variant="primary" onClick={()=>this.setState({modalShow:true, mode:"add", flag:false})}>Add User</Button> 
+                            <Button variant="primary" onClick={()=>this.setState({modalShow:true, mode:"add", flag:false})}>{trls('Add_User')}</Button> 
                             <Adduserform
                                 show={this.state.modalShow}
                                 mode={this.state.mode}
@@ -112,11 +117,11 @@ class Product extends Component {
                         <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
                             <thead>
                             <tr>
-                                <th>FirstName</th>
-                                <th>LastName</th>
-                                <th>Email</th>
-                                <th>Active</th>
-                                <th>Statu</th>
+                                <th>{trls('FirstName')}</th>
+                                <th>{trls('LastName')}</th>
+                                <th>{trls('Email')}</th>
+                                <th>{trls('Active')}</th>
+                                <th>{trls('State')}</th>
                             </tr>
                             </thead>
                             {userData &&(<tbody >

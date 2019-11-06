@@ -4,6 +4,7 @@ import * as salesAction  from '../../actions/authAction';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import ListErrors from '../../components/listerrors';
+import { trls } from '../../components/translate';
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
@@ -41,17 +42,17 @@ class Login extends React.Component {
                      <ListErrors errors={this.props.error} />
                         <fieldset>  
                             <fieldset className="form-group">
-                                <input type="text" name="username" className="orders__filters-search input-email" placeholder="Username"/>
+                                <input type="text" name="username" className="orders__filters-search input-email" placeholder={trls("Username")}/>
                             </fieldset>
                             <fieldset className="form-group">
-                                <input type="password" name="password" className="orders__filters-search input-password" placeholder="Password"/>
+                                <input type="password" name="password" className="orders__filters-search input-password" placeholder={trls("Password")}/>
                             </fieldset>
                             <p className="text-xs-center">
                                 <Link to="/register" style={{color:"rgb(84, 79, 79)"}}>
-                                    Forgot password?
+                                    {trls("Forgot_password")}
                                 </Link>
                             </p>
-                            <button type="submit" className="btn-small place-and-orders__add-row-btn add-row sign-in">Sign in</button>
+                            <button type="submit" className="btn-small place-and-orders__add-row-btn add-row sign-in">{trls("Sign_in")}</button>
                         </fieldset>
                     </form>
                   </Col>

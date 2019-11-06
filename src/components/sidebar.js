@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import '../assets/css/style.min.css';
 import '../assets/css/selectric.css';
 import  { Link } from 'react-router-dom'
+import { trls } from './translate';
 class Sidebar extends Component {
     constructor(props){
         super(props);
@@ -21,7 +22,7 @@ class Sidebar extends Component {
                                 <span className="menu__link-img-wrap">
                                     <img src={require("../assets/images/icon-dashboard.svg")} alt="Dashboard"/>
                                 </span>
-                                <span>Dashboard</span>
+                                <span>{trls('Dashboard')}</span>
                             </Link>
                         </li>
                         <li className="menu__separator"></li>
@@ -30,7 +31,7 @@ class Sidebar extends Component {
                                 <span className="menu__link-img-wrap">
                                     <img src={require("../assets/images/icon-orders.svg")} alt="User"/>
                                 </span>
-                                <span>Users</span>
+                                <span>{trls('Users')}</span>
                             </Link>
                         </li>
                         <li id="2" className="menu__item">
@@ -38,7 +39,7 @@ class Sidebar extends Component {
                                 <span className="menu__link-img-wrap">
                                     <img src={require("../assets/images/icon-orders.svg")} alt="Orders"/>
                                 </span>
-                                <span>Settings</span>
+                                <span>{trls('Settings')}</span>
                             </Link>
                         </li>
                         {/* <li id="3" className="menu__item">

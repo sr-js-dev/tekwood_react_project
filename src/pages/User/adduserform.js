@@ -7,6 +7,7 @@ import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
 import ListErrors from '../../components/listerrors';
+import { trls } from '../../components/translate';
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -116,19 +117,19 @@ class Purchaseform extends Component {
             <Modal.Header closeButton>
                 {this.props.mode==="add" ? (
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Add User
+                        {trls('Add_User')}
                     </Modal.Title>
                 ) : <div/>
                 }
                 {this.props.mode==="view" ? (
                     <Modal.Title id="contained-modal-title-vcenter">
-                        View User
+                        {trls('View_User')}
                     </Modal.Title>
                 ) : <div/>
                 }
                 {this.props.mode==="update" ? (
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Edit User
+                        {trls('Edit_User')}
                     </Modal.Title>
                 ) : <div/>
                 }
@@ -138,22 +139,22 @@ class Purchaseform extends Component {
                     <Form className="container product-form" onSubmit = { this.handleSubmit }>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            FirstName     
+                            {trls('FirstName')}     
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
-                                <Form.Control type="text" name="firstname" readOnly defaultValue={updateData.firstName} required placeholder="FirstName" />
+                                <Form.Control type="text" name="firstname" readOnly defaultValue={updateData.firstName} required placeholder={trls('FirstName')} />
                             ) : <div/>
                             }
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            LastName     
+                            {trls('LastName')}      
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
-                                <Form.Control type="text" name="lastname" readOnly defaultValue={updateData.lastName} required placeholder="LastName" />
+                                <Form.Control type="text" name="lastname" readOnly defaultValue={updateData.lastName} required placeholder={trls('LastName')} />
                             ) : <Form.Control type="text" name="lastname" required placeholder="LastName" />
                             }
                             
@@ -161,29 +162,29 @@ class Purchaseform extends Component {
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            UserName     
+                            {trls('UserName')}     
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
-                                <Form.Control type="text" name="email1" readOnly defaultValue={updateData.userName} required placeholder="Email" />
-                            ) : <Form.Control type="text" name="email1" required placeholder="Email" />
+                                <Form.Control type="text" name="email1" readOnly defaultValue={updateData.userName} required placeholder={trls('UserName')}/>
+                            ) : <Form.Control type="text" name="email1" required placeholder={trls('Email')}/>
                             }
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            Email     
+                            {trls('Email')}     
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
-                                <Form.Control type="text" name="email1" readOnly defaultValue={updateData.email} required placeholder="Email" />
-                            ) : <Form.Control type="text" name="email1" required placeholder="Email" />
+                                <Form.Control type="text" name="email1" readOnly defaultValue={updateData.email} required placeholder={trls('Email')}/>
+                            ) : <Form.Control type="text" name="email1" required placeholder={trls('Email')} />
                             }
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextSupplier">
                         <Form.Label column sm="3">
-                            Roles 
+                            {trls('Roles')} 
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
@@ -195,7 +196,7 @@ class Purchaseform extends Component {
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            Active     
+                            {trls('Active')}     
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
@@ -210,58 +211,58 @@ class Purchaseform extends Component {
                 <Form className="container product-form" onSubmit = { this.handleSubmit }>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            FirstName     
+                            {trls('FirstName')}     
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="update" ? (
-                                <Form.Control type="text" name="firstname" defaultValue={updateData.firstName} required placeholder="FirstName" />
-                            ) : <Form.Control type="text" name="firstname" required placeholder="FirstName" />
+                                <Form.Control type="text" name="firstname" defaultValue={updateData.firstName} required placeholder={trls('FirstName')} />
+                            ) : <Form.Control type="text" name="firstname" required placeholder={trls('FirstName')} />
                             }
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            LastName     
+                            {trls('LastName')}     
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="update" ? (
-                                <Form.Control type="text" name="lastname" defaultValue={updateData.lastName} required placeholder="LastName" />
-                            ) : <Form.Control type="text" name="lastname" required placeholder="LastName" />
+                                <Form.Control type="text" name="lastname" defaultValue={updateData.lastName} required placeholder={trls('LastName')} />
+                            ) : <Form.Control type="text" name="lastname" required placeholder={trls('LastName')} />
                             }
                             
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            Email     
+                            {trls('Email')}     
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="update" ? (
-                                <Form.Control type="text" name="email1" defaultValue={updateData.email} required placeholder="Email" />
-                            ) : <Form.Control type="text" name="email1" required placeholder="Email" />
+                                <Form.Control type="text" name="email1" defaultValue={updateData.email} required placeholder={trls('Email')}/>
+                            ) : <Form.Control type="text" name="email1" required placeholder={trls('Email')}/>
                             }
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            Password     
+                            {trls('Password')}     
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             <ListErrors errors={this.props.error} />
-                            <Form.Control type="password" name="password1" required placeholder="Password" />
+                            <Form.Control type="password" name="password1" required placeholder={trls('Password')} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
-                            ConfirmPassword     
+                            {trls('ConfirmPassword')}     
                         </Form.Label>
                         <Col sm="9" className="product-text">
-                            <Form.Control type="password" name="confirmpassword1" required placeholder="ConfirmPassword" />
+                            <Form.Control type="password" name="confirmpassword1" required placeholder={trls('ConfirmPassword')}/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextSupplier">
                         <Form.Label column sm="3">
-                            Roles 
+                            {trls('Roles')} 
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { roledata&&this.state.selectflag&&this.props.mode==="update" ? (
@@ -292,7 +293,7 @@ class Purchaseform extends Component {
                     </Form.Group>
                    
                     <Form.Group style={{textAlign:"center"}}>
-                        <Button type="submit" style={{width:"100px"}}>Save</Button>
+                        <Button type="submit" style={{width:"100px"}}>{trls('Save')}</Button>
                     </Form.Group>
                 </Form>
                 }

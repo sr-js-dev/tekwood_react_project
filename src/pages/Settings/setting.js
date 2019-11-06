@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import Settingform from './setting_form'
+import { trls } from '../../components/translate';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
@@ -41,12 +42,12 @@ class Settings extends Component {
         return (
             <div className="order_div">
                 <div className="content__header content__header--with-line">
-                    <h2 className="title">Settings</h2>
+                    <h2 className="title">{trls('Settings')}</h2>
                 </div>
                 <div className="orders">
                     <div className="orders__filters justify-content-between">
                         <Form inline style={{width:"100%"}}>
-                            <Button variant="primary" onClick={()=>this.setState({modalShow:true, mode:"add", flag:false})}>Add Settings</Button> 
+                            <Button variant="primary" onClick={()=>this.setState({modalShow:true, mode:"add", flag:false})}>{trls('Add_Settings')}</Button> 
                             <Settingform
                                 show={this.state.modalShow}
                                 onGetSetting={() => this.getSettingData()}
@@ -58,9 +59,9 @@ class Settings extends Component {
                         <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
                             <thead>
                             <tr>
-                                <th>PricePerCredit</th>
-                                <th>CreditPerTimber</th>
-                                <th>CreditPerPlate</th>
+                                <th>{trls('PricePerCredit')}</th>
+                                <th>{trls('CreditPerTimber')}</th>
+                                <th>{trls('CreditPerPlate')}</th>
                             </tr>
                             </thead>
                             {settingData &&(<tbody >

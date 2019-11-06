@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
+import { trls } from '../../components/translate';
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -68,29 +69,29 @@ class Buycreditform extends Component {
             >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Buy Credits
+                    {trls('Buy_Credits')}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form className="container product-form credit-form" onSubmit = { this.handleSubmit }>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="4">
-                            Number of Credits    
+                            {trls('Number_of_Credits')}
                         </Form.Label>
                         <Col sm="8">
-                            <Form.Control type="text" name="number" required placeholder="Number of Credits" value={this.state.number} onChange={this.changeNumber} />
+                            <Form.Control type="text" name="number" required placeholder={trls('Number_of_Credits')} value={this.state.number} onChange={this.changeNumber} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="4">
-                            Credits Amount    
+                            {trls('Credits_Amount')} 
                         </Form.Label>
                         <Col sm="8" >
                             <Form.Control type="text" readOnly name="amount" value={this.state.number*this.state.pricePerCredit} required placeholder="Credits Amount" />
                         </Col>
                     </Form.Group>
                     <Form.Group style={{textAlign:"center"}}>
-                        <Button type="submit" style={{width:"100px"}}>BUY</Button>
+                        <Button type="submit" style={{width:"100px"}}>{trls('Buy')}</Button>
                     </Form.Group>
                 </Form>
             </Modal.Body>

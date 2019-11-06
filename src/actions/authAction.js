@@ -19,14 +19,12 @@ export const fetchLoginData = (params) => {
             window.localStorage.setItem('token', response.token);
             window.localStorage.setItem('userID', response.claims.UserId);
             window.localStorage.setItem('role', response.claims.Role);
+            window.localStorage.setItem('tek_auth', true);
             dispatch(fetchLoginDataSuccess(response.claims));
             history.push('/dashboard')
         })
         .catch(err => {
             dispatch(fetchLoginDataFail());
-            ;
-            // const data = err.response.data;
-            // console.log(err.response);
         });
     };
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
+import { trls } from '../../components/translate';
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -54,37 +55,37 @@ class Settingform extends Component {
             >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Add Settings
+                    {trls('Add_Settings')}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form className="container product-form" onSubmit = { this.handleSubmit }>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="4">
-                            Price per credit    
+                            {trls('Price_per_credit')}  
                         </Form.Label>
                         <Col sm="8">
-                            <Form.Control type="text" name="price" required placeholder="Price per credit " />
+                            <Form.Control type="text" name="price" required placeholder={trls('Price_per_credit')}/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="4">
-                            Timber tag     
+                            {trls('Timber_tag')}   
                         </Form.Label>
                         <Col sm="8" >
-                            <Form.Control type="text" name="timber" required placeholder="Timber" />
+                            <Form.Control type="text" name="timber" required placeholder={trls('Timber_tag')}/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="4">
-                            Plate tag    
+                            {trls('Plate_tag')}    
                         </Form.Label>
                         <Col sm="8">
-                            <Form.Control type="text" name="plate" required placeholder="Description  " />
+                            <Form.Control type="text" name="plate" required placeholder={trls('Plate_tag')}/>
                         </Col>
                     </Form.Group>
                     <Form.Group style={{textAlign:"center"}}>
-                        <Button type="submit" style={{width:"100px"}}>Save</Button>
+                        <Button type="submit" style={{width:"100px"}}>{trls('Save')}</Button>
                     </Form.Group>
                 </Form>
             </Modal.Body>

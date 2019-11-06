@@ -3,7 +3,6 @@ import React from 'react';
 class ListErrors extends React.Component {
   
   render() {
-    console.log('112233')
     const errors = this.props.errors;
     console.log(errors)
     if (errors) {
