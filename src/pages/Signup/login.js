@@ -29,15 +29,14 @@ class Login extends React.Component {
     return (
       <div className="auth-page" style={{height:"100%"}}>
         <div className="container login-page">
-          <div className="row">
-            <div className="col-md-9 offset-md-2 col-xs-12 login-page-div">
+          <div className="row addQuestion">
+            <div className="col-md-5 offset-md-1 col-xs-12  vertical-center">
                 <Row style={{height:"100%",width:"100%"}}>
                   <div className="login-side-div">
                     <img src={require('../../assets/images/img_admin_side.png')} alt="appzmakerz" className="login-side-grad"></img>
                   </div>
                   <Col  className="login-form-div">
                     <img src='https://www.tekwoods.nl/wordpress/wp-content/uploads/Logo_TW_RGB-1-300x100.png' alt="appzmakerz" style={{marginTop:"40px"}}></img>
-                    
                      <form className="login-form" onSubmit = { this.handleSubmit }>
                      <ListErrors errors={this.props.error} />
                         <fieldset>  

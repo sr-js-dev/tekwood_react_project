@@ -71,9 +71,9 @@ span{
 dl, ol, ul {
   margin-bottom: 0rem;
 }
-.product-form{
+/* .product-form{
   width: 80%;
-}
+} */
 .product-text{
   height: 50px;
   margin-left:50px;
@@ -172,15 +172,27 @@ dl, ol, ul {
   width: 25%;
   background-color: #2dafe5;
 }
-.login-page-div{
-  padding: 0px;
-  position: fixed;
+.addQuestion{
+  width: 100%;
+  color: #333333;
+  height: 150px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 10px 0;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+  float: none;
+}
+.vertical-center {
+  margin-top: calc(23%);
+  height: 450px;
+  background-color: white;
+  margin: 0;
+  position: absolute;
   top: 50%;
-  left: 50%;
-  width: 47em;
-  margin-top: -17em;
-  margin-left: -24em;
-
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 .login-side-grad{
   left:0;
