@@ -53,6 +53,8 @@ class Buycreditform extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.post(API.PostSisowData, params, headers)
         .then(result => {
+            console.log('1122233', result)
+            window.open(result.data.transaction.issuerUrl);
             this.props.onHide();
         })
         .catch(err => {

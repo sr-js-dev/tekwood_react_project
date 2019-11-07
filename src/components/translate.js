@@ -1,6 +1,7 @@
 import { TRANSLATIONS } from '../constants/translateLanguage';
 export const trls = (translate_key) => {
+    var lang = window.localStorage.getItem('lang');
     return(
-        TRANSLATIONS["nl_BE"][translate_key]
+        TRANSLATIONS[lang][translate_key]
     )
 };

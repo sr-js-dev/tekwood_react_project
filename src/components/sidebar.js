@@ -3,13 +3,20 @@ import '../assets/css/style.min.css';
 import '../assets/css/selectric.css';
 import  { Link } from 'react-router-dom'
 import { trls } from './translate';
+import { connect } from 'react-redux';
+const mapStateToProps = state => ({ 
+    ...state.auth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+
+});
 class Sidebar extends Component {
     constructor(props){
         super(props);
         this.state = {
         }
     }
-      
     render () {
       return (
         <div>
@@ -42,14 +49,6 @@ class Sidebar extends Component {
                                 <span>{trls('Settings')}</span>
                             </Link>
                         </li>
-                        {/* <li id="3" className="menu__item">
-                            <Link to={'/purchase-order'} className={window.location.pathname === "/purchase-order" || window.location.pathname === "/purchase-order-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'} >
-                                <span className="menu__link-img-wrap">
-                                    <img src={require("../assets/images/icon-orders.svg")} alt="Orders"/>
-                                </span>
-                                <span>Purchase Order</span>
-                            </Link>
-                        </li> */}
                     </ul>
                 </nav>
             </aside>
@@ -57,4 +56,4 @@ class Sidebar extends Component {
       )
     };
   }
-  export default Sidebar;
+  export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

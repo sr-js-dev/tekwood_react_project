@@ -1,15 +1,38 @@
 import React, {Component} from 'react'
+import * as authAction  from '../actions/authAction';
 import '../assets/css/style.min.css';
 import '../assets/css/selectric.css';
 import { Dropdown } from 'react-bootstrap';
+import Select from 'react-select';
 import history from '../history';
 import { removeAuth } from '../components/auth';
+import { connect } from 'react-redux';
+const mapStateToProps = state => ({ 
+    ...state.auth,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    changeLan: (params) =>
+        dispatch(authAction.changeLan(params)),
+});
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {  
+            roles:[{"value":"en_US","label":"En"},{"value":"nl_BE","label":"Nl"}],
+            selectrolvalue:window.localStorage.getItem('lang'),
+            selectrollabel:window.localStorage.getItem('label'),
+        };
+    }
     logOut = () => {
         var removeFlag = removeAuth();
         if(removeFlag){
             history.push('/login')
         }
+    }
+    changeLangauge = (val) => {
+        this.setState({selectrolvalue:val.value, selectrollabel: val.label});
+        this.props.changeLan(val)
     }
     render () {
       return (
@@ -24,13 +47,12 @@ class Header extends Component {
                     <img src={require("../assets/images/appmakerz.svg")} alt="logo"/>
                 </a>
                 <div className="header__user">
-                    {/* <span className="header__user-name">
-                        Johan Boerema
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5.37087 5.37085L9.8464 0.89532C10.0512 0.690497 10.0512 0.358422 9.8464 0.153599C9.64158 -0.0511995 9.3095 -0.0511995 9.10468 0.153599L5 4.25828L0.895344 0.153598C0.690521 -0.0511999 0.358447 -0.0511999 0.153624 0.153598C0.0511999 0.255997 -1.70582e-08 0.390247 -2.29254e-08 0.524471C-2.87925e-08 0.658696 0.0511999 0.792945 0.153624 0.895344L4.62915 5.37088C4.83398 5.57568 5.16605 5.57568 5.37087 5.37085Z"
-            fill="#2DAFE5"/>
-    </svg>
-                    </span> */}
+                    <Select
+                        name="lan"
+                        options={this.state.roles}
+                        value={{"label":this.state.selectrollabel,"value":this.state.selectrolvalue}}
+                        onChange={val => this.changeLangauge(val)}
+                    />
                     <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic" style={{color:"#000000"}}>
                             Johan Boerema
@@ -47,4 +69,4 @@ class Header extends Component {
       )
     };
   }
-  export default Header;
+  export default connect(mapStateToProps, mapDispatchToProps)(Header);

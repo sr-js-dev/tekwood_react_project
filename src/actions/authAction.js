@@ -72,5 +72,20 @@ export const fetchBlankData = () => {
         error:""
     }
 }
+//change lan
+export const changeLan = (params) => {
+    return (dispatch) => {
+        window.localStorage.setItem('lang',  params.value);
+        window.localStorage.setItem('label',  params.label);
+        dispatch(fetchChangeLan(params.value));
+    };
+}
+
+export const fetchChangeLan = (value) => {
+    return{
+        type: types.FETCH_LANGUAGE_DATA,
+        lang:value
+    }
+}
 
 
