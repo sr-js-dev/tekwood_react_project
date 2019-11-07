@@ -86,9 +86,10 @@ class Buycreditform extends Component {
             });
     }
     downHundeggerFile = () => {
-           window.open(API.DownLoadFile+this.state.referenceId); 
+            window.location = API.DownLoadFile+this.state.referenceId
             this.props.onHide();
             this.props.onGetCradit();
+            this.props.onGetCraditHistory();
     }
     fileUpload(file){
         var formData = new FormData();
@@ -117,11 +118,11 @@ class Buycreditform extends Component {
         let hundeggerFileDetails=this.state.downHundeggerFileList;
         return (
             <Modal
-            show={this.props.show}
-            onHide={this.props.onHide}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
+                show={this.props.show}
+                onHide={this.props.onHide}
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
             >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
@@ -147,13 +148,12 @@ class Buycreditform extends Component {
                         <Form.Label column sm="8" style={{fontSize:"14px",marginLeft:"10px"}}>
                             {trls('CreditsNeededToBuyFile')}
                             { this.state.uploadflag===1 ? (
-                                <span style={{color:"#0903FB",fontWeight:"bold"}}>  Uploading.</span>
+                                <span style={{color:"#0903FB",fontWeight:"bold"}}>  Uploading...</span>
                             ) : <span style={{color:"#0903FB",fontWeight:"bold"}}>  {this.state.creditsNeededToBuyFile}</span>
                             }  
                         </Form.Label>
                         <Col sm="4">
                             <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.completePayment}>{trls('Approve')}</Button>
-                            {/* <button className="btn-small place-and-orders__add-row-btn payment" onClick={this.completePayment}>{trls('Approve')}</button> */}
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword" className={hundeggerFileDetails.length!==0 ? 'file-table' : ''}>

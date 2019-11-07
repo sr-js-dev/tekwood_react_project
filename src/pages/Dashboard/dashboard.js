@@ -7,6 +7,7 @@ import Getfileform from './getfile_form'
 import Axios from 'axios';
 import * as Auth   from '../../components/auth';
 import { trls } from '../../components/translate';
+import queryString from 'query-string'
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -26,6 +27,9 @@ class Dashboard extends Component {
         this._isMounted = false;
     }
     componentDidMount() {
+        let search = window.location.search;
+        let query = queryString.parse(search);
+        this.setState({paymentmessage:query.status })
         this.getCreditsByuserId()
         this.getCreditsHistory()
     }
@@ -35,13 +39,14 @@ class Dashboard extends Component {
         .then(result => {
             this.setState({userCredits:result.data.availableCredits})
         });
+        this.getCreditsHistory();
     }
     getCreditsHistory = () => {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetCreditsHistory, headers)
         .then(result => {
+            console.log('1111', result.data.data)
             this.setState({credithistory:result.data.data})
-            console.log('111', this.state.credithistory)
         });
     }
     formatDate = (startdate) =>{
@@ -61,11 +66,38 @@ class Dashboard extends Component {
         formatDate = dd+'-'+mm+'-'+yyyy;
         return formatDate;
     }
+    downHundeggerFile = (e) => {
+        window.location = API.DownLoadFile+e.target.id
+    }
     render(){   
         return (
             <div>
-                <div className="content__header content__header--with-line">
+                <div className="dashboard-header content__header content__header--with-line">
                     <h2 className="title">{trls('Dashboard')}</h2>
+                    { this.state.paymentmessage === "Success" ? (
+                        <div className="alert alert-success">
+                            <strong>{trls('Success')}</strong> {trls('Success_m')}
+                        </div>
+                    ) : <div/>
+                    }
+                    { this.state.paymentmessage === "Expired" ? (
+                        <div className="alert alert-success">
+                            <strong>{trls('Expired')}</strong> {trls('Expired_m')}
+                        </div>
+                    ) : <div/>
+                    }
+                    { this.state.paymentmessage === "Cancelled" ? (
+                        <div className="alert alert-success">
+                            <strong>{trls('Cancelled')}</strong> {trls('Cancelled_m')}
+                        </div>
+                    ) : <div/>
+                    }
+                    { this.state.paymentmessage === "Failure" ? (
+                        <div className="alert alert-success">
+                            <strong>{trls('Failure')}</strong> {trls('Failure_m')}
+                        </div>
+                    ) : <div/>
+                    }
                 </div>
                 <div className="dashboard__top dashboard_">
                     <div className="dashboard__top-long-wrap">
@@ -101,7 +133,7 @@ class Dashboard extends Component {
                     <table className="place-and-orders__table table table--striped prurprice-dataTable">
                         <thead>
                         <tr>
-                            <th>{trls('CreatedDate')}</th>
+                            <th>{trls('CreateDate')}</th>
                             <th>{trls('Creditsreductedoradded')}</th>
                             <th>{trls('Download_Link')}</th>
                             <th>{trls('View_Link')}</th>
@@ -113,7 +145,7 @@ class Dashboard extends Component {
                                     <tr id={i} key={i}>
                                         <td>{this.formatDate(data.createdDate)}</td>
                                         <td>{data.creditReductedOrAdded}</td>
-                                        <td></td>
+                                        <td><p id={data.hundeggerFileReferenceId} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</p></td>
                                         <td></td>
                                     </tr>
                                 ))
@@ -129,6 +161,7 @@ class Dashboard extends Component {
                     show={this.state.modalShowFile}
                     onHide={() => this.setState({modalShowFile: false})}
                     onGetCradit={this.getCreditsByuserId}
+                    onGetCraditHistory={this.getCreditsByuserId}
                 />
             </div>
         );

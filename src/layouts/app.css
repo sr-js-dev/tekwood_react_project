@@ -259,3 +259,10 @@ dl, ol, ul {
 .css-1pcexqc-container{
   width: 79px;
 }
+.dashboard-header{
+  display: block;
+}
+.payment-message{
+  color:#0813FA;
+  font-weight: bold;
+}

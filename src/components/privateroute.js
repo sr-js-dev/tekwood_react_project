@@ -4,7 +4,6 @@ import { getAuth } from '../components/auth';
 
 function PrivateRoute({ component: Component, ...rest }) {
   const isAuthenticated = getAuth();
-  console.log('1112233', isAuthenticated)
   return (
     <Route
       {...rest}

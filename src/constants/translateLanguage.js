@@ -17,7 +17,7 @@ export const TRANSLATIONS = {
       Credits_Amount: 'Credits Amount',
       Buy: 'Buy',
       Upload_File: 'Upload File',
-      CreditsNeededToBuyFile: 'Credits Needed To Buy File',
+      CreditsNeededToBuyFile: 'Credits Needed To Buy File: ',
       Approve: 'Approve',
       Key: 'Key',
       Value:'Value',
@@ -43,9 +43,16 @@ export const TRANSLATIONS = {
       Credit_History: 'Credit History',
       CreateDate: 'CreateDate',
       Creditsreductedoradded: 'Creditsreductedoradded',
-      Download_link: 'Download link',
-      View_Link: 'View Link'
-
+      Download_Link: 'Download link',
+      View_Link: 'View Link',
+      Success: 'Success!',
+      Expired: 'Expired!',
+      Cancelled: 'Cancelled!',
+      Failure: 'Failure!',
+      Success_m: 'The payment is succesful!',
+      Expired_m: 'The payment is expired!',
+      Failure_m: 'The payment has failed!',
+      Cancelled_m: 'The payment has been cancelled!'
     },
     nl_BE: {
       Username: 'Gebruikersnaam',
@@ -65,7 +72,7 @@ export const TRANSLATIONS = {
       Credits_Amount: 'Credits Bedrag',
       Buy: 'Kopen',
       Upload_File: 'Upload bestand',
-      CreditsNeededToBuyFile: 'BenodigdeCreditsOmEenBestandTeKopen',
+      CreditsNeededToBuyFile: 'BenodigdeCreditsOmEenBestandTeKopen: ',
       Approve: 'Goedkeuren',
       Key: 'Sleutel',
       Value:'Waarde',
@@ -89,9 +96,17 @@ export const TRANSLATIONS = {
       Roles: 'Rollen',
       ConfirmPassword: 'Bevestig Wachtwoord',
       Credit_History: 'Krediet geschiedenis',
-      CreatedDate: 'GemaaktDate',
+      CreateDate: 'GemaaktDate',
       Creditsreductedoradded: 'Creditsverlaagdoftoegevoegd',
       Download_Link: 'Download Link',
-      View_Link: 'Bekijk link'
+      View_Link: 'Bekijk link',
+      Success: 'Succes!',
+      Expired: 'Vervallen!',
+      Cancelled: 'Geannuleerd!',
+      Failure: 'Mislukking!',
+      Success_m: 'De betaling is geslaagd!',
+      Expired_m: 'De betaling is verlopen!',
+      Failure_m: 'De betaling is mislukt!',
+      Cancelled_m: 'De betaling is geannuleerd!'
     }
   };
