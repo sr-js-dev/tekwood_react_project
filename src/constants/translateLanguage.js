@@ -39,7 +39,13 @@ export const TRANSLATIONS = {
       Edit_User: 'Edit User',
       UserName: 'UserName',
       Roles: 'Roles',
-      ConfirmPassword: 'ConfirmPassword'
+      ConfirmPassword: 'ConfirmPassword',
+      Credit_History: 'Credit History',
+      CreateDate: 'CreateDate',
+      Creditsreductedoradded: 'Creditsreductedoradded',
+      Download_link: 'Download link',
+      View_Link: 'View Link'
+
     },
     nl_BE: {
       Username: 'Gebruikersnaam',
@@ -81,6 +87,11 @@ export const TRANSLATIONS = {
       Edit_User: 'Bewerk Gebruiker',
       UserName: 'Gebruikersnaam',
       Roles: 'Rollen',
-      ConfirmPassword: 'Bevestig Wachtwoord'
+      ConfirmPassword: 'Bevestig Wachtwoord',
+      Credit_History: 'Krediet geschiedenis',
+      CreatedDate: 'GemaaktDate',
+      Creditsreductedoradded: 'Creditsverlaagdoftoegevoegd',
+      Download_Link: 'Download Link',
+      View_Link: 'Bekijk link'
     }
   };

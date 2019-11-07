@@ -152,7 +152,7 @@ class Buycreditform extends Component {
                             }  
                         </Form.Label>
                         <Col sm="4">
-                            <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.openUploadFile}>{trls('Approve')}</Button>
+                            <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.completePayment}>{trls('Approve')}</Button>
                             {/* <button className="btn-small place-and-orders__add-row-btn payment" onClick={this.completePayment}>{trls('Approve')}</button> */}
                         </Col>
                     </Form.Group>

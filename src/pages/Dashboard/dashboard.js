@@ -18,7 +18,8 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {  
-            userCredits:''
+            userCredits:'',
+            credithistory: []
         };
     }
     componentWillUnmount() {
@@ -26,6 +27,7 @@ class Dashboard extends Component {
     }
     componentDidMount() {
         this.getCreditsByuserId()
+        this.getCreditsHistory()
     }
     getCreditsByuserId = () => {
         var headers = SessionManager.shared().getAuthorizationHeader();
@@ -33,6 +35,31 @@ class Dashboard extends Component {
         .then(result => {
             this.setState({userCredits:result.data.availableCredits})
         });
+    }
+    getCreditsHistory = () => {
+        var headers = SessionManager.shared().getAuthorizationHeader();
+        Axios.get(API.GetCreditsHistory, headers)
+        .then(result => {
+            this.setState({credithistory:result.data.data})
+            console.log('111', this.state.credithistory)
+        });
+    }
+    formatDate = (startdate) =>{
+        var dd = new Date(startdate).getDate();
+        var mm = new Date(startdate).getMonth()+1; 
+        var yyyy = new Date(startdate).getFullYear();
+        var formatDate = '';
+        if(dd<10) 
+        {
+            dd='0'+dd;
+        } 
+
+        if(mm<10) 
+        {
+            mm='0'+mm;
+        } 
+        formatDate = dd+'-'+mm+'-'+yyyy;
+        return formatDate;
     }
     render(){   
         return (
@@ -69,6 +96,31 @@ class Dashboard extends Component {
                         </div>
                     </div>
                 </div>
+                <h6 style={{fontWeight:"bold"}}>{trls('Credit_History')}</h6>
+                <div className="table-responsive credit-history">
+                    <table className="place-and-orders__table table table--striped prurprice-dataTable">
+                        <thead>
+                        <tr>
+                            <th>{trls('CreatedDate')}</th>
+                            <th>{trls('Creditsreductedoradded')}</th>
+                            <th>{trls('Download_Link')}</th>
+                            <th>{trls('View_Link')}</th>
+                        </tr>
+                        </thead>
+                            {this.state.credithistory &&(<tbody >
+                                {
+                                    this.state.credithistory.map((data,i) =>(
+                                    <tr id={i} key={i}>
+                                        <td>{this.formatDate(data.createdDate)}</td>
+                                        <td>{data.creditReductedOrAdded}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                ))
+                                }
+                            </tbody>)}
+                    </table>
+                </div>   
                 <Buycreditform
                     show={this.state.modalShow}
                     onHide={() => this.setState({modalShow: false})}

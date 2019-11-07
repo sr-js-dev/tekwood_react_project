@@ -13,4 +13,5 @@ export default {
     GetHundeggerFile: `${BASEURL}/api/hundegger/`,
     CompletePayment: `${BASEURL}/api/hundegger/CompletePayment/`,
     DownLoadFile: `${BASEURL}/api/hundegger/Download/`,
+    GetCreditsHistory: `${BASEURL}/api/hundegger/GetCreditHistory`,
   };

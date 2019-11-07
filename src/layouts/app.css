@@ -253,3 +253,6 @@ dl, ol, ul {
   box-shadow: 0 0 0 0 #ffff;
   background-color: #ffff !important;
 }
+.credit-history{
+  height: 450px;
+}

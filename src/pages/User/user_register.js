@@ -113,7 +113,7 @@ class Product extends Component {
                             />  
                         </Form>
                     </div>
-                    <div className="table-responsive">
+                    <div className="table-responsive credit-history">
                         <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
                             <thead>
                             <tr>
