@@ -1,11 +1,11 @@
 export const getUserToken = () => {
-    return(window.localStorage.getItem('token'))
+    return(window.localStorage.getItem('tek_auth'))
 };
 export const getUserId = () => {
-    return(window.localStorage.getItem('userID'))
+    return(window.localStorage.getItem('tek_userID'))
 };
 export const getUserRole = () => {
-    return(window.localStorage.getItem('role'))
+    return(window.localStorage.getItem('tek_role'))
 };
 export const getAuth = () => {
     return(window.localStorage.getItem('tek_auth'))

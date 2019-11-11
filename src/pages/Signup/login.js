@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import * as salesAction  from '../../actions/authAction';
+import * as authAction  from '../../actions/authAction';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import ListErrors from '../../components/listerrors';
@@ -9,7 +9,7 @@ const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
     authLogin: (params) =>
-              dispatch(salesAction.fetchLoginData(params)),
+              dispatch(authAction.fetchLoginData(params)),
 });
 
 class Login extends React.Component {

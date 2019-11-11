@@ -3,13 +3,12 @@ import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import Sidebar from '../components/sidebar'
 import Header from '../components/header'
-import { Switch,Router } from 'react-router-dom';
+import { Switch,Router, Route } from 'react-router-dom';
 import User from '../pages/User/user_register'
 import Settings from '../pages/Settings/setting'
 import Dashboard from '../pages/Dashboard/dashboard'
 import history from '../history';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PrivateRoute from '../components/privateroute';
 class Layout extends Component {
   
     render () {
@@ -20,9 +19,9 @@ class Layout extends Component {
             <Header/>
                 <Router history={history}>
                   <Switch>
-                    <PrivateRoute path="/dashboard" component={Dashboard} />
-                    <PrivateRoute path="/user" component={User} />
-                    <PrivateRoute path="/setting" component={Settings} />
+                    <Route path="/dashboard" component={Dashboard} />
+                    <Route path="/user" component={User} />
+                    <Route path="/setting" component={Settings} />
                   </Switch>
                 </Router>
             </Col>

@@ -16,10 +16,9 @@ export const fetchLoginData = (params) => {
         $.ajax(settings).done(function (response) {
         })
         .then(response => {
-            window.localStorage.setItem('token', response.token);
-            window.localStorage.setItem('userID', response.claims.UserId);
-            window.localStorage.setItem('role', response.claims.Role);
-            window.localStorage.setItem('tek_auth', true);
+            window.localStorage.setItem('tek_auth', response.token);
+            window.localStorage.setItem('tek_userID', response.claims.UserId);
+            window.localStorage.setItem('tek_role', response.claims.Role);
             dispatch(fetchLoginDataSuccess(response.claims));
             history.push('/dashboard')
         })
