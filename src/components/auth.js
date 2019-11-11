@@ -12,8 +12,7 @@ export const getAuth = () => {
 };
 export const removeAuth = () => {
     window.localStorage.setItem('tek_auth', '')
-    window.localStorage.setItem('token', '')
-    window.localStorage.setItem('userID', '')
-    window.localStorage.setItem('role', '')
+    window.localStorage.setItem('tek_userID', '')
+    window.localStorage.setItem('tek_role', '')
     return true
 };
