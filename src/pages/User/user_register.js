@@ -3,13 +3,12 @@ import { Form,Row } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Adduserform from './adduserform';
+
 import $ from 'jquery';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
+import { BallBeat } from 'react-pure-loaders';
 import { getUserToken } from '../../components/auth';
 import { trls } from '../../components/translate';
 const mapStateToProps = state => ({ ...state.auth });
@@ -24,7 +23,8 @@ class Product extends Component {
         this.state = {  
             userData:[],
             flag:'',
-            userUpdateData:[]
+            userUpdateData:[],
+            loading:true
         };
       }
     componentDidMount() {
@@ -40,6 +40,7 @@ class Product extends Component {
         .then(result => {
             if(this._isMounted){
                 this.setState({userData:result.data.data})
+                this.setState({loading:false})
             }
                 
         });
@@ -137,7 +138,6 @@ class Product extends Component {
                                                 <div>
                                                 <img src={require("../../assets/images/icon-cancelled.svg")}id={data.id} className="statu-item" alt="cancelled" onClick={this.userDelte}/>
                                                 </div>
-                                                
                                                 <img src={require("../../assets/images/icon-draft.svg")} id={data.id} className="statu-item" onClick={this.userUpdate} alt="Draft"/>
                                                 <img src={require("../../assets/images/icon-open-box.svg")} id={data.id} className="statu-item" onClick={this.viewUserData} alt="Draft"/>
                                             </Row>
@@ -147,6 +147,12 @@ class Product extends Component {
                                 }
                             </tbody>)}
                         </table>
+                        <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
+                            <BallBeat
+                                color={'#222A42'}
+                                loading={this.state.loading}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

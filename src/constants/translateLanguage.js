@@ -24,7 +24,7 @@ export const TRANSLATIONS = {
       Choose_File: "Choose File",
       Add_Settings: 'Add Settings',
       PricePerCredit: 'PricePerCredit',
-      CreditPerTimber: 'Creditsperhout',
+      CreditPerTimber: 'CreditPerTimber',
       CreditPerPlate: 'CreditPerPlate',
       Price_per_credit: 'Price per credit',
       Timber_tag: 'Timber tag',

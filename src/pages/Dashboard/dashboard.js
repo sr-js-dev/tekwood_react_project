@@ -8,6 +8,7 @@ import Axios from 'axios';
 import * as Auth   from '../../components/auth';
 import { trls } from '../../components/translate';
 import queryString from 'query-string'
+import { BallBeat } from 'react-pure-loaders';
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -20,7 +21,8 @@ class Dashboard extends Component {
         super(props);
         this.state = {  
             userCredits:'',
-            credithistory: []
+            credithistory: [],
+            loading:true,
         };
     }
     componentWillUnmount() {
@@ -46,6 +48,7 @@ class Dashboard extends Component {
         Axios.get(API.GetCreditsHistory, headers)
         .then(result => {
             this.setState({credithistory:result.data.data})
+            this.setState({loading:false})
         });
     }
     formatDate = (startdate) =>{
@@ -135,7 +138,6 @@ class Dashboard extends Component {
                             <th>{trls('CreateDate')}</th>
                             <th>{trls('Creditsreductedoradded')}</th>
                             <th>{trls('Download_Link')}</th>
-                            <th>{trls('View_Link')}</th>
                         </tr>
                         </thead>
                             {this.state.credithistory &&(<tbody >
@@ -144,13 +146,22 @@ class Dashboard extends Component {
                                     <tr id={i} key={i}>
                                         <td>{this.formatDate(data.createdDate)}</td>
                                         <td>{data.creditReductedOrAdded}</td>
-                                        <td><p id={data.hundeggerFileReferenceId} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</p></td>
-                                        <td></td>
+                                        <td>
+                                            {data.creditReductedOrAdded<0 && (
+                                                <p id={data.hundeggerFileReferenceId} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</p>
+                                            )}
+                                        </td>
                                     </tr>
                                 ))
                                 }
                             </tbody>)}
                     </table>
+                    <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
+                        <BallBeat
+                            color={'#222A42'}
+                            loading={this.state.loading}
+                        />
+                    </div>
                 </div>   
                 <Buycreditform
                     show={this.state.modalShow}

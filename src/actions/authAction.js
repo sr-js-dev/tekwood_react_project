@@ -53,7 +53,6 @@ export const dataServerFail = (params) => {
 }
 //error
 export const fetchDataServerFail = (params) => {
-    console.log('1122',params);
     return{
         type: types.FETCH_SERVER_FAIL,
         error:params

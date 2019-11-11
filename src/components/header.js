@@ -37,7 +37,7 @@ class Header extends Component {
     render () {
       return (
         <div>
-           <header className="header">
+            <header className="header">
                 <div className="header__burger-btn">
                     <span></span>
                     <span></span>
@@ -46,10 +46,11 @@ class Header extends Component {
                 <a href="/" className="header__logo-mob">
                     <img src={require("../assets/images/appmakerz.svg")} alt="logo"/>
                 </a>
-                <div className="header__user">
+                <div className="header__controls">
                     <Select
                         name="lan"
                         options={this.state.roles}
+                        className="select-lang-class"
                         value={{"label":this.state.selectrollabel,"value":this.state.selectrolvalue}}
                         onChange={val => this.changeLangauge(val)}
                     />
@@ -62,6 +63,8 @@ class Header extends Component {
                             <Dropdown.Item onClick={this.logOut}>Logout</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
+                </div>
+                <div className="header__user">
                     <img src={require("../assets/images/avatar.jpg")} alt="User avatar" className="header__user-img"/>
                 </div>
             </header>

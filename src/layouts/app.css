@@ -256,13 +256,19 @@ dl, ol, ul {
 .credit-history{
   height: 450px;
 }
-.css-1pcexqc-container{
+.select-lang-class{
   width: 79px;
 }
+/* .css-1pcexqc-container{
+  
+} */
 .dashboard-header{
   display: block;
 }
 .payment-message{
   color:#0813FA;
   font-weight: bold;
+}
+.loading{
+  margin-top:50px;
 }

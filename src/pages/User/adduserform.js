@@ -83,9 +83,11 @@ class Purchaseform extends Component {
                 this.props.removeState();
             })
             .catch(err => {
-                this.props.postUserError(err.response.data.PasswordTooShort)
-                
-
+                if(err.response.data.ConfirmPassword){
+                    this.props.postUserError(err.response.data.ConfirmPassword)
+                }else if(err.response.data.PasswordTooShort){
+                    this.props.postUserError(err.response.data.PasswordTooShort)
+                }
             });
         }
     }

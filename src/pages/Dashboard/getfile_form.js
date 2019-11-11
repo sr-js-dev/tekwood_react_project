@@ -31,7 +31,8 @@ class Buycreditform extends Component {
             creditsNeededToBuyFile:'',
             referenceId:'',
             uploadflag:0,
-            downloadflag:false
+            downloadflag:false,
+            approve: false
             
         };
         this.onFormSubmit = this.onFormSubmit.bind(this)
@@ -80,6 +81,7 @@ class Buycreditform extends Component {
                 this.setState({downloadflag:true})
                 this.setState({confirmshow:true})
                 this.getHundegger();
+
             })
             .catch(err => {
                 this.props.postUploadError(err.responseJSON.Error)
@@ -90,6 +92,10 @@ class Buycreditform extends Component {
             this.props.onHide();
             this.props.onGetCradit();
             this.props.onGetCraditHistory();
+            this.setState({approve:false})
+            this.setState({downloadflag:false})
+            this.setState({creditsNeededToBuyFile: ''})
+            this.setState({filename:''})
     }
     fileUpload(file){
         var formData = new FormData();
@@ -104,6 +110,7 @@ class Buycreditform extends Component {
             this.setState({creditsNeededToBuyFile:result.data.creditsNeededToBuyFile})
             this.setState({referenceId:result.data.referenceId});
             this.setState({uploadflag:0})
+            this.setState({approve:true})
         })
         .catch(err => {
         });
@@ -153,31 +160,36 @@ class Buycreditform extends Component {
                             }  
                         </Form.Label>
                         <Col sm="4">
-                            <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.completePayment}>{trls('Approve')}</Button>
+                            {this.state.approve && (
+                                <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.completePayment}>{trls('Approve')}</Button>
+                            )}
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} controlId="formPlaintextPassword" className={hundeggerFileDetails.length!==0 ? 'file-table' : ''}>
-                        <div className="table-responsive">
-                            <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
-                                <thead>
-                                <tr>
-                                    <th>{trls('Key')}</th>
-                                    <th>{trls('Value')}</th>
-                                </tr>
-                                </thead>
-                                {hundeggerFileDetails &&(<tbody >
-                                    {
-                                        hundeggerFileDetails.map((data,i) =>(
-                                        <tr id={i} key={i}>
-                                            <td>{data.key}</td>
-                                            <td>{data.value}</td>
+                        { this.state.downloadflag ?(
+                            <Form.Group as={Row} controlId="formPlaintextPassword" className={hundeggerFileDetails.length!==0 ? 'file-table' : ''}>
+                                <div className="table-responsive">
+                                    <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
+                                        <thead>
+                                        <tr>
+                                            <th>{trls('Key')}</th>
+                                            <th>{trls('Value')}</th>
                                         </tr>
-                                    ))
-                                    }
-                                </tbody>)}
-                            </table>
-                        </div>
-                    </Form.Group>
+                                        </thead>
+                                        {hundeggerFileDetails &&(<tbody >
+                                            {
+                                                hundeggerFileDetails.map((data,i) =>(
+                                                <tr id={i} key={i}>
+                                                    <td>{data.key}</td>
+                                                    <td>{data.value}</td>
+                                                </tr>
+                                            ))
+                                            }
+                                        </tbody>)}
+                                    </table>
+                                </div>
+                            </Form.Group>
+                        ) : <div></div>
+                        } 
                     { this.state.downloadflag ?(
                          <Form.Group style={{textAlign:"center"}}>
                            <Button type="button" style={{width:"150px"}} onClick={this.downHundeggerFile}>Download</Button>
