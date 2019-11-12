@@ -37,6 +37,9 @@ class Settings extends Component {
         Axios.get(API.GetSettingData, headers)
         .then(result => {
             this.setState({settingData:result.data})
+            this.setState({percredit:result.data.pricePerCredit})
+            this.setState({pertimber:result.data.creditPerTimber})
+            this.setState({perplate:result.data.creditPerPlate})
             this.setState({loading:false})
         });
     }
@@ -64,7 +67,7 @@ class Settings extends Component {
     changetPerTimber = (e) => {
         this.setState({pertimber:e.target.value})
     }
-    creditPerPlate = (e) => {
+    changePerPlate = (e) => {
         this.setState({perplate:e.target.value})
     }
     render () {
@@ -78,6 +81,7 @@ class Settings extends Component {
                     <div className="orders__filters justify-content-between">
                     </div>
                     <div className="table-responsive">
+                        
                         <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
                             <thead>
                             <tr>
@@ -86,7 +90,6 @@ class Settings extends Component {
                                 <th>{trls('CreditPerPlate')}</th>
                             </tr>
                             </thead>
-                            
                             {settingData && !this.state.loading &&(<tbody >
                                 { !this.state.editflag && (
                                     <tr>
@@ -104,12 +107,14 @@ class Settings extends Component {
                                 )}
                             </tbody>)}
                         </table>
-                        <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
-                            <BallBeat
-                                color={'#222A42'}
-                                loading={this.state.loading}
-                            />
-                        </div>
+                        { this.state.loading&& (
+                            <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
+                                <BallBeat
+                                    color={'#222A42'}
+                                    loading={this.state.loading}
+                                />
+                            </div>
+                        )}
                         { !this.state.editflag&&!this.state.loading && (
                             <button className="btn-small place-and-orders__add-row-btn add-row" onClick = {this.editSetting} style={{float:"right"}}>Edit</button>
                         )}
