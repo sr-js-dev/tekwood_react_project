@@ -3,7 +3,8 @@ import { Form,Row } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import Adduserform from './adduserform';
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import $ from 'jquery';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
@@ -78,9 +79,9 @@ class Product extends Component {
             this.setState({modalShow:true, mode:"view", flag:true})
         });
     }
-    userDelte = (event) => {
+    userDelete = (event) => {
         var settings = {
-            "url": API.DeactivateUser+event.currentTarget.id,
+            "url": API.DeactivateUser+this.state.userId,
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json",
@@ -92,6 +93,25 @@ class Product extends Component {
         .then(response => {
             this.getUserData();
         });
+    }
+    userDeleteConfirm = (event) => {
+        this.setState({userId:event.currentTarget.id})
+        confirmAlert({
+            title: trls("Confirm"),
+            message: trls("Are_you_sure"),
+            buttons: [
+              {
+                label: trls("Delete"),
+                onClick: () => {
+                   this.userDelete()
+                }
+              },
+              {
+                label: trls("Cancel"),
+                onClick: () => {}
+              }
+            ]
+          });
     }
     render () {
         let userData=this.state.userData;
@@ -136,7 +156,7 @@ class Product extends Component {
                                         <td >
                                             <Row style={{width:"10px"}}>
                                                 <div>
-                                                <img src={require("../../assets/images/icon-cancelled.svg")}id={data.id} className="statu-item" alt="cancelled" onClick={this.userDelte}/>
+                                                <img src={require("../../assets/images/icon-cancelled.svg")}id={data.id} className="statu-item" alt="cancelled" onClick={this.userDeleteConfirm}/>
                                                 </div>
                                                 <img src={require("../../assets/images/icon-draft.svg")} id={data.id} className="statu-item" onClick={this.userUpdate} alt="Draft"/>
                                                 <img src={require("../../assets/images/icon-open-box.svg")} id={data.id} className="statu-item" onClick={this.viewUserData} alt="Draft"/>

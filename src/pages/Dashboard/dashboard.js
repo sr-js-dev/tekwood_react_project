@@ -148,7 +148,7 @@ class Dashboard extends Component {
                                         <td>{data.creditReductedOrAdded}</td>
                                         <td>
                                             {data.creditReductedOrAdded<0 && (
-                                                <p id={data.hundeggerFileReferenceId} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</p>
+                                                <div id={data.hundeggerFileReferenceId} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</div>
                                             )}
                                         </td>
                                     </tr>

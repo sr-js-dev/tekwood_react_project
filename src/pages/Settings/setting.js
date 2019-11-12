@@ -55,11 +55,13 @@ class Settings extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.post(API.PostSetting, params, headers)
         .then(result => {
+            this.setState({editflag:false})
+            this.setState({loading:true});
             this.getSettingData()
         })
         .catch(err => {
         });
-        this.setState({editflag:false})
+        
     }
     changePerCredit = (e) => {
         this.setState({percredit:e.target.value})

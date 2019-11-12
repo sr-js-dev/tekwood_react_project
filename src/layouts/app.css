@@ -272,3 +272,6 @@ dl, ol, ul {
 .loading{
   margin-top:50px;
 }
+.react-confirm-alert-overlay{
+  margin-Top:calc(-30%)
+}

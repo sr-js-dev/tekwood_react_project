@@ -52,7 +52,11 @@ export const TRANSLATIONS = {
       Success_m: 'The payment is succesful!',
       Expired_m: 'The payment is expired!',
       Failure_m: 'The payment has failed!',
-      Cancelled_m: 'The payment has been cancelled!'
+      Cancelled_m: 'The payment has been cancelled!',
+      Confirm: 'Confirm',
+      Are_you_sure: 'Are you sure to do this?',
+      Delete: 'Delete',
+      Cancel: 'Cancel'
     },
     nl_BE: {
       Username: 'Gebruikersnaam',
@@ -107,6 +111,10 @@ export const TRANSLATIONS = {
       Success_m: 'De betaling is geslaagd!',
       Expired_m: 'De betaling is verlopen!',
       Failure_m: 'De betaling is mislukt!',
-      Cancelled_m: 'De betaling is geannuleerd!'
+      Cancelled_m: 'De betaling is geannuleerd!',
+      Confirm: 'Bevestigen',
+      Are_you_sure: 'Weet je zeker dat je dit moet doen?',
+      Delete: 'Delete',
+      Cancel: 'Annuleren'
     }
   };
