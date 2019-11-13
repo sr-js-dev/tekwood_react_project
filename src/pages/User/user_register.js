@@ -11,13 +11,15 @@ import API from '../../components/api'
 import Axios from 'axios';
 import { BallBeat } from 'react-pure-loaders';
 import { getUserToken } from '../../components/auth';
+import * as authAction  from '../../actions/authAction';
 import { trls } from '../../components/translate';
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
-    
+    authLoginAs: (params) =>
+              dispatch(authAction.fetchLoginAsData(params)),
 });
-class Product extends Component {
+class Userregister extends Component {
     _isMounted = false
     constructor(props) {
         super(props);
@@ -94,6 +96,26 @@ class Product extends Component {
             this.getUserData();
         });
     }
+    loginAsUser = (e) =>{
+        this.setState({username:e.currentTarget.id})
+        confirmAlert({
+            title: trls("Confirm"),
+            message: trls("Are_you_sure"),
+            buttons: [
+              {
+                label: trls("OK"),
+                onClick: () => {
+                    this.props.authLoginAs(this.state.username)
+                }
+              },
+              {
+                label: trls("Cancel"),
+                onClick: () => {}
+              }
+            ]
+          });
+        
+    }
     userDeleteConfirm = (event) => {
         this.setState({userId:event.currentTarget.id})
         confirmAlert({
@@ -160,6 +182,7 @@ class Product extends Component {
                                                 </div>
                                                 <img src={require("../../assets/images/icon-draft.svg")} id={data.id} className="statu-item" onClick={this.userUpdate} alt="Draft"/>
                                                 <img src={require("../../assets/images/icon-open-box.svg")} id={data.id} className="statu-item" onClick={this.viewUserData} alt="Draft"/>
+                                                <img src={require("../../assets/images/icon-shipped.svg")} id={data.userName} className="statu-item" onClick={this.loginAsUser} alt="Draft"/>
                                             </Row>
                                         </td>
                                     </tr>
@@ -180,4 +203,4 @@ class Product extends Component {
         };
   }
     
-  export default connect(mapStateToProps, mapDispatchToProps)(Product);
+  export default connect(mapStateToProps, mapDispatchToProps)(Userregister);

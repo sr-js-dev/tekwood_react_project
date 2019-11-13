@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
     removeState: () =>
         dispatch(authAction.blankdispatch()),
 });
-class Buycreditform extends Component {
+class Getfileform extends Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -197,13 +197,9 @@ class Buycreditform extends Component {
                     ) : <div></div>
                     } 
                 </Form>
-                {/* <Confim
-                    show={this.state.confirmshow}
-                    onHide={() => this.setState({confirmshow: false})}
-                /> */}
             </Modal.Body>
             </Modal>
         );
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Buycreditform);
+export default connect(mapStateToProps, mapDispatchToProps)(Getfileform);

@@ -258,6 +258,7 @@ dl, ol, ul {
 }
 .select-lang-class{
   width: 79px;
+  margin-right: 30px;
 }
 /* .css-1pcexqc-container{
   
@@ -272,6 +273,12 @@ dl, ol, ul {
 .loading{
   margin-top:50px;
 }
-.react-confirm-alert-overlay{
+/* .react-confirm-alert-overlay{
   margin-Top:calc(-30%)
+} */
+.react-confirm-alert-button-group {
+  justify-content: flex-end;
+}
+.statu-item{
+  cursor: pointer
 }

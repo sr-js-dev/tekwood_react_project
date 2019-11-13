@@ -56,7 +56,13 @@ export const TRANSLATIONS = {
       Confirm: 'Confirm',
       Are_you_sure: 'Are you sure to do this?',
       Delete: 'Delete',
-      Cancel: 'Cancel'
+      Cancel: 'Cancel',
+      OK: 'OK',
+      LogOut:'LogOut',
+      Enter_email: 'Enter email',
+      Back_to_Sign_in: 'Back to Sign in',
+      Next_Step: 'Next Step',
+      Back_To_Admin: 'Back To Admin'
     },
     nl_BE: {
       Username: 'Gebruikersnaam',
@@ -115,6 +121,12 @@ export const TRANSLATIONS = {
       Confirm: 'Bevestigen',
       Are_you_sure: 'Weet je zeker dat je dit moet doen?',
       Delete: 'Delete',
-      Cancel: 'Annuleren'
+      Cancel: 'Annuleren',
+      OK: 'OK',
+      LogOut: 'Uitloggen',
+      Enter_email: 'Voer email in',
+      Back_to_Sign_in: 'Terug naar inloggen',
+      Next_Step: 'Volgende stap',
+      Back_To_Admin: 'Terug naar Beheerder'
     }
   };

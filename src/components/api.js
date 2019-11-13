@@ -1,6 +1,8 @@
 const BASEURL = 'https://brandnewkey.sohosted-vps.nl:44402';
 export default {
     Login: `${BASEURL}/api/Login/Login`,
+    LoginAs: `${BASEURL}/api/Login/LoginAs/`,
+    PostForgotPassEmail: `${BASEURL}/api/Accounts/SendForgotPasswordEmail`,
     GetUserData: `${BASEURL}/api/users/searchUser`,
     PostUserData: `${BASEURL}/api/users/Create`,
     GetUserDataById: `${BASEURL}/api/users/GetById/`,
@@ -15,3 +17,4 @@ export default {
     DownLoadFile: `${BASEURL}/api/hundegger/Download/`,
     GetCreditsHistory: `${BASEURL}/api/hundegger/GetCreditHistory`,
   };
+  

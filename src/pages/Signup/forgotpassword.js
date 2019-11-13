@@ -1,18 +1,21 @@
 import { Link } from 'react-router-dom';
 import React from 'react';
-import * as authAction  from '../../actions/authAction';
+// import * as authAction  from '../../actions/authAction';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import ListErrors from '../../components/listerrors';
 import { trls } from '../../components/translate';
+import SessionManager from '../../components/session_manage';
+import API from '../../components/api'
+import Axios from 'axios';
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
-    authLogin: (params) =>
-              dispatch(authAction.fetchLoginData(params)),
+    // authLogin: (params) =>
+    //           dispatch(authAction.fetchLoginData(params)),
 });
 
-class Login extends React.Component {
+class Forgotpassword extends React.Component {
 //   constructor() {   
 //     super();
 //     };
@@ -23,7 +26,16 @@ class Login extends React.Component {
     for (let key of clientFormData.keys()) {
         data[key] = clientFormData.get(key);
     }
-    this.props.authLogin(data);
+    
+    var params = {
+        "email": "gorayblum@gmail.com",
+        "resetPasswordBaseUrl": "http://localhost:3001/login"
+      }
+    var headers = SessionManager.shared().getAuthorizationHeader();
+        Axios.post(API.PostForgotPassEmail, params, headers)
+        .then(result => {
+            console.log('111111111', result); 
+        });
   }
   render() {
     return (
@@ -41,22 +53,18 @@ class Login extends React.Component {
                      <ListErrors errors={this.props.error} />
                         <fieldset>  
                             <fieldset className="form-group">
-                                <input type="text" name="username" className="orders__filters-search input-email" placeholder={trls("Username")}/>
-                            </fieldset>
-                            <fieldset className="form-group">
-                                <input type="password" name="password" className="orders__filters-search input-password" placeholder={trls("Password")}/>
+                                <input type="text" name="email" className="orders__filters-search input-email" placeholder={trls("Enter_email")}/>
                             </fieldset>
                             <p className="text-xs-center">
-                                <Link to="/forgot-password" style={{color:"rgb(84, 79, 79)"}}>
-                                    {trls("Forgot_password")}
+                                <Link to="/login" style={{color:"rgb(84, 79, 79)"}}>
+                                    {trls("Back_to_Sign_in")}
                                 </Link>
                             </p>
-                            <button type="submit" className="btn-small place-and-orders__add-row-btn add-row sign-in">{trls("Sign_in")}</button>
+                            <button type="submit" className="btn-small place-and-orders__add-row-btn add-row sign-in">{trls("Next_Step")}</button>
                         </fieldset>
                     </form>
                   </Col>
                 </Row>
-                
             </div>
           </div>
         </div>
@@ -65,4 +73,4 @@ class Login extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Forgotpassword);

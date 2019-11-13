@@ -14,6 +14,10 @@ export default function (state = initialState, action) {
             return { ...state, error: action.error }
     case types.FETCH_LANGUAGE_DATA:
             return { ...state, lang: action.lang }
+    case types.FETCH_LOGINAS:
+        return { ...state, loginAs: action.loginas }
+    case types.FETCH_GO_AUTH_USER:
+        return { ...state, authUser: action.loginas }
     default:
         return state
     }

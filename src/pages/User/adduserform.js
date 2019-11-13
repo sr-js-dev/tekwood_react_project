@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
     removeState: () =>
         dispatch(authAction.blankdispatch()),
 });
-class Purchaseform extends Component {
+class Adduserform extends Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -305,4 +305,4 @@ class Purchaseform extends Component {
         );
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Purchaseform);
+export default connect(mapStateToProps, mapDispatchToProps)(Adduserform);

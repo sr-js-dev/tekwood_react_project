@@ -2,6 +2,7 @@ import * as types from '../constants/actionTypes';
 import $ from 'jquery';
 import API from '../components/api'
 import history from '../history';
+import { getUserToken } from '../components/auth';
 
 export const fetchLoginData = (params) => {
     return (dispatch) => {
@@ -16,9 +17,12 @@ export const fetchLoginData = (params) => {
         $.ajax(settings).done(function (response) {
         })
         .then(response => {
+            window.localStorage.setItem('tek_AuthUserName', response.claims.UserName);
+            window.localStorage.setItem('imperson_flag', "");
             window.localStorage.setItem('tek_auth', response.token);
             window.localStorage.setItem('tek_userID', response.claims.UserId);
             window.localStorage.setItem('tek_role', response.claims.Role);
+            window.localStorage.setItem('tek_UserName', response.claims.UserName);
             dispatch(fetchLoginDataSuccess(response.claims));
             history.push('/dashboard')
         })
@@ -44,6 +48,62 @@ export const fetchLoginDataSuccess = (data) => {
         UserName:data.UserName,
         UserEmail:data.Email,
         Role:data.Role
+    }
+}
+export const fetchLoginAsData = (params) => {
+    return (dispatch) => {
+        var settings = {
+            "url": API.LoginAs+params,
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer "+getUserToken(),
+        }
+        }
+        $.ajax(settings).done(function (response) {
+        })
+        .then(response => {
+            window.localStorage.setItem('imperson_flag', true);
+            window.localStorage.setItem('tek_userID', response.claims.UserId);
+            window.localStorage.setItem('tek_role', response.claims.Role);
+            window.localStorage.setItem('tek_UserName', response.claims.UserName);
+            history.push('/dashboard')
+            dispatch(fetchLoginAs("success"));
+        });
+    };
+}
+export const fetchLoginAs = (params) => {
+    return{
+        type: types.FETCH_LOGINAS,
+        loginas:params
+    }
+}
+export const fetchgoUserAdmin = (params) => {
+    return (dispatch) => {
+        var settings = {
+            "url": API.LoginAs+params,
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer "+getUserToken(),
+        }
+        }
+        $.ajax(settings).done(function (response) {
+        })
+        .then(response => {
+            window.localStorage.setItem('imperson_flag', '');
+            window.localStorage.setItem('tek_userID', response.claims.UserId);
+            window.localStorage.setItem('tek_role', response.claims.Role);
+            window.localStorage.setItem('tek_UserName', response.claims.UserName);
+            history.push('/user')
+            dispatch(fetchGoAuthUser("success"));
+        });
+    };
+}
+export const fetchGoAuthUser = (params) => {
+    return{
+        type: types.FETCH_GO_AUTH_USER,
+        authUser:params
     }
 }
 export const dataServerFail = (params) => {
