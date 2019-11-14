@@ -62,7 +62,10 @@ export const TRANSLATIONS = {
       Enter_email: 'Enter email',
       Back_to_Sign_in: 'Back to Sign in',
       Next_Step: 'Next Step',
-      Back_To_Admin: 'Back To Admin'
+      Back_To_Admin: 'Back To Admin',
+      FileName: "FileName",
+      New_Password: "New Password",
+      Repeat: 'Repeat'
     },
     nl_BE: {
       Username: 'Gebruikersnaam',
@@ -127,6 +130,9 @@ export const TRANSLATIONS = {
       Enter_email: 'Voer email in',
       Back_to_Sign_in: 'Terug naar inloggen',
       Next_Step: 'Volgende stap',
-      Back_To_Admin: 'Terug naar Beheerder'
+      Back_To_Admin: 'Terug naar Beheerder',
+      FileName: 'Bestandsnaam',
+      New_Password: 'Nieuw Paswoord',
+      Repeat: 'Herhaling'
     }
   };

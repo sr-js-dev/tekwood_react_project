@@ -3,6 +3,7 @@ import { Route, Switch,Router } from 'react-router-dom';
 import GuestLayout from './layout_guest'
 import Login from '../pages/Signup/login.js'
 import Forgotpass from '../pages/Signup/forgotpassword.js'
+import Resetpass from '../pages/Signup/resetpassword.js'
 import history from '../history';
 import './app.css'
 import PrivateRoute from '../components/privateroute';
@@ -12,7 +13,8 @@ class App extends Component {
       <Router history={history}>
          <Switch >
           <Route path="/login" component={Login} />
-          <Route path="/forgot-password" component={Forgotpass} />
+          <Route path="/forgot-password" component={Forgotpass}/>
+          <Route path="/reset-password" component={Resetpass} />
           <PrivateRoute path="/" component={GuestLayout} />
         </Switch>
       </Router>

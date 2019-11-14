@@ -47,9 +47,36 @@ class Dashboard extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetCreditsHistory, headers)
         .then(result => {
-            this.setState({credithistory:result.data.data})
-            this.setState({loading:false})
+            console.log('11223', result.data.data)
+            // let tempe = result.data.data;
+            // let historyData = [];
+            // tempe.map((data, index) => {
+            // return data;
+            // })
+            this.getHistoryData(result.data.data);
+            
         });
+    }
+    getHistoryData = (value) =>{
+        let tempe = value;
+        let historyData = [];
+        let filedetail = [];
+        tempe.map((data, index) => {
+            filedetail = data.hundeggerFileDetails;
+            filedetail.map((datafile, index) => {
+                if(datafile.key==="ProjectName"){
+                    data.projectname = datafile.value
+                }
+                if(datafile.key==="OrderNumber"){
+                    data.ordernumber = datafile.value
+                }
+            return datafile;
+            })
+            historyData.push(data);
+        return data;
+        })
+        this.setState({credithistory:historyData})
+        this.setState({loading:false})
     }
     formatDate = (startdate) =>{
         var dd = new Date(startdate).getDate();
@@ -135,6 +162,7 @@ class Dashboard extends Component {
                     <table className="place-and-orders__table table table--striped prurprice-dataTable">
                         <thead>
                         <tr>
+                            <th>{trls('FileName')}</th>
                             <th>{trls('CreateDate')}</th>
                             <th>{trls('Creditsreductedoradded')}</th>
                             <th>{trls('Download_Link')}</th>
@@ -144,6 +172,7 @@ class Dashboard extends Component {
                                 {
                                     this.state.credithistory.map((data,i) =>(
                                     <tr id={i} key={i}>
+                                        <td>{data.ordernumber+"-"+data.projectname}</td>
                                         <td>{this.formatDate(data.createdDate)}</td>
                                         <td>{data.creditReductedOrAdded}</td>
                                         <td>

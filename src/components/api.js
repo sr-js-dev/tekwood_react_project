@@ -3,6 +3,7 @@ export default {
     Login: `${BASEURL}/api/Login/Login`,
     LoginAs: `${BASEURL}/api/Login/LoginAs/`,
     PostForgotPassEmail: `${BASEURL}/api/Accounts/SendForgotPasswordEmail`,
+    PostResetPassword: `${BASEURL}/api/Accounts/ResetPassword`,
     GetUserData: `${BASEURL}/api/users/searchUser`,
     PostUserData: `${BASEURL}/api/users/Create`,
     GetUserDataById: `${BASEURL}/api/users/GetById/`,

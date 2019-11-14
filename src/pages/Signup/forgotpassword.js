@@ -28,13 +28,12 @@ class Forgotpassword extends React.Component {
     }
     
     var params = {
-        "email": "gorayblum@gmail.com",
-        "resetPasswordBaseUrl": "http://localhost:3001/login"
+        "email": data.email,
+        "resetPasswordBaseUrl": "http://localhost:3001/reset-password"
       }
     var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.post(API.PostForgotPassEmail, params, headers)
         .then(result => {
-            console.log('111111111', result); 
         });
   }
   render() {

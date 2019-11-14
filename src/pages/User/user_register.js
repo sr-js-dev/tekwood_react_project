@@ -176,10 +176,8 @@ class Userregister extends Component {
                                         <td>{data.email}</td>
                                         <td><Form.Check inline name="Intrastat" type="checkbox" disabled defaultChecked={data.isActive} id="Intrastat" /></td>
                                         <td >
-                                            <Row style={{width:"10px"}}>
-                                                <div>
+                                            <Row style={{justifyContent:"center"}}>
                                                 <img src={require("../../assets/images/icon-cancelled.svg")}id={data.id} className="statu-item" alt="cancelled" onClick={this.userDeleteConfirm}/>
-                                                </div>
                                                 <img src={require("../../assets/images/icon-draft.svg")} id={data.id} className="statu-item" onClick={this.userUpdate} alt="Draft"/>
                                                 <img src={require("../../assets/images/icon-open-box.svg")} id={data.id} className="statu-item" onClick={this.viewUserData} alt="Draft"/>
                                                 <img src={require("../../assets/images/icon-shipped.svg")} id={data.userName} className="statu-item" onClick={this.loginAsUser} alt="Draft"/>
