@@ -47,9 +47,7 @@ class Userregister extends Component {
                     this.setState({userData:result.data.data})
                     this.setState({loading:false})
                 }
-                    
             });
-                
         });
     }
     userUpdate = (event) => {
@@ -168,7 +166,7 @@ class Userregister extends Component {
                                 <th>{trls('LastName')}</th>
                                 <th>{trls('Email')}</th>
                                 <th>{trls('Active')}</th>
-                                <th>{trls('State')}</th>
+                                <th style={{width:"100px"}}>{trls('State')}</th>
                             </tr>
                             </thead>
                             {userData &&(<tbody >

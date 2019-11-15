@@ -25,7 +25,9 @@ class Resetpassword extends React.Component {
     componentDidMount() {
         let search = window.location.search;
         let query = queryString.parse(search);
-        this.setState({code:query.code})
+        var res = search.split("&");
+        var codearray=res[0].split("=")
+        this.setState({code:codearray[1]})
         this.setState({email:query.email})
     }
     handleSubmit = (event) => {

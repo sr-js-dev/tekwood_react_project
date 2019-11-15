@@ -3,6 +3,7 @@ import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import * as authAction  from '../../actions/authAction';
+
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
@@ -46,6 +47,7 @@ class Adduserform extends Component {
                 "firstName": data.firstname,
                 "lastName": data.lastname,
                 "email": data.email1,
+                "initialCredits":data.credit,
                 "ResetPasswordBaseUrl": 'http://localhost:3001/reset-password',
                 "roles": [
                     data.roles
@@ -66,6 +68,7 @@ class Adduserform extends Component {
             params = {
                 "firstName": data.firstname,
                 "lastName": data.lastname,
+                "initialCredits":data.credit,
                 "ResetPasswordBaseUrl": 'http://localhost:3001/reset-password',
                 "roles": [
                     data.roles
@@ -104,7 +107,6 @@ class Adduserform extends Component {
                 roledata=roles[0].name;
             }
         }
-      
         return (
             <Modal
             show={this.props.show}
@@ -239,6 +241,17 @@ class Adduserform extends Component {
                             { updateData&&this.props.mode==="update" ? (
                                 <Form.Control type="text" name="email1" defaultValue={updateData.email} required placeholder={trls('Email')}/>
                             ) : <Form.Control type="text" name="email1" required placeholder={trls('Email')}/>
+                            }
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Label column sm="3">
+                            {trls('Credits')}     
+                        </Form.Label>
+                        <Col sm="9" className="product-text">
+                            { updateData&&this.props.mode==="update" ? (
+                                <Form.Control type="number" name="credit" defaultValue={updateData.availableCredits} required placeholder={trls('Credits')}/>
+                            ) : <Form.Control type="number" name="credit" required placeholder={trls('Credits')}/>
                             }
                         </Col>
                     </Form.Group>

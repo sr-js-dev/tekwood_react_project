@@ -8,7 +8,6 @@ import $ from 'jquery';
 import * as Auth   from '../../components/auth';
 import ListErrors from '../../components/listerrors';
 import { trls } from '../../components/translate';
-// import Confim from '../../components/confirm';
 import Axios from 'axios';
 const mapStateToProps = state => ({ 
     ...state.auth,
@@ -28,12 +27,14 @@ class Getfileform extends Component {
             number:'',
             pricePerCredit:'',
             downHundeggerFileList:[],
-            creditsNeededToBuyFile:'',
+            creditsNeededToBuyFileHundeggerNc:'',
+            creditsNeededToBuyFileHundeggerNcHam:'',
             referenceId:'',
             uploadflag:0,
             downloadflag:false,
-            approve: false
-            
+            approve: false,
+            ncCheckflag: false,
+            ncHamCheckflag: false
         };
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -67,25 +68,38 @@ class Getfileform extends Component {
         });
     }
     completePayment = () => {
-            var settings = {
-                "url": API.CompletePayment+this.state.referenceId,
-                "method": "POST",
-                "headers": {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer "+Auth.getUserToken(),
-            }
-            }
-            $.ajax(settings).done(function (response) {
-            })
-            .then(response => {
-                this.setState({downloadflag:true})
-                this.setState({confirmshow:true})
-                this.getHundegger();
+        let params = {
+            referenceId: this.state.referenceId,
+            hundeggerType:1
+        }
+        var headers = SessionManager.shared().getAuthorizationHeader();
+        Axios.post(API.CompletePayment, params, headers)
+        .then(result => {
+            this.setState({downloadflag:true})
+            this.setState({confirmshow:true})
+            this.getHundegger();
+        })
+        .catch(err => {
+        });
+        // var settings = {
+        //     "url": API.CompletePayment+this.state.referenceId,
+        //     "method": "POST",
+        //     "headers": {
+        //         "Content-Type": "application/json",
+        //         "Authorization": "Bearer "+Auth.getUserToken(),
+        // }
+        // }
+        // $.ajax(settings).done(function (response) {
+        // })
+        // .then(response => {
+        //     this.setState({downloadflag:true})
+        //     this.setState({confirmshow:true})
+        //     this.getHundegger();
 
-            })
-            .catch(err => {
-                this.props.postUploadError(err.responseJSON.Error)
-            });
+        // })
+        // .catch(err => {
+        //     this.props.postUploadError(err.responseJSON.Error)
+        // });
     }
     downHundeggerFile = () => {
             window.location = API.DownLoadFile+this.state.referenceId
@@ -94,7 +108,8 @@ class Getfileform extends Component {
             this.props.onGetCraditHistory();
             this.setState({approve:false})
             this.setState({downloadflag:false})
-            this.setState({creditsNeededToBuyFile: ''})
+            this.setState({creditsNeededToBuyFileHundeggerNc: ''})
+            this.setState({creditsNeededToBuyFileHundeggerNcHam: ''})
             this.setState({filename:''})
     }
     fileUpload(file){
@@ -107,7 +122,9 @@ class Getfileform extends Component {
         }
         Axios.post(API.PostHundeggerFile, formData, headers)
         .then(result => {
-            this.setState({creditsNeededToBuyFile:result.data.creditsNeededToBuyFile})
+            console.log('2222333', result)
+            this.setState({creditsNeededToBuyFileHundeggerNc:result.data.creditsNeededToBuyHundeggerNc})
+            this.setState({creditsNeededToBuyFileHundeggerNcHam:result.data.creditsNeededToBuyHundeggerNcHam})
             this.setState({referenceId:result.data.referenceId});
             this.setState({uploadflag:0})
             this.setState({approve:true})
@@ -120,6 +137,20 @@ class Getfileform extends Component {
         $('#inputFile').focus();
         $('#inputFile').click();
         $('#inputFile').hide();
+    }
+    nchandleChange = () =>{
+        if(!this.state.ncCheckflag){
+            this.setState({ncCheckflag:true})
+        }else{
+            this.setState({ncCheckflag:false})
+        }
+    }
+    nchamhandleChange = () =>{
+        if(!this.state.ncHamCheckflag){
+            this.setState({ncHamCheckflag:true})
+        }else{
+            this.setState({ncHamCheckflag:false})
+        }
     }
     render(){   
         let hundeggerFileDetails=this.state.downHundeggerFileList;
@@ -142,28 +173,33 @@ class Getfileform extends Component {
                         <Form.Label column sm="4">
                             {trls('Upload_File')}
                         </Form.Label>
-                        <Col sm="8">
+                        <Col sm="4">
                             <Button type="button" style={{width:"auto", height:"35px", fontSize:"14px"}} onClick={this.openUploadFile}>{trls('Choose_File')}</Button>
                             <Form.Label style={{color:"#0903FB", paddingLeft:"10px"}}>
                                 <u>{this.state.filename}</u>
                             </Form.Label>
                             <input id="inputFile" type="file"  required accept=".twsbdb" onChange={this.onChange} style={{display: "none"}} />
                         </Col>
+                        <Col sm="4">
+                            {this.state.approve && (this.state.ncHamCheckflag || this.state.ncCheckflag) && (
+                                <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.completePayment}>{trls('Approve')}</Button>
+                           )}
+                        </Col>
                     </Form.Group>
                     <ListErrors errors={this.props.error} />
                     <Form.Group as={Row} controlId="formPlaintextPassword">
-                        <Form.Label column sm="8" style={{fontSize:"14px",marginLeft:"10px"}}>
-                            {trls('CreditsNeededToBuyFile')}
-                            { this.state.uploadflag===1 ? (
-                                <span style={{color:"#0903FB",fontWeight:"bold"}}>  Uploading...</span>
-                            ) : <span style={{color:"#0903FB",fontWeight:"bold"}}>  {this.state.creditsNeededToBuyFile}</span>
-                            }  
-                        </Form.Label>
-                        <Col sm="4">
-                            {this.state.approve && (
-                                <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.completePayment}>{trls('Approve')}</Button>
-                            )}
-                        </Col>
+                        <Form.Check type="checkbox" label={trls('CreditsNeededToBuyFileHundeggerNc')} style={{fontSize:"14px",marginLeft:"40px"}} defaultChecked={this.state.ncCheckflag} onChange={this.nchandleChange} />
+                        { this.state.uploadflag===1 ?(
+                            <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"35px"}}>  Uploading...</span>
+                        ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"35px"}}>  {this.state.creditsNeededToBuyFileHundeggerNc}</span>
+                        } 
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Check type="checkbox" label={trls('CreditsNeededToBuyFileHundeggerNcHam')} style={{fontSize:"14px",marginLeft:"40px"}} defaultChecked={this.state.ncHamCheckflag} onChange={this.nchamhandleChange}/>
+                        { this.state.uploadflag===1 ?(
+                            <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
+                        ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNcHam}</span>
+                        } 
                     </Form.Group>
                         { this.state.downloadflag ?(
                             <Form.Group as={Row} controlId="formPlaintextPassword" className={hundeggerFileDetails.length!==0 ? 'file-table' : ''}>

@@ -47,12 +47,6 @@ class Dashboard extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetCreditsHistory, headers)
         .then(result => {
-            console.log('11223', result.data.data)
-            // let tempe = result.data.data;
-            // let historyData = [];
-            // tempe.map((data, index) => {
-            // return data;
-            // })
             this.getHistoryData(result.data.data);
             
         });
