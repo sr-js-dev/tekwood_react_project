@@ -71,9 +71,9 @@ span{
 dl, ol, ul {
   margin-bottom: 0rem;
 }
-/* .product-form{
-  width: 80%;
-} */
+.product-form{
+  padding-bottom:0px
+}
 .product-text{
   height: 50px;
   margin-left:50px;
@@ -281,4 +281,7 @@ dl, ol, ul {
 }
 .statu-item{
   cursor: pointer
+}
+.header__user-img{
+  margin-left:5px
 }

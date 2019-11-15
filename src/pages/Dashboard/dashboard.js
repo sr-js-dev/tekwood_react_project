@@ -185,12 +185,14 @@ class Dashboard extends Component {
                                 }
                             </tbody>)}
                     </table>
-                    <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
-                        <BallBeat
-                            color={'#222A42'}
-                            loading={this.state.loading}
-                        />
-                    </div>
+                    {this.state.loading&&(
+                        <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
+                            <BallBeat
+                                color={'#222A42'}
+                                loading={this.state.loading}
+                            />
+                        </div>
+                    )}
                 </div>   
                 <Buycreditform
                     show={this.state.modalShow}

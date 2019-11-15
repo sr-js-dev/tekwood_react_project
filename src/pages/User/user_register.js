@@ -41,10 +41,14 @@ class Userregister extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetUserData, headers)
         .then(result => {
-            if(this._isMounted){
-                this.setState({userData:result.data.data})
-                this.setState({loading:false})
-            }
+            Axios.get(API.GetUserData+"?excludeInactiveUser=true&pageNumber=1&pageSize="+result.data.totalCount, headers)
+            .then(result => {
+                if(this._isMounted){
+                    this.setState({userData:result.data.data})
+                    this.setState({loading:false})
+                }
+                    
+            });
                 
         });
     }
@@ -188,12 +192,14 @@ class Userregister extends Component {
                                 }
                             </tbody>)}
                         </table>
-                        <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
-                            <BallBeat
-                                color={'#222A42'}
-                                loading={this.state.loading}
-                            />
-                        </div>
+                        {this.state.loading&&(
+                            <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
+                                <BallBeat
+                                    color={'#222A42'}
+                                    loading={this.state.loading}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

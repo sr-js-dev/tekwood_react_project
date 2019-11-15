@@ -6,7 +6,6 @@ import * as authAction  from '../../actions/authAction';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
-import ListErrors from '../../components/listerrors';
 import { trls } from '../../components/translate';
 const mapStateToProps = state => ({ 
     ...state.auth,
@@ -47,11 +46,10 @@ class Adduserform extends Component {
                 "firstName": data.firstname,
                 "lastName": data.lastname,
                 "email": data.email1,
-                "password": data.password1,
-                "confirmPassword": data.confirmpassword1,
+                "ResetPasswordBaseUrl": 'http://localhost:3001/reset-password',
                 "roles": [
                     data.roles
-                ]
+                ],
             }
             var headers = SessionManager.shared().getAuthorizationHeader();
             Axios.post(API.PostUserData, params, headers)
@@ -68,8 +66,7 @@ class Adduserform extends Component {
             params = {
                 "firstName": data.firstname,
                 "lastName": data.lastname,
-                "password": data.password1,
-                "confirmPassword": data.confirmpassword1,
+                "ResetPasswordBaseUrl": 'http://localhost:3001/reset-password',
                 "roles": [
                     data.roles
                 ]
@@ -243,23 +240,6 @@ class Adduserform extends Component {
                                 <Form.Control type="text" name="email1" defaultValue={updateData.email} required placeholder={trls('Email')}/>
                             ) : <Form.Control type="text" name="email1" required placeholder={trls('Email')}/>
                             }
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="formPlaintextPassword">
-                        <Form.Label column sm="3">
-                            {trls('Password')}     
-                        </Form.Label>
-                        <Col sm="9" className="product-text">
-                            <ListErrors errors={this.props.error} />
-                            <Form.Control type="password" name="password1" required placeholder={trls('Password')} />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="formPlaintextPassword">
-                        <Form.Label column sm="3">
-                            {trls('ConfirmPassword')}     
-                        </Form.Label>
-                        <Col sm="9" className="product-text">
-                            <Form.Control type="password" name="confirmpassword1" required placeholder={trls('ConfirmPassword')}/>
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextSupplier">
