@@ -34,7 +34,8 @@ class Getfileform extends Component {
             downloadflag:false,
             approve: false,
             ncCheckflag: false,
-            ncHamCheckflag: false
+            ncHamCheckflag: false,
+            approveflag: ""
         };
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -70,7 +71,7 @@ class Getfileform extends Component {
     completePayment = () => {
         let params = {
             referenceId: this.state.referenceId,
-            hundeggerType:1
+            hundeggerType: this.state.approveflag
         }
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.post(API.CompletePayment, params, headers)
@@ -81,25 +82,6 @@ class Getfileform extends Component {
         })
         .catch(err => {
         });
-        // var settings = {
-        //     "url": API.CompletePayment+this.state.referenceId,
-        //     "method": "POST",
-        //     "headers": {
-        //         "Content-Type": "application/json",
-        //         "Authorization": "Bearer "+Auth.getUserToken(),
-        // }
-        // }
-        // $.ajax(settings).done(function (response) {
-        // })
-        // .then(response => {
-        //     this.setState({downloadflag:true})
-        //     this.setState({confirmshow:true})
-        //     this.getHundegger();
-
-        // })
-        // .catch(err => {
-        //     this.props.postUploadError(err.responseJSON.Error)
-        // });
     }
     downHundeggerFile = () => {
             window.location = API.DownLoadFile+this.state.referenceId
@@ -111,6 +93,8 @@ class Getfileform extends Component {
             this.setState({creditsNeededToBuyFileHundeggerNc: ''})
             this.setState({creditsNeededToBuyFileHundeggerNcHam: ''})
             this.setState({filename:''})
+            this.setState({ncHamCheckflag:false})
+            this.setState({ncCheckflag:false})
     }
     fileUpload(file){
         var formData = new FormData();
@@ -122,7 +106,6 @@ class Getfileform extends Component {
         }
         Axios.post(API.PostHundeggerFile, formData, headers)
         .then(result => {
-            console.log('2222333', result)
             this.setState({creditsNeededToBuyFileHundeggerNc:result.data.creditsNeededToBuyHundeggerNc})
             this.setState({creditsNeededToBuyFileHundeggerNcHam:result.data.creditsNeededToBuyHundeggerNcHam})
             this.setState({referenceId:result.data.referenceId});
@@ -141,15 +124,21 @@ class Getfileform extends Component {
     nchandleChange = () =>{
         if(!this.state.ncCheckflag){
             this.setState({ncCheckflag:true})
+            this.setState({ncHamCheckflag:false})
+            this.setState({approveflag:0})
         }else{
             this.setState({ncCheckflag:false})
+            this.setState({ncHamCheckflag:true})
         }
     }
     nchamhandleChange = () =>{
         if(!this.state.ncHamCheckflag){
             this.setState({ncHamCheckflag:true})
+            this.setState({ncCheckflag:false})
+            this.setState({approveflag:1})
         }else{
             this.setState({ncHamCheckflag:false})
+            this.setState({ncCheckflag:true})
         }
     }
     render(){   
@@ -182,20 +171,21 @@ class Getfileform extends Component {
                         </Col>
                         <Col sm="4">
                             {this.state.approve && (this.state.ncHamCheckflag || this.state.ncCheckflag) && (
-                                <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.completePayment}>{trls('Approve')}</Button>
+                                <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.completePayment}>{trls('Approve')}
+                                </Button>
                            )}
                         </Col>
                     </Form.Group>
                     <ListErrors errors={this.props.error} />
-                    <Form.Group as={Row} controlId="formPlaintextPassword">
-                        <Form.Check type="checkbox" label={trls('CreditsNeededToBuyFileHundeggerNc')} style={{fontSize:"14px",marginLeft:"40px"}} defaultChecked={this.state.ncCheckflag} onChange={this.nchandleChange} />
+                    <Form.Group as={Row} controlId="formPlaintextPasswordw">
+                        <Form.Check type="checkbox" name="nc" label={trls('CreditsNeededToBuyFileHundeggerNc')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncCheckflag} onChange={this.nchandleChange} />
                         { this.state.uploadflag===1 ?(
                             <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"35px"}}>  Uploading...</span>
                         ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"35px"}}>  {this.state.creditsNeededToBuyFileHundeggerNc}</span>
                         } 
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
-                        <Form.Check type="checkbox" label={trls('CreditsNeededToBuyFileHundeggerNcHam')} style={{fontSize:"14px",marginLeft:"40px"}} defaultChecked={this.state.ncHamCheckflag} onChange={this.nchamhandleChange}/>
+                        <Form.Check type="checkbox" name="ncham" label={trls('CreditsNeededToBuyFileHundeggerNcHam')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncHamCheckflag} onChange={this.nchamhandleChange}/>
                         { this.state.uploadflag===1 ?(
                             <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
                         ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNcHam}</span>
