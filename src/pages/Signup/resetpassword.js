@@ -67,7 +67,7 @@ class Resetpassword extends React.Component {
                         <img src={require('../../assets/images/img_admin_side.png')} alt="appzmakerz" className="login-side-grad"></img>
                         </div>
                         <Col  className="login-form-div">
-                        <img src='https://www.tekwoods.nl/wordpress/wp-content/uploads/Logo_TW_RGB-1-300x100.png' alt="appzmakerz" style={{marginTop:"40px"}}></img>
+                        <img src='https://www.tekwoods.nl/wordpress/wp-content/uploads/Logo_TW_RGB-1-300x100.png' alt="appzmakerz" style={{marginTop:"70px"}}></img>
                             <form className="login-form" onSubmit = { this.handleSubmit }>
                             <ListErrors errors={this.props.error} />
                             <fieldset>  
