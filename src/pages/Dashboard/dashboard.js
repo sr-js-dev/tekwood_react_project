@@ -94,7 +94,7 @@ class Dashboard extends Component {
     }
     render(){   
         return (
-            <div>
+            <div className="order_div">
                 <div className="dashboard-header content__header content__header--with-line">
                     <h2 className="title">{trls('Dashboard')}</h2>
                     { this.state.paymentmessage === "Success" ? (

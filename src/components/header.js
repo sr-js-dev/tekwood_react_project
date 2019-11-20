@@ -31,6 +31,8 @@ class Header extends Component {
             selectrollabel:window.localStorage.getItem('label'),
         };
     }
+    componentDidMount () {
+    }
     logOut = () => {
         var removeFlag = removeAuth();
         if(removeFlag){
@@ -72,7 +74,7 @@ class Header extends Component {
                         <img src={require("../assets/images/appmakerz.svg")} alt="logo"/>
                     </a>
                     <div className="header__controls">
-                    <Select
+                             <Select
                                 name="lan"
                                 options={this.state.roles}
                                 className="select-lang-class"

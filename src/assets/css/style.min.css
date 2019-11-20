@@ -485,7 +485,7 @@ table {
 	left: -100%;
 	top: 54px;
 	width: 220px;
-	height: calc(100% - 54px);
+	height: 100vh;
 	padding-top: 15px;
 	background-color: #f4fbfe;
 	display: -webkit-box;
@@ -2454,4 +2454,9 @@ table {
 
 .shop-item__cart-btn:hover {
 	cursor: pointer
+}
+.table td {
+    font-size: 14px;
+    padding: 12px 15px;
+    vertical-align: middle;
 }

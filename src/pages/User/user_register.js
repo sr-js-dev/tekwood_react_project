@@ -166,7 +166,7 @@ class Userregister extends Component {
                                 <th>{trls('LastName')}</th>
                                 <th>{trls('Email')}</th>
                                 <th>{trls('Active')}</th>
-                                <th style={{width:"100px"}}>{trls('State')}</th>
+                                <th style={{width:"20%"}}>{trls('State')}</th>
                             </tr>
                             </thead>
                             {userData &&(<tbody >
