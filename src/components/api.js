@@ -1,4 +1,4 @@
-const BASEURL = 'https://brandnewkey.sohosted-vps.nl:44402';
+const BASEURL = 'https://qf.tekwoods.nl';
 export default {
     Login: `${BASEURL}/api/Login/Login`,
     LoginAs: `${BASEURL}/api/Login/LoginAs/`,

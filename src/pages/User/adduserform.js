@@ -3,11 +3,12 @@ import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import * as authAction  from '../../actions/authAction';
-
+import ListErrors from '../../components/listerrors';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
 import { trls } from '../../components/translate';
+
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -48,7 +49,7 @@ class Adduserform extends Component {
                 "lastName": data.lastname,
                 "email": data.email1,
                 "initialCredits":data.credit,
-                "ResetPasswordBaseUrl": 'http://localhost:3001/reset-password',
+                "ResetPasswordBaseUrl": 'https://portal.tekwoods.nl/reset-password',
                 "roles": [
                     data.roles
                 ],
@@ -62,14 +63,14 @@ class Adduserform extends Component {
                 this.props.removeState();
             })
             .catch(err => {
-                this.props.postUserError(err.response.data.Password)
+                this.props.postUserError(err.response.data.DuplicateEmail)
             });
         }else{
             params = {
                 "firstName": data.firstname,
                 "lastName": data.lastname,
                 "initialCredits":data.credit,
-                "ResetPasswordBaseUrl": 'http://localhost:3001/reset-password',
+                "ResetPasswordBaseUrl": 'https://portal.tekwoods.nl/reset-password',
                 "roles": [
                     data.roles
                 ]
@@ -83,11 +84,7 @@ class Adduserform extends Component {
                 this.props.removeState();
             })
             .catch(err => {
-                if(err.response.data.ConfirmPassword){
-                    this.props.postUserError(err.response.data.ConfirmPassword)
-                }else if(err.response.data.PasswordTooShort){
-                    this.props.postUserError(err.response.data.PasswordTooShort)
-                }
+                this.props.postUserError(err.response.data.DuplicateEmail)
             });
         }
     }
@@ -210,6 +207,7 @@ class Adduserform extends Component {
                 </Form>
                 ) : 
                 <Form className="container product-form" onSubmit = { this.handleSubmit }>
+                    <ListErrors errors={this.props.error} />
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
                             {trls('FirstName')}     

@@ -4,10 +4,9 @@ class ListErrors extends React.Component {
   
   render() {
     const errors = this.props.errors;
-    console.log(errors)
     if (errors) {
       return (
-        <ul className="error-messages" style={{marginTop:"-29px"}}>
+        <ul className="error-messages" style={{marginTop:"-17px",textAlign:"center"}}>
           {
             errors
             }

@@ -47,6 +47,7 @@ class Dashboard extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetCreditsHistory, headers)
         .then(result => {
+            console.log('111222333', result)
             this.getHistoryData(result.data.data);
             
         });
@@ -90,7 +91,7 @@ class Dashboard extends Component {
         return formatDate;
     }
     downHundeggerFile = (e) => {
-        window.location = API.DownLoadFile+e.target.id
+        window.location = API.DownLoadFile+e.target.id+"/"+e.currentTarget.name
     }
     render(){   
         return (
@@ -171,7 +172,7 @@ class Dashboard extends Component {
                                         <td>{data.creditReductedOrAdded}</td>
                                         <td>
                                             {data.creditReductedOrAdded<0 && (
-                                                <div id={data.hundeggerFileReferenceId} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</div>
+                                                <div id={data.hundeggerFileReferenceId} name={data.transactionType} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</div>
                                             )}
                                         </td>
                                     </tr>

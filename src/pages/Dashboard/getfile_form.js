@@ -98,7 +98,6 @@ class Getfileform extends Component {
         });
     }
     downHundeggerFile = () => {
-        console.log('22331121233')
             let hundeggerType='';
             if(this.state.ncCheckflag){
                 hundeggerType=0

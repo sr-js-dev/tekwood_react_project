@@ -25,7 +25,6 @@ class Sidebar extends Component {
     render () {
       let role = Auth.getUserRole();
       return (
-        <div>
             <aside className="sidebar">
                 <a href="/" className="sidebar__logo"><img src='https://www.tekwoods.nl/wordpress/wp-content/uploads/Logo_TW_RGB-1-300x100.png' alt="appzmakerz"></img></a>
                 <nav className="menu">
@@ -63,7 +62,6 @@ class Sidebar extends Component {
                     </ul>
                 </nav>
             </aside>
-        </div>
       )
     };
   }

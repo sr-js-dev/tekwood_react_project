@@ -11,6 +11,7 @@ import { trls } from '../components/translate';
 import * as Auth from './auth';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+import $ from 'jquery';
 
 const mapStateToProps = state => ({ 
     ...state.auth,
@@ -32,6 +33,13 @@ class Header extends Component {
         };
     }
     componentDidMount () {
+        $(".header__burger-btn").click(function() {
+            $(".header__burger-btn").toggleClass("open")
+            $(".sidebar").toggleClass("open")
+        })
+        $(".header__user").click(function() {
+            $(".header__controls").toggleClass("open")
+        })
     }
     logOut = () => {
         var removeFlag = removeAuth();
@@ -63,43 +71,46 @@ class Header extends Component {
     }
     render () {
       return (
-        <div>
-                <header className="header">
-                    <div className="header__burger-btn">
+            <header className="header">
+                <div className="header__burger-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <a href="/" className="header__logo-mob">
+                    <img src={require("../assets/images/appmakerz.svg")} alt="logo"/>
+                </a>
+                <div className="header__controls">
+                            <Select
+                            name="lan"
+                            options={this.state.roles}
+                            className="select-lang-class"
+                            value={{"label":this.state.selectrollabel,"value":this.state.selectrolvalue}}
+                            onChange={val => this.changeLangauge(val)}
+                        />
+                        {Auth.getImpersonFlag()&&(
+                            <Button variant="success" onClick={this.backAdminUser}>{trls('Back_To_Admin')}</Button> 
+                        )}
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic" style={{color:"#000000"}}>
+                                {Auth.getUserName()}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                            <Dropdown.Item onClick={this.logOut}>{trls("LogOut")}</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                </div>
+                <div className="header__user">
+                    <span className="header__user-name">
+                    </span>
+                    <div className="header__user-img">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
-                    <a href="/" className="header__logo-mob">
-                        <img src={require("../assets/images/appmakerz.svg")} alt="logo"/>
-                    </a>
-                    <div className="header__controls">
-                             <Select
-                                name="lan"
-                                options={this.state.roles}
-                                className="select-lang-class"
-                                value={{"label":this.state.selectrollabel,"value":this.state.selectrolvalue}}
-                                onChange={val => this.changeLangauge(val)}
-                            />
-                            {Auth.getImpersonFlag()&&(
-                                <Button variant="success" onClick={this.backAdminUser}>{trls('Back_To_Admin')}</Button> 
-                            )}
-                            <Dropdown>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic" style={{color:"#000000"}}>
-                                    {Auth.getUserName()}
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                <Dropdown.Item onClick={this.logOut}>{trls("LogOut")}</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                    </div>
-                    <div className="header__user">
-                        <span className="header__user-name">
-                        </span>
-                        <img src={require("../assets/images/avatar.jpg")} alt="User avatar" className="header__user-img"/>
-                    </div>
+                    {/* <img src={require("../assets/images/avatar.jpg")} alt="User avatar" className="header__user-img"/> */}
+                </div>
             </header>
-        </div>
       )
     };
   }

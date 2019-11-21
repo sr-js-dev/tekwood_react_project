@@ -6,8 +6,8 @@ import { Route, Switch, Router, Redirect } from 'react-router-dom';
 import App from './layouts/app';
 import history from './history';
 const store = configureStore()
-window.localStorage.setItem('lang',  'en_US');
-window.localStorage.setItem('label',  'En');
+window.localStorage.setItem('lang',  'nl_BE');
+window.localStorage.setItem('label',  'Nl');
 window.React = React
 ReactDOM.render(
     <Provider store={store}>
