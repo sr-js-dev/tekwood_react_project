@@ -35,7 +35,8 @@ class Getfileform extends Component {
             approve: false,
             ncCheckflag: false,
             ncHamCheckflag: false,
-            approveflag: ""
+            ncapproveflag: "",
+            ncHamapproveflag: ""
         };
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -69,9 +70,22 @@ class Getfileform extends Component {
         });
     }
     completePayment = () => {
-        let params = {
-            referenceId: this.state.referenceId,
-            hundeggerType: this.state.approveflag
+        let params=[];
+        if(this.state.ncCheckflag && this.state.ncHamapproveflag){
+            params = {
+                referenceId: this.state.referenceId,
+                HundeggerTypes: [0,1]
+            }
+        }else if(!this.state.ncCheckflag && this.state.ncHamapproveflag){
+            params = {
+                referenceId: this.state.referenceId,
+                HundeggerTypes: [1]
+            }
+        }else if(this.state.ncCheckflag && !this.state.ncHamapproveflag){
+            params = {
+                referenceId: this.state.referenceId,
+                HundeggerTypes: [0]
+            }
         }
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.post(API.CompletePayment, params, headers)
@@ -84,7 +98,15 @@ class Getfileform extends Component {
         });
     }
     downHundeggerFile = () => {
-            window.location = API.DownLoadFile+this.state.referenceId
+        console.log('22331121233')
+            let hundeggerType='';
+            if(this.state.ncCheckflag){
+                hundeggerType=0
+            }else if(this.state.ncHamapproveflag){
+                hundeggerType=1
+            }
+            let params = this.state.referenceId+"/"+hundeggerType;
+            window.location = API.DownLoadFile+params
             this.props.onHide();
             this.props.onGetCradit();
             this.props.onGetCraditHistory();
@@ -125,20 +147,20 @@ class Getfileform extends Component {
         if(!this.state.ncCheckflag){
             this.setState({ncCheckflag:true})
             this.setState({ncHamCheckflag:false})
-            this.setState({approveflag:0})
+            this.setState({ncapproveflag:1})
         }else{
             this.setState({ncCheckflag:false})
-            this.setState({ncHamCheckflag:true})
+            this.setState({ncapproveflag:""})
         }
     }
     nchamhandleChange = () =>{
         if(!this.state.ncHamCheckflag){
             this.setState({ncHamCheckflag:true})
             this.setState({ncCheckflag:false})
-            this.setState({approveflag:1})
+            this.setState({ncHamapproveflag:1})
         }else{
             this.setState({ncHamCheckflag:false})
-            this.setState({ncCheckflag:true})
+            this.setState({ncHamapproveflag:""})
         }
     }
     render(){   
@@ -193,7 +215,7 @@ class Getfileform extends Component {
                     </Form.Group>
                         { this.state.downloadflag ?(
                             <Form.Group as={Row} controlId="formPlaintextPassword" className={hundeggerFileDetails.length!==0 ? 'file-table' : ''}>
-                                <div className="table-responsive">
+                                <div className="table-responsive aprove-Hundegger">
                                     <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
                                         <thead>
                                         <tr>
