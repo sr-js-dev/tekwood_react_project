@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import * as authAction  from '../actions/authAction';
-import '../assets/css/style.min.css';
-import '../assets/css/selectric.css';
+
 import { Dropdown, Button } from 'react-bootstrap';
 import Select from 'react-select';
 import history from '../history';
@@ -95,7 +94,7 @@ class Header extends Component {
                             <Dropdown.Toggle variant="success" id="dropdown-basic" style={{color:"#000000"}}>
                                 {Auth.getUserName()}
                             </Dropdown.Toggle>
-                            <Dropdown.Menu>
+                            <Dropdown.Menu style={{marginLeft:20}}>
                             <Dropdown.Item onClick={this.logOut}>{trls("LogOut")}</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

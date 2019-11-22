@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import '../assets/css/style.min.css';
-import '../assets/css/selectric.css';
 import * as Auth from './auth';
 import  { Link } from 'react-router-dom'
 import { trls } from './translate';

@@ -3,12 +3,12 @@ import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import Sidebar from '../components/sidebar'
 import Header from '../components/header'
-import { Switch,Router, Route } from 'react-router-dom';
+import { Switch, Router, Route } from 'react-router-dom';
 import User from '../pages/User/user_register'
 import Settings from '../pages/Settings/setting'
 import Dashboard from '../pages/Dashboard/dashboard'
 import history from '../history';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 class Layout extends Component {
   
     render () {

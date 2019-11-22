@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { BallBeat } from 'react-pure-loaders';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
-// import Settingform from './setting_form'
 import { trls } from '../../components/translate';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
@@ -118,10 +117,10 @@ class Settings extends Component {
                             </div>
                         )}
                         { !this.state.editflag&&!this.state.loading && (
-                            <button className="btn-small place-and-orders__add-row-btn add-row" onClick = {this.editSetting} style={{float:"right"}}>Edit</button>
+                            <Button type="button" style={{float:"right", width:100}} onClick = {this.editSetting} >{trls('Edit')}</Button>
                         )}
                         { this.state.editflag&&!this.state.loading && (
-                            <button className="btn-small place-and-orders__add-row-btn add-row" onClick = {this.saveSetting} style={{float:"right"}}>Save</button>
+                            <Button type="button" style={{float:"right", width:100}} onClick = {this.saveSetting} >{trls('Save')}</Button>
                         )}
                     </div>
                 </div>

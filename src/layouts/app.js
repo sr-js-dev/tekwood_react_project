@@ -5,19 +5,20 @@ import Login from '../pages/Signup/login.js'
 import Forgotpass from '../pages/Signup/forgotpassword.js'
 import Resetpass from '../pages/Signup/resetpassword.js'
 import history from '../history';
-import './app.css'
+
+
 import PrivateRoute from '../components/privateroute';
 class App extends Component {
   render () {
     return (
-      <Router history={history}>
+      <Router  history={history}>
          <Switch >
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={Forgotpass}/>
           <Route path="/reset-password" component={Resetpass} />
           <PrivateRoute path="/" component={GuestLayout} />
         </Switch>
-      </Router>
+      </Router >
      
     )
   };

@@ -66,7 +66,9 @@ export const TRANSLATIONS = {
     Back_To_Admin: 'Back To Admin',
     FileName: "FileName",
     New_Password: "New Password",
-    Repeat: 'Repeat'
+    Repeat: 'Repeat',
+    Edit: 'Edit',
+    Select: 'Select'
   },
   nl_BE: {
     Username: 'Gebruikersnaam',
@@ -135,6 +137,8 @@ export const TRANSLATIONS = {
     Back_To_Admin: 'Terug naar Admin',
     FileName: 'Bestandsnaam',
     New_Password: 'Nieuw wachtwoord',
-    Repeat: 'Herhaling'
+    Repeat: 'Herhaling',
+    Edit: 'Bewerk',
+    Select: 'Kiezen'
   }
 };

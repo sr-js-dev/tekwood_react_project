@@ -263,10 +263,12 @@ class Adduserform extends Component {
                                     name="roles"
                                     options={this.state.roles}
                                     value={{"value":roledata,"label":roledata}}
+                                    placeholder={trls('Select')}
                                     onChange={val => this.getRoles(val)}
                                 />
                             ) : <Select
                                     name="roles"
+                                    placeholder={trls('Select')}
                                     options={this.state.roles}
                                     onChange={val => this.getRoles(val)}
                                 />
@@ -286,7 +288,7 @@ class Adduserform extends Component {
                     </Form.Group>
                    
                     <Form.Group style={{textAlign:"center"}}>
-                        <Button type="submit" style={{width:"100px"}}>{trls('Save')}</Button>
+                        <Button type="submit">{trls('Save')}</Button>
                     </Form.Group>
                 </Form>
                 }

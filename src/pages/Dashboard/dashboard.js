@@ -141,7 +141,7 @@ class Dashboard extends Component {
                             </div>
                         </div>
                     </Col>
-                    <Col sm={2}>
+                    <Col sm={3}>
                         <Row className="dashboard__top-small">
                             <div className="dashboard__top-small-header">
                                 <img src={require("../../assets/images/icon-exclamation.svg")} alt="exclamation"/>
@@ -151,7 +151,7 @@ class Dashboard extends Component {
                         </Row>
                     </Col>
                 </Row>
-                <Row style={{padding:15}}>
+                <Row style={{padding:15, marginTop:30}}>
                     <h6 style={{fontWeight:"bold"}}>{trls('Credit_History')}</h6>
                     <div className="table-responsive credit-history">
                         <table className="place-and-orders__table table table--striped prurprice-dataTable">
