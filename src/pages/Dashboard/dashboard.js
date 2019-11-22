@@ -9,6 +9,7 @@ import * as Auth   from '../../components/auth';
 import { trls } from '../../components/translate';
 import queryString from 'query-string'
 import { BallBeat } from 'react-pure-loaders';
+import { Container, Row, Col } from 'react-bootstrap';
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -47,9 +48,7 @@ class Dashboard extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetCreditsHistory, headers)
         .then(result => {
-            console.log('111222333', result)
             this.getHistoryData(result.data.data);
-            
         });
     }
     getHistoryData = (value) =>{
@@ -95,7 +94,7 @@ class Dashboard extends Component {
     }
     render(){   
         return (
-            <div className="order_div">
+            <Container>
                 <div className="dashboard-header content__header content__header--with-line">
                     <h2 className="title">{trls('Dashboard')}</h2>
                     { this.state.paymentmessage === "Success" ? (
@@ -123,8 +122,8 @@ class Dashboard extends Component {
                     ) : <div/>
                     }
                 </div>
-                <div className="dashboard__top dashboard_">
-                    <div className="dashboard__top-long-wrap">
+                <Row>
+                    <Col sm={4}>
                         <div className="dashboard__top-long">
                             <div>
                                 <h6 className="dashboard__top-long-title">{trls('Buy_Credits')}</h6>
@@ -141,54 +140,56 @@ class Dashboard extends Component {
                                 <img src={require("../../assets/images/icon-cart-white.svg")} style={{cursor: "pointer"}} alt="cart" onClick={()=>this.setState({modalShowFile:true})}/>
                             </div>
                         </div>
-                    </div>
-                    <div className="dashboard__top-small-wrap">
-                        <div className="dashboard__top-small">
+                    </Col>
+                    <Col sm={2}>
+                        <Row className="dashboard__top-small">
                             <div className="dashboard__top-small-header">
                                 <img src={require("../../assets/images/icon-exclamation.svg")} alt="exclamation"/>
                                 <span>{trls('Available_Credits')}</span>
                             </div>
                             <div className="dashboard__top-small-value">{trls('Credits')}: {this.state.userCredits} </div>
-                        </div>
-                    </div>
-                </div>
-                <h6 style={{fontWeight:"bold"}}>{trls('Credit_History')}</h6>
-                <div className="table-responsive credit-history">
-                    <table className="place-and-orders__table table table--striped prurprice-dataTable">
-                        <thead>
-                        <tr>
-                            <th>{trls('FileName')}</th>
-                            <th>{trls('CreateDate')}</th>
-                            <th>{trls('Creditsreductedoradded')}</th>
-                            <th>{trls('Download_Link')}</th>
-                        </tr>
-                        </thead>
-                            {this.state.credithistory &&(<tbody >
-                                {
-                                    this.state.credithistory.map((data,i) =>(
-                                    <tr id={i} key={i}>
-                                        <td>{data.ordernumber+"-"+data.projectname}</td>
-                                        <td>{this.formatDate(data.createdDate)}</td>
-                                        <td>{data.creditReductedOrAdded}</td>
-                                        <td>
-                                            {data.creditReductedOrAdded<0 && (
-                                                <div id={data.hundeggerFileReferenceId} name={data.transactionType} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</div>
-                                            )}
-                                        </td>
-                                    </tr>
-                                ))
-                                }
-                            </tbody>)}
-                    </table>
-                    {this.state.loading&&(
-                        <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
-                            <BallBeat
-                                color={'#222A42'}
-                                loading={this.state.loading}
-                            />
-                        </div>
-                    )}
-                </div>   
+                        </Row>
+                    </Col>
+                </Row>
+                <Row style={{padding:15}}>
+                    <h6 style={{fontWeight:"bold"}}>{trls('Credit_History')}</h6>
+                    <div className="table-responsive credit-history">
+                        <table className="place-and-orders__table table table--striped prurprice-dataTable">
+                            <thead>
+                            <tr>
+                                <th>{trls('FileName')}</th>
+                                <th>{trls('CreateDate')}</th>
+                                <th>{trls('Creditsreductedoradded')}</th>
+                                <th>{trls('Download_Link')}</th>
+                            </tr>
+                            </thead>
+                                {this.state.credithistory &&(<tbody >
+                                    {
+                                        this.state.credithistory.map((data,i) =>(
+                                        <tr id={i} key={i}>
+                                            <td>{data.ordernumber+"-"+data.projectname}</td>
+                                            <td>{this.formatDate(data.createdDate)}</td>
+                                            <td>{data.creditReductedOrAdded}</td>
+                                            <td>
+                                                {data.creditReductedOrAdded<0 && (
+                                                    <div id={data.hundeggerFileReferenceId} name={data.transactionType} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</div>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))
+                                    }
+                                </tbody>)}
+                        </table>
+                        {this.state.loading&&(
+                            <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
+                                <BallBeat
+                                    color={'#222A42'}
+                                    loading={this.state.loading}
+                                />
+                            </div>
+                        )}
+                    </div>   
+                </Row>
                 <Buycreditform
                     show={this.state.modalShow}
                     onHide={() => this.setState({modalShow: false})}
@@ -199,7 +200,7 @@ class Dashboard extends Component {
                     onGetCradit={this.getCreditsByuserId}
                     onGetCraditHistory={this.getCreditsByuserId}
                 />
-            </div>
+            </Container>
         );
     }
 }

@@ -1013,8 +1013,8 @@ table {
 }
 
 .table th:first-child {
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px
 }
 
 .table th:last-child {
@@ -1341,6 +1341,7 @@ table {
 }
 
 .dashboard__top-long {
+	margin-top:20px;
 	border: 1px solid #2dafe5;
 	border-radius: 4px;
 	display: -webkit-box;
@@ -1386,6 +1387,8 @@ table {
 }
 
 .dashboard__top-small {
+	margin-top:20px;
+	height: 90%;
 	position: relative;
 	border: 1px solid #2dafe5;
 	border-radius: 4px;
