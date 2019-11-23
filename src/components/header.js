@@ -37,6 +37,7 @@ class Header extends Component {
             $(".sidebar").toggleClass("open")
         })
         $(".header__user").click(function() {
+            $(".header__user-img").toggleClass("open")
             $(".header__controls").toggleClass("open")
         })
     }

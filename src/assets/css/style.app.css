@@ -75,10 +75,22 @@ font-weight: bold;
 width:100%
 }
 .myDatePicker {
-width:100%;
-height: 40px;
-/* border-radius: 5px; */
-}
+  width:100%;
+  height:calc(1.5em + .75rem + 2px);;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ced4da;
+  padding: 10px;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+  .myDatePicker:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  }
 .product-details{
 padding-bottom: 20px;
 }
@@ -111,7 +123,6 @@ text-align: center;
 }
 .login-page-div{
 margin-top: calc(23%);
-/* border-radius: 5px; */
 height: 450px;
 background-color: white;
 }
@@ -382,4 +393,22 @@ table.dataTable.no-footer {
 .credit-history{
   margin-top:20px;
   height: 400px;
+}
+.css-1szy77t-control:hover {
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25) !important;
+}
+.css-1szy77t-control{
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25) !important;
+  border-color: #80bdff !important;
+}
+:focus {
+  outline: -webkit-focus-ring-color 3px;
+}
+input:focus {
+  outline-offset: 0px;
 }
