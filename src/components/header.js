@@ -27,8 +27,8 @@ class Header extends Component {
         super(props);
         this.state = {  
             roles:[{"value":"en_US","label":"En"},{"value":"nl_BE","label":"Nl"}],
-            selectrolvalue:window.localStorage.getItem('lang'),
-            selectrollabel:window.localStorage.getItem('label'),
+            selectrolvalue:window.localStorage.getItem('tekwoods_lang'),
+            selectrollabel:window.localStorage.getItem('tekwoods_label'),
         };
     }
     componentDidMount () {

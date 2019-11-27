@@ -64,6 +64,16 @@ class Dashboard extends Component {
                 if(datafile.key==="OrderNumber"){
                     data.ordernumber = datafile.value
                 }
+                if(datafile.key==="GroupName"){
+                    if(datafile.value==="[unattached]"){
+                        data.groupname=''
+                    }else{
+                        data.groupname = datafile.value
+                    }
+                }
+                if(datafile.key==="AppVersion"){
+                    data.appversion = datafile.value
+                }
             return datafile;
             })
             historyData.push(data);
@@ -98,25 +108,25 @@ class Dashboard extends Component {
                 <div className="dashboard-header content__header content__header--with-line">
                     <h2 className="title">{trls('Dashboard')}</h2>
                     { this.state.paymentmessage === "Success" ? (
-                        <div className="alert alert-success">
+                        <div className="alert alert-success" style={{marginTop:10}}>
                             <strong>{trls('Success')}</strong> {trls('Success_m')}
                         </div>
                     ) : <div/>
                     }
                     { this.state.paymentmessage === "Expired" ? (
-                        <div className="alert alert-success">
+                        <div className="alert alert-success" style={{marginTop:10}}>
                             <strong>{trls('Expired')}</strong> {trls('Expired_m')}
                         </div>
                     ) : <div/>
                     }
                     { this.state.paymentmessage === "Cancelled" ? (
-                        <div className="alert alert-success">
+                        <div className="alert alert-success" style={{marginTop:10}}>
                             <strong>{trls('Cancelled')}</strong> {trls('Cancelled_m')}
                         </div>
                     ) : <div/>
                     }
                     { this.state.paymentmessage === "Failure" ? (
-                        <div className="alert alert-success">
+                        <div className="alert alert-success" style={{marginTop:10}}>
                             <strong>{trls('Failure')}</strong> {trls('Failure_m')}
                         </div>
                     ) : <div/>
@@ -141,7 +151,7 @@ class Dashboard extends Component {
                             </div>
                         </div>
                     </Col>
-                    <Col sm={3}>
+                    <Col sm={4}>
                         <Row className="dashboard__top-small">
                             <div className="dashboard__top-small-header">
                                 <img src={require("../../assets/images/icon-exclamation.svg")} alt="exclamation"/>
@@ -157,9 +167,14 @@ class Dashboard extends Component {
                         <table className="place-and-orders__table table table--striped prurprice-dataTable">
                             <thead>
                             <tr>
-                                <th>{trls('FileName')}</th>
+                                <th style={{width:"10%"}}></th>
                                 <th>{trls('CreateDate')}</th>
-                                <th>{trls('Creditsreductedoradded')}</th>
+                                <th>{trls('Credits')}</th>
+                                <th>{trls('OrderNumber')}</th>
+                                <th>{trls('ProjectName')}</th>
+                                <th>{trls('GroupName')}</th>
+                                <th>{trls('AppVersion')}</th>
+                                <th>{trls('Type_data_file')}</th>
                                 <th>{trls('Download_Link')}</th>
                             </tr>
                             </thead>
@@ -167,14 +182,49 @@ class Dashboard extends Component {
                                     {
                                         this.state.credithistory.map((data,i) =>(
                                         <tr id={i} key={i}>
-                                            <td>{data.ordernumber+"-"+data.projectname}</td>
+                                            {data.creditReductedOrAdded<0 ?(
+                                                <td></td>
+                                            ):(
+                                                <td style={{color:'red'}}>{trls('Purchase_Credits')}</td>
+                                            )}
                                             <td>{this.formatDate(data.createdDate)}</td>
                                             <td>{data.creditReductedOrAdded}</td>
-                                            <td>
-                                                {data.creditReductedOrAdded<0 && (
+                                            {data.ordernumber ?(
+                                                <td>{data.ordernumber}</td>
+                                            ):(
+                                                <td></td>
+                                            )}
+                                            {data.projectname ?(
+                                                <td>{data.projectname}</td>
+                                            ):(
+                                                <td></td>
+                                            )}
+                                            {data.groupname ?(
+                                                <td>{data.groupname}</td>
+                                            ):(
+                                                <td></td>
+                                            )}
+                                            {data.appversion ?(
+                                                <td>{data.appversion}</td>
+                                            ):(
+                                                <td></td>
+                                            )}
+                                            {data.isHundeggerNcPaymentCompleted&&(
+                                                <td style={{color:"#3945E4"}}>Hundegger zaagmachine</td>
+                                            )}
+                                            {data.isHundeggerNcHamPaymentCompleted&&(
+                                                <td style={{color:"#3945E4"}}>SCM CNC plates freesmachine</td>
+                                            )}
+                                            {!data.isHundeggerNcHamPaymentCompleted&&!data.isHundeggerNcPaymentCompleted&&(
+                                                <td></td>
+                                            )}
+                                            {data.creditReductedOrAdded<0 ?(
+                                                <td>
                                                     <div id={data.hundeggerFileReferenceId} name={data.transactionType} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</div>
-                                                )}
-                                            </td>
+                                                </td>
+                                            ):(
+                                                <td></td>
+                                            )}
                                         </tr>
                                     ))
                                     }

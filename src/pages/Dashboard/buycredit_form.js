@@ -67,6 +67,7 @@ class Buycreditform extends Component {
             onHide={this.props.onHide}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
+            backdrop= "static"
             centered
             >
             <Modal.Header closeButton>

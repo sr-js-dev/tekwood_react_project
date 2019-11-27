@@ -110,6 +110,7 @@ class Adduserform extends Component {
             onHide={this.props.onHide}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
+            backdrop= "static"
             centered
             >
             <Modal.Header closeButton>
@@ -164,8 +165,8 @@ class Adduserform extends Component {
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
-                                <Form.Control type="text" name="email1" readOnly defaultValue={updateData.userName} required placeholder={trls('UserName')}/>
-                            ) : <Form.Control type="text" name="email1" required placeholder={trls('Email')}/>
+                                <Form.Control type="email" name="email1" readOnly defaultValue={updateData.userName} required placeholder={trls('UserName')}/>
+                            ) : <Form.Control type="email" name="email1" required placeholder={trls('Email')}/>
                             }
                         </Col>
                     </Form.Group>
@@ -175,8 +176,8 @@ class Adduserform extends Component {
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
-                                <Form.Control type="text" name="email1" readOnly defaultValue={updateData.email} required placeholder={trls('Email')}/>
-                            ) : <Form.Control type="text" name="email1" required placeholder={trls('Email')} />
+                                <Form.Control type="email" name="email1" readOnly defaultValue={updateData.email} required placeholder={trls('Email')}/>
+                            ) : <Form.Control type="email" name="email1" required placeholder={trls('Email')} />
                             }
                         </Col>
                     </Form.Group>
@@ -186,7 +187,7 @@ class Adduserform extends Component {
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
-                                <Form.Control type="text" name="email1" readOnly defaultValue={roledata} required placeholder="Email" />
+                                <Form.Control type="email" name="email1" readOnly defaultValue={roledata} required placeholder="Email" />
                             ) : <div/>
                             }
                             
@@ -237,8 +238,8 @@ class Adduserform extends Component {
                         </Form.Label>
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="update" ? (
-                                <Form.Control type="text" name="email1" defaultValue={updateData.email} required placeholder={trls('Email')}/>
-                            ) : <Form.Control type="text" name="email1" required placeholder={trls('Email')}/>
+                                <Form.Control type="email" name="email1" defaultValue={updateData.email} required placeholder={trls('Email')}/>
+                            ) : <Form.Control type="email" name="email1" required placeholder={trls('Email')}/>
                             }
                         </Col>
                     </Form.Group>

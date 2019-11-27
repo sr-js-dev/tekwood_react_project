@@ -47,6 +47,9 @@ class Getfileform extends Component {
     }
     componentDidMount() {
         this._isMounted = true;
+        $(".modal-header").click(function(){
+            console.log('11111111111');
+        });
     }
     onFormSubmit(e){
         e.preventDefault() // Stop form submit
@@ -62,29 +65,50 @@ class Getfileform extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetHundeggerFile+this.state.referenceId, headers)
         .then(result => {
+            let array_temp = [];
+            let array_detail = [];
             if(this._isMounted){
-                this.setState({downHundeggerFileList:result.data.hundeggerFileDetails});
+                
+                let fileDetails = result.data.hundeggerFileDetails;
+                fileDetails.map((data, index) => {
+                    
+                    if(data.key==="ProjectName"){
+                        array_temp.projectname=data.value;
+                    }else if(data.key==="OrderNumber"){
+                        array_temp.ordernumber=data.value;
+                    }else if(data.key==="AppVersion"){
+                        array_temp.appversion=data.value
+                    }else if(data.key==="GroupName"){
+                        if(data.value!=="[unattached]"){
+                            array_temp.groupname=data.value
+                        }else{
+                            array_temp.groupname=""
+                        }
+                    }
+                    if(data.key!=="ProjectName"&&data.key!=="OrderNumber"&&data.key!=="AppVersion"&&data.key!=="GroupName"){
+                        array_detail.push(data);
+                    }
+                    return fileDetails;
+                })
             }
+            this.setState({downHundeggerFileFirst: array_temp});
+            this.setState({downHundeggerFileList:array_detail});
+            
         })
         .catch(err => {
         });
     }
     completePayment = () => {
         let params=[];
-        if(this.state.ncCheckflag && this.state.ncHamapproveflag){
-            params = {
-                referenceId: this.state.referenceId,
-                HundeggerTypes: [0,1]
-            }
-        }else if(!this.state.ncCheckflag && this.state.ncHamapproveflag){
-            params = {
-                referenceId: this.state.referenceId,
-                HundeggerTypes: [1]
-            }
-        }else if(this.state.ncCheckflag && !this.state.ncHamapproveflag){
+        if(this.state.ncCheckflag){
             params = {
                 referenceId: this.state.referenceId,
                 HundeggerTypes: [0]
+            }
+        }else if(this.state.ncHamCheckflag){
+            params = {
+                referenceId: this.state.referenceId,
+                HundeggerTypes: [1]
             }
         }
         var headers = SessionManager.shared().getAuthorizationHeader();
@@ -162,14 +186,28 @@ class Getfileform extends Component {
             this.setState({ncHamapproveflag:""})
         }
     }
+    hideModal = () => {
+        this.setState({approve:false})
+        this.setState({downloadflag:false})
+        this.setState({creditsNeededToBuyFileHundeggerNc: ''})
+        this.setState({creditsNeededToBuyFileHundeggerNcHam: ''})
+        this.setState({filename:''})
+        this.setState({ncHamCheckflag:false})
+        this.setState({ncCheckflag:false})
+        this.props.onHide();
+        this.props.onGetCradit();
+        this.props.onGetCraditHistory();
+    }
     render(){   
         let hundeggerFileDetails=this.state.downHundeggerFileList;
+        let hundeggerFileFirst=this.state.downHundeggerFileFirst;
         return (
             <Modal
                 show={this.props.show}
-                onHide={this.props.onHide}
+                onHide={this.hideModal}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
+                backdrop= "static"
                 centered
             >
             <Modal.Header closeButton>
@@ -180,17 +218,17 @@ class Getfileform extends Component {
             <Modal.Body>
                 <Form className="container product-form credit-form" onSubmit = { this.onFormSubmit }>
                     <Form.Group as={Row}  controlId="formPlaintextPassword">
-                        <Form.Label column sm="4">
+                        <Form.Label column sm="3">
                             {trls('Upload_File')}
                         </Form.Label>
-                        <Col sm="4">
+                        <Col sm="6">
                             <Button type="button" style={{width:"auto", height:"35px", fontSize:"14px"}} onClick={this.openUploadFile}>{trls('Choose_File')}</Button>
                             <Form.Label style={{color:"#0903FB", paddingLeft:"10px"}}>
                                 <u>{this.state.filename}</u>
                             </Form.Label>
                             <input id="inputFile" type="file"  required accept=".twsbdb" onChange={this.onChange} style={{display: "none"}} />
                         </Col>
-                        <Col sm="4">
+                        <Col sm="3">
                             {this.state.approve && (this.state.ncHamCheckflag || this.state.ncCheckflag) && (
                                 <Button type="button" style={{height:"35px", fontSize:"14px"}} onClick={this.completePayment}>{trls('Approve')}
                                 </Button>
@@ -201,8 +239,8 @@ class Getfileform extends Component {
                     <Form.Group as={Row} controlId="formPlaintextPasswordw">
                         <Form.Check type="checkbox" name="nc" label={trls('CreditsNeededToBuyFileHundeggerNc')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncCheckflag} onChange={this.nchandleChange} />
                         { this.state.uploadflag===1 ?(
-                            <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"35px"}}>  Uploading...</span>
-                        ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"35px"}}>  {this.state.creditsNeededToBuyFileHundeggerNc}</span>
+                            <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
+                        ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNc}</span>
                         } 
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
@@ -213,25 +251,46 @@ class Getfileform extends Component {
                         } 
                     </Form.Group>
                         { this.state.downloadflag ?(
-                            <Form.Group as={Row} controlId="formPlaintextPassword" className={hundeggerFileDetails.length!==0 ? 'file-table' : ''}>
+                            <Form.Group as={Row} controlId="formPlaintextPassword" className={hundeggerFileDetails ? 'file-table' : ''}>
                                 <div className="table-responsive aprove-Hundegger">
                                     <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
                                         <thead>
                                         <tr>
-                                            <th>{trls('Key')}</th>
-                                            <th>{trls('Value')}</th>
+                                            {hundeggerFileFirst&&(
+                                                <th colSpan="2" style={{textAlign:'center'}}>{"Project: "+hundeggerFileFirst.projectname}</th>
+                                            )}
+                                            
                                         </tr>
                                         </thead>
-                                        {hundeggerFileDetails &&(<tbody >
-                                            {
-                                                hundeggerFileDetails.map((data,i) =>(
-                                                <tr id={i} key={i}>
-                                                    <td>{data.key}</td>
-                                                    <td>{data.value}</td>
+                                        {hundeggerFileFirst &&(
+                                            <tbody >
+                                                <tr>
+                                                    <td>{trls('OrderNumber')}</td>
+                                                    <td>{hundeggerFileFirst.ordernumber}</td>
                                                 </tr>
-                                            ))
-                                            }
-                                        </tbody>)}
+                                                <tr>
+                                                    <td>{trls('ProjectName')}</td>
+                                                    <td>{hundeggerFileFirst.projectname}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{trls('GroupName')}</td>
+                                                    <td>{hundeggerFileFirst.groupname}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>{trls('AppVersion')}</td>
+                                                    <td>{hundeggerFileFirst.appversion}</td>
+                                                </tr>
+                                                {hundeggerFileDetails&&(
+                                                    hundeggerFileDetails.map((data,i) =>(
+                                                    <tr id={i} key={i}>
+                                                        <td>{data.key}</td>
+                                                        <td>{data.value}</td>
+                                                    </tr>
+                                                ))
+                                                )}
+                                                
+                                            </tbody>  
+                                        )}
                                     </table>
                                 </div>
                             </Form.Group>

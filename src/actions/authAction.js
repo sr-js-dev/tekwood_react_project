@@ -133,8 +133,8 @@ export const fetchBlankData = () => {
 //change lan
 export const changeLan = (params) => {
     return (dispatch) => {
-        window.localStorage.setItem('lang',  params.value);
-        window.localStorage.setItem('label',  params.label);
+        window.localStorage.setItem('tekwoods_lang',  params.value);
+        window.localStorage.setItem('tekwoods_label',  params.label);
         dispatch(fetchChangeLan(params.value));
     };
 }

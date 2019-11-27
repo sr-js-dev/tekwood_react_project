@@ -68,7 +68,14 @@ export const TRANSLATIONS = {
     New_Password: "New Password",
     Repeat: 'Repeat',
     Edit: 'Edit',
-    Select: 'Select'
+    Select: 'Select',
+    Project: 'Project',
+    OrderNumber: 'OrderNumber',
+    ProjectName: 'ProjectName',
+    GroupName: 'GroupName',
+    AppVersion: 'AppVersion',
+    Purchase_Credits: 'Purchase Credits',
+    Type_data_file: 'Type data file'
   },
   nl_BE: {
     Username: 'Gebruikersnaam',
@@ -139,6 +146,13 @@ export const TRANSLATIONS = {
     New_Password: 'Nieuw wachtwoord',
     Repeat: 'Herhaling',
     Edit: 'Bewerk',
-    Select: 'Kiezen'
+    Select: 'Kiezen',
+    Project: 'Project',
+    OrderNumber: 'OrderNumber',
+    ProjectName: 'ProjectName',
+    GroupName: 'GroupName',
+    AppVersion: 'AppVersion',
+    Purchase_Credits: 'Aankoop Credits',
+    Type_data_file: 'Type gegevens het dossier'
   }
 };
