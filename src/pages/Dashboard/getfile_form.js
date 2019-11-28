@@ -236,18 +236,18 @@ class Getfileform extends Component {
                         </Col>
                     </Form.Group>
                     <ListErrors errors={this.props.error} />
-                    <Form.Group as={Row} controlId="formPlaintextPasswordw">
-                        <Form.Check type="checkbox" name="nc" label={trls('CreditsNeededToBuyFileHundeggerNc')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncCheckflag} onChange={this.nchandleChange} />
-                        { this.state.uploadflag===1 ?(
-                            <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
-                        ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNc}</span>
-                        } 
-                    </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
                         <Form.Check type="checkbox" name="ncham" label={trls('CreditsNeededToBuyFileHundeggerNcHam')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncHamCheckflag} onChange={this.nchamhandleChange}/>
                         { this.state.uploadflag===1 ?(
                             <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
                         ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNcHam}</span>
+                        } 
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextPasswordw">
+                        <Form.Check type="checkbox" name="nc" label={trls('CreditsNeededToBuyFileHundeggerNc')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncCheckflag} onChange={this.nchandleChange} />
+                        { this.state.uploadflag===1 ?(
+                            <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
+                        ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNc}</span>
                         } 
                     </Form.Group>
                         { this.state.downloadflag ?(
