@@ -186,6 +186,7 @@ class Getfileform extends Component {
             this.setState({ncHamapproveflag:""})
         }
     }
+    
     hideModal = () => {
         this.setState({approve:false})
         this.setState({downloadflag:false})
