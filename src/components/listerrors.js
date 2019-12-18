@@ -6,11 +6,9 @@ class ListErrors extends React.Component {
     const errors = this.props.errors;
     if (errors) {
       return (
-        <ul className="error-messages" style={{marginTop:"-17px",textAlign:"center"}}>
-          {
-            errors
-            }
-        </ul>
+        <div className="alert alert-danger list-error">
+            <strong><i className="fas fa-exclamation-triangle"></i>  {errors}</strong>
+        </div>
       );
     } else {
       return null;
