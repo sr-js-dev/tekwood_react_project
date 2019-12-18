@@ -9,6 +9,7 @@ import * as Auth   from '../../components/auth';
 import ListErrors from '../../components/listerrors';
 import { trls } from '../../components/translate';
 import Axios from 'axios';
+
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -114,7 +115,6 @@ class Getfileform extends Component {
         .then(result => {
             this.setState({downloadflag:true})
             this.setState({confirmshow:true})
-            // this.getHundegger();
         })
         .catch(err => {
         });
@@ -218,6 +218,7 @@ class Getfileform extends Component {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
+                <ListErrors errors={this.props.error} />
                 <Form className="container product-form credit-form" onSubmit = { this.onFormSubmit }>
                     <Form.Group as={Row}  controlId="formPlaintextPassword">
                         <Form.Label column sm="3">
