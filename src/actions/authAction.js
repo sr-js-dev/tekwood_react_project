@@ -6,6 +6,7 @@ import { getUserToken } from '../components/auth';
 
 export const fetchLoginData = (params) => {
     return (dispatch) => {
+        dispatch(fetchPageLoading(true));
         var settings = {
             "url": API.Login,
             "method": "POST",
@@ -17,6 +18,7 @@ export const fetchLoginData = (params) => {
         $.ajax(settings).done(function (response) {
         })
         .then(response => {
+            dispatch(fetchPageLoading(false));
             window.localStorage.setItem('tek_AuthUserName', response.claims.UserName);
             window.localStorage.setItem('imperson_flag', "");
             window.localStorage.setItem('tek_auth', response.token);
@@ -27,9 +29,18 @@ export const fetchLoginData = (params) => {
             history.push('/dashboard')
         })
         .catch(err => {
+            dispatch(fetchPageLoading(false));
             dispatch(fetchLoginDataFail());
         });
     };
+}
+
+export const fetchPageLoading = (data) => {
+    
+    return {
+        type: types.FETCH_PAGE_LOADING,
+        loading:data
+    }
 }
 
 //login fail

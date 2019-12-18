@@ -204,10 +204,14 @@ class Dashboard extends Component {
                                     {
                                         this.state.credithistory.map((data,i) =>(
                                         <tr id={i} key={i}>
-                                            {data.creditReductedOrAdded<0 ?(
+                                            {data.transactionType===1&&(
                                                 <td></td>
-                                            ):(
-                                                <td style={{color:'red'}}>{trls('Bouns_credits')}</td>
+                                            )}
+                                            {data.transactionType===0&&(
+                                                 <td style={{color:'red'}}>{trls('Purchase_credits')}</td>
+                                            )}
+                                            {data.transactionType===2 &&(
+                                                 <td style={{color:'red'}}>{trls('Bouns_credits')}</td>
                                             )}
                                             <td>{this.formatDate(data.createdDate)}</td>
                                             <td>{data.creditReductedOrAdded}</td>
@@ -269,6 +273,7 @@ class Dashboard extends Component {
                 <Getfileform
                     show={this.state.modalShowFile}
                     onHide={() => this.setState({modalShowFile: false})}
+                    availableCredits={this.state.userCredits}
                     onGetCradit={this.getCreditsByuserId}
                     onGetCraditHistory={this.getCreditsByuserId}
                 />

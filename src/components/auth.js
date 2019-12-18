@@ -23,5 +23,6 @@ export const removeAuth = () => {
     window.localStorage.setItem('tek_auth', '')
     window.localStorage.setItem('tek_userID', '')
     window.localStorage.setItem('tek_role', '')
+    window.localStorage.setItem('tek_AuthUserName', '')
     return true
 };

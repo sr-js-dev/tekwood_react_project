@@ -18,6 +18,8 @@ export default function (state = initialState, action) {
         return { ...state, loginAs: action.loginas }
     case types.FETCH_GO_AUTH_USER:
         return { ...state, authUser: action.loginas }
+    case types.FETCH_PAGE_LOADING:
+        return { ...state, loading: action.loading }
     default:
         return state
     }

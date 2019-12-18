@@ -98,7 +98,8 @@ export const TRANSLATIONS = {
     User: 'User',
     VatPercentage: 'BTWPercentage',
     VAT_amount: 'BTW Amount',
-    Total_amount: 'Total Amount'
+    Total_amount: 'Total Amount',
+    Purchase_credits: 'Purchase credits'
   }, 
   nl_BE: {
     Username: 'Gebruikersnaam',
@@ -199,6 +200,7 @@ export const TRANSLATIONS = {
     User: 'Gebruiker',
     VatPercentage: 'BTWPercentage',
     VAT_amount: 'BTW Bedrag',
-    Total_amount: 'Totaal Bedrag' 
+    Total_amount: 'Totaal Bedrag' ,
+    Purchase_credits: 'Aankoop credits'
   }
 };

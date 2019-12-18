@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { Row, Col } from 'react-bootstrap';
 import ListErrors from '../../components/listerrors';
 import { trls } from '../../components/translate';
+import Pageloadspiiner from '../../components/page_load_spinner';
+
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
@@ -36,7 +38,7 @@ class Login extends React.Component {
                     <img src={require('../../assets/images/img_admin_side.png')} alt="appzmakerz" className="login-side-grad"></img>
                   </div>
                   <Col  className="login-form-div">
-                    <img src='https://www.tekwoods.nl/wordpress/wp-content/uploads/Logo_TW_RGB-1-300x100.png' alt="appzmakerz" style={{marginTop:"70px"}}></img>
+                    <img src='https://www.tekwoods.nl/wordpress/wp-content/uploads/Logo_TW_RGB-1-300x100.png' alt="appzmakerz" style={{marginTop:"70px", width: "60%"}}></img>
                      <form className="login-form" onSubmit = { this.handleSubmit }>
                      <ListErrors errors={this.props.error} />
                         <fieldset>  
@@ -60,6 +62,7 @@ class Login extends React.Component {
             </div>
           </div>
         </div>
+        <Pageloadspiiner/>
       </div>
     );
   }

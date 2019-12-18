@@ -49,7 +49,6 @@ class Userregister extends Component {
             Axios.get(API.GetUserData+"?excludeInactiveUser=true&pageNumber=1&pageSize="+result.data.totalCount, headers)
             .then(result => {
                 if(this._isMounted){
-                    console.log('4444', result)
                     this.setState({userData:result.data.data})
                     this.setState({loading:false})
                 }
@@ -121,8 +120,8 @@ class Userregister extends Component {
         });
     }
 
-    loginAsUser = (e) =>{
-        this.setState({username:e.currentTarget.id})
+    loginAsUser = (value) =>{
+        this.setState({username:value})
         confirmAlert({
             title: trls("Confirm"),
             message: trls("Are_you_sure"),
@@ -164,6 +163,7 @@ class Userregister extends Component {
 
     render () {
         let userData=this.state.userData;
+        console.log('2222', userData)
         return (
             <div className="order_div">
                 <div className="content__header content__header--with-line">
@@ -218,7 +218,7 @@ class Userregister extends Component {
                                                 <i id={data.id} className="fas fa-trash-alt statu-item" onClick={this.userDeleteConfirm}></i>
                                                 <i id={data.id} className="fas fa-edit statu-item" onClick={this.userUpdate}></i>
                                                 <i id={data.id} className="fas fa-eye statu-item" onClick={this.viewUserData}></i>
-                                                <i id={data.id} className="fas fa-exchange-alt statu-item" onClick={this.loginAsUser}></i>
+                                                <i id={data.id} className="fas fa-exchange-alt statu-item" onClick={()=>this.loginAsUser(data.userName)}></i>
                                             </Row>
                                         </td>
                                     </tr>
