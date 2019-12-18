@@ -30,7 +30,7 @@ class Sidebar extends Component {
                         <li id="0" className="menu__item" onClick={this.changeItem}>
                             <Link to="./dashboard" className={window.location.pathname === "/dashboard" ? 'menu__link menu__link--active' : 'menu__link menu__link'}>
                                 <span className="menu__link-img-wrap">
-                                    <img src={require("../assets/images/icon-dashboard.svg")} alt="Dashboard"/>
+                                    <i className="fas fa-home menu__link-img-wrap"></i>
                                 </span>
                                 <span>{trls('Dashboard')}</span>
                             </Link>
@@ -41,7 +41,7 @@ class Sidebar extends Component {
                                 <li id="1" className="menu__item" onClick={this.changeItem}>
                                     <Link to={'/user'} className={window.location.pathname === "/user" || window.location.pathname === "/product-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'}>
                                         <span className="menu__link-img-wrap">
-                                            <img src={require("../assets/images/icon-orders.svg")} alt="User"/>
+                                            <i className="fas fa-user menu__link-img-wrap"></i>
                                         </span>
                                         <span>{trls('Users')}</span>
                                     </Link>
@@ -49,9 +49,17 @@ class Sidebar extends Component {
                                 <li id="2" className="menu__item" onClick={this.changeItem}>
                                     <Link to={'/setting'} className={window.location.pathname === "/setting" || window.location.pathname === "/sales-order-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'} >
                                         <span className="menu__link-img-wrap">
-                                            <img src={require("../assets/images/icon-orders.svg")} alt="Orders"/>
+                                            <i className="fas fa-cogs menu__link-img-wrap"></i>
                                         </span>
                                         <span>{trls('Settings')}</span>
+                                    </Link>
+                                </li>
+                                <li id="2" className="menu__item" onClick={this.changeItem}>
+                                    <Link to={'/customer'} className={window.location.pathname === "/customer" || window.location.pathname === "/sales-order-detail" ? 'menu__link menu__link--active' : 'menu__link menu__link'} >
+                                        <span className="menu__link-img-wrap">
+                                            <i className="fas fa-users menu__link-img-wrap"></i>
+                                        </span>
+                                        <span>{trls('Customer')}</span>
                                     </Link>
                                 </li>
                             </div>

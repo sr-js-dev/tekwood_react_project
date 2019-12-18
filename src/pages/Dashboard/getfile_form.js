@@ -48,7 +48,6 @@ class Getfileform extends Component {
     componentDidMount() {
         this._isMounted = true;
         $(".modal-header").click(function(){
-            console.log('11111111111');
         });
     }
     onFormSubmit(e){
@@ -93,7 +92,6 @@ class Getfileform extends Component {
             }
             this.setState({downHundeggerFileFirst: array_temp});
             this.setState({downHundeggerFileList:array_detail});
-            
         })
         .catch(err => {
         });
@@ -116,11 +114,12 @@ class Getfileform extends Component {
         .then(result => {
             this.setState({downloadflag:true})
             this.setState({confirmshow:true})
-            this.getHundegger();
+            // this.getHundegger();
         })
         .catch(err => {
         });
     }
+
     downHundeggerFile = () => {
             let hundeggerType='';
             if(this.state.ncCheckflag){
@@ -141,6 +140,7 @@ class Getfileform extends Component {
             this.setState({ncHamCheckflag:false})
             this.setState({ncCheckflag:false})
     }
+    
     fileUpload(file){
         var formData = new FormData();
         formData.append('file', file);// file from input
@@ -156,6 +156,7 @@ class Getfileform extends Component {
             this.setState({referenceId:result.data.referenceId});
             this.setState({uploadflag:0})
             this.setState({approve:true})
+            this.getHundegger();
         })
         .catch(err => {
         });
@@ -186,7 +187,7 @@ class Getfileform extends Component {
             this.setState({ncHamapproveflag:""})
         }
     }
-    
+
     hideModal = () => {
         this.setState({approve:false})
         this.setState({downloadflag:false})
@@ -237,21 +238,25 @@ class Getfileform extends Component {
                         </Col>
                     </Form.Group>
                     <ListErrors errors={this.props.error} />
-                    <Form.Group as={Row} controlId="formPlaintextPasswordw">
-                        <Form.Check type="checkbox" name="nc" label={trls('CreditsNeededToBuyFileHundeggerNcHam')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncCheckflag} onChange={this.nchandleChange} />
-                        { this.state.uploadflag===1 ?(
-                            <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
-                        ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNc}</span>
-                        } 
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="formPlaintextPassword">
-                        <Form.Check type="checkbox" name="ncham" label={trls('CreditsNeededToBuyFileHundeggerNc')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncHamCheckflag} onChange={this.nchamhandleChange}/>
-                        { this.state.uploadflag===1 ?(
-                            <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
-                        ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNcHam}</span>
-                        } 
-                    </Form.Group>
-                        { this.state.downloadflag ?(
+                    {this.state.approve&&(
+                        <Form.Group as={Row} controlId="formPlaintextPasswordw">
+                            <Form.Check type="checkbox" name="nc" label={trls('CreditsNeededToBuyFileHundeggerNcHam')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncCheckflag} onChange={this.nchandleChange} />
+                            { this.state.uploadflag===1 ?(
+                                <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
+                            ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNc}</span>
+                            } 
+                        </Form.Group>
+                    )}
+                    {this.state.approve&&(
+                        <Form.Group as={Row} controlId="formPlaintextPassword">
+                            <Form.Check type="checkbox" name="ncham" label={trls('CreditsNeededToBuyFileHundeggerNc')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncHamCheckflag} onChange={this.nchamhandleChange}/>
+                            { this.state.uploadflag===1 ?(
+                                <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  Uploading...</span>
+                            ) : <span style={{color:"#0903FB",fontWeight:"bold",marginLeft:"5px"}}>  {this.state.creditsNeededToBuyFileHundeggerNcHam}</span>
+                            } 
+                        </Form.Group>
+                    )}
+                        { this.state.approve ?(
                             <Form.Group as={Row} controlId="formPlaintextPassword" className={hundeggerFileDetails ? 'file-table' : ''}>
                                 <div className="table-responsive aprove-Hundegger">
                                     <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
@@ -289,7 +294,6 @@ class Getfileform extends Component {
                                                     </tr>
                                                 ))
                                                 )}
-                                                
                                             </tbody>  
                                         )}
                                     </table>

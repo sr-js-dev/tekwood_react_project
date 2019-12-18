@@ -12,8 +12,11 @@ html, body {
 padding-right: 0px;
 padding-left: 0px;
 }
-span{
-font-size:16px;
+/* span{
+font-size:15px;
+} */
+table th {
+  font-size: 14px;
 }
 .order_div{
 padding:20px;
@@ -414,4 +417,25 @@ input:focus {
 }
 .aprove-Hundegger{
   height:270px
+}
+.company-info-credit{
+  height: 133px;
+}
+.company-info-title{
+  display: block;
+}
+.user-info-credit {
+  margin-top: 10px;
+  height: 44px;
+}
+.dashboard__top-small::after {
+  content: '';
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10px;
+  height: 48px;
+  background-color: #2dafe5;
+  border-top-right-radius: 4px;
 }

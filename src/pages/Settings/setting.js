@@ -23,6 +23,7 @@ class Settings extends Component {
             flag:'',
             editflag:false,
             loading:true,
+            vatPercentage: ''
         };
       }
     componentDidMount() {
@@ -39,6 +40,7 @@ class Settings extends Component {
             this.setState({percredit:result.data.pricePerCredit})
             this.setState({pertimber:result.data.creditPerTimber})
             this.setState({perplate:result.data.creditPerPlate})
+            this.setState({vatPercentage: result.data.vatPercentage})
             this.setState({loading:false})
         });
     }
@@ -47,16 +49,17 @@ class Settings extends Component {
     }
     saveSetting = () => {
         var params = {
-            "pricePerCredit":this.state.percredit,
-            "creditPerTimber":this.state.pertimber,
-            "creditPerPlate":this.state.perplate
+            "pricePerCredit": this.state.percredit,
+            "creditPerTimber": this.state.pertimber,
+            "creditPerPlate": this.state.perplate,
+            "vatPercentage": this.state.vatPercentage
         }
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.post(API.PostSetting, params, headers)
         .then(result => {
-            this.setState({editflag:false})
+            this.setState({editflag:false});
             this.setState({loading:true});
-            this.getSettingData()
+            this.getSettingData();
         })
         .catch(err => {
         });
@@ -65,12 +68,19 @@ class Settings extends Component {
     changePerCredit = (e) => {
         this.setState({percredit:e.target.value})
     }
+
     changetPerTimber = (e) => {
         this.setState({pertimber:e.target.value})
     }
+
     changePerPlate = (e) => {
         this.setState({perplate:e.target.value})
     }
+
+    changeVatPercentage = (e) => {
+        this.setState({vatPercentage:e.target.value})
+    }
+
     render () {
         let settingData=this.state.settingData;
         return (
@@ -89,6 +99,7 @@ class Settings extends Component {
                                 <th>{trls('PricePerCredit')}</th>
                                 <th>{trls('CreditPerTimber')}</th>
                                 <th>{trls('CreditPerPlate')}</th>
+                                <th>{trls('VatPercentage')}</th>
                             </tr>
                             </thead>
                             {settingData && !this.state.loading &&(<tbody >
@@ -97,13 +108,15 @@ class Settings extends Component {
                                         <td>{settingData.pricePerCredit}</td>
                                         <td>{settingData.creditPerTimber}</td>
                                         <td>{settingData.creditPerPlate}</td>
+                                        <td>{settingData.vatPercentage}%</td>
                                     </tr>
                                 )}
                                 { this.state.editflag && (
                                     <tr>
-                                        <td><Form.Control type="text" name="credit" required placeholder="PricePerCredit" defaultValue={settingData.pricePerCredit} onChange={this.changePerCredit}/></td>
-                                        <td><Form.Control type="text" name="timber" required placeholder="CreditPerTimber" defaultValue={settingData.creditPerTimber} onChange={this.changetPerTimber}/></td>
-                                        <td><Form.Control type="text" name="plate" required placeholder="CreditPerPlate" defaultValue={settingData.creditPerPlate} onChange={this.changePerPlate}/></td>
+                                        <td><Form.Control type="number" name="credit" required placeholder="PricePerCredit" defaultValue={settingData.pricePerCredit} onChange={this.changePerCredit}/></td>
+                                        <td><Form.Control type="number" name="timber" required placeholder="CreditPerTimber" defaultValue={settingData.creditPerTimber} onChange={this.changetPerTimber}/></td>
+                                        <td><Form.Control type="number" name="plate" required placeholder="CreditPerPlate" defaultValue={settingData.creditPerPlate} onChange={this.changePerPlate}/></td>
+                                        <td><Form.Control type="number" name="vat" required placeholder="vatPercentage" defaultValue={settingData.vatPercentage} onChange={this.changeVatPercentage}/></td>
                                     </tr>
                                 )}
                             </tbody>)}
@@ -117,10 +130,10 @@ class Settings extends Component {
                             </div>
                         )}
                         { !this.state.editflag&&!this.state.loading && (
-                            <Button type="button" style={{float:"right", width:100}} onClick = {this.editSetting} >{trls('Edit')}</Button>
+                            <Button type="button" style={{float:"right"}} onClick = {this.editSetting}><i className="fas fa-edit" style={{paddingRight:5}}/>{trls('Edit')}</Button>
                         )}
                         { this.state.editflag&&!this.state.loading && (
-                            <Button type="button" style={{float:"right", width:100}} onClick = {this.saveSetting} >{trls('Save')}</Button>
+                            <Button type="button" style={{float:"right"}} onClick = {this.saveSetting}><i className="fas fa-edit" style={{paddingRight:5}}/>{trls('Save')}</Button>
                         )}
                     </div>
                 </div>

@@ -24,6 +24,8 @@ class Dashboard extends Component {
             userCredits:'',
             credithistory: [],
             loading:true,
+            userInfor: '',
+            customerData: []
         };
     }
     componentWillUnmount() {
@@ -40,7 +42,10 @@ class Dashboard extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetUserDataById+Auth.getUserId(), headers)
         .then(result => {
-            this.setState({userCredits:result.data.availableCredits})
+            this.setState({userCredits:result.data.customer.availableCredits})
+            this.setState({userInfor: result.data.firstName+' '+result.data.lastName})
+            this.setState({customerData: result.data.customer})
+
         });
         this.getCreditsHistory();
     }
@@ -99,10 +104,11 @@ class Dashboard extends Component {
         formatDate = dd+'-'+mm+'-'+yyyy;
         return formatDate;
     }
-    downHundeggerFile = (e) => {
-        window.location = API.DownLoadFile+e.target.id+"/"+e.currentTarget.name
+    downHundeggerFile = (data) => {
+        window.location = API.DownLoadFile+data.hundeggerFileReferenceId+"/"+data.transactionType
     }
     render(){   
+        let customerData = this.state.customerData;
         return (
             <Container>
                 <div className="dashboard-header content__header content__header--with-line">
@@ -160,6 +166,22 @@ class Dashboard extends Component {
                             <div className="dashboard__top-small-value">{trls('Credits')}: {this.state.userCredits} </div>
                         </Row>
                     </Col>
+                    <Col sm={4}>
+                        <Row className="dashboard__top-small company-info-credit">
+                            <div className="dashboard__top-small-header company-info-title">
+                                <div><span>{trls('Company')}</span></div>
+                                <div style={{paddingTop: 7}}>
+                                    {customerData.name}<br/>{customerData.address}<br/>{customerData.zipCode} {customerData.city}
+                                </div>
+                            </div>
+                        </Row>
+                        <Row className="dashboard__top-small user-info-credit">
+                            <div style={{fontWeight: 700, marginTop: "-14px", display:'flex'}}>
+                                <span>{trls('User')}: </span><div style={{fontWeight: 100, marginLeft: 10}}>{this.state.userInfor}</div>
+                                
+                            </div>
+                        </Row>
+                    </Col>
                 </Row>
                 <Row style={{padding:15, marginTop:30}}>
                     <h6 style={{fontWeight:"bold"}}>{trls('Credit_History')}</h6>
@@ -185,7 +207,7 @@ class Dashboard extends Component {
                                             {data.creditReductedOrAdded<0 ?(
                                                 <td></td>
                                             ):(
-                                                <td style={{color:'red'}}>{trls('Purchase_Credits')}</td>
+                                                <td style={{color:'red'}}>{trls('Bouns_credits')}</td>
                                             )}
                                             <td>{this.formatDate(data.createdDate)}</td>
                                             <td>{data.creditReductedOrAdded}</td>
@@ -220,7 +242,7 @@ class Dashboard extends Component {
                                             )}
                                             {data.creditReductedOrAdded<0 ?(
                                                 <td>
-                                                    <div id={data.hundeggerFileReferenceId} name={data.transactionType} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={this.downHundeggerFile}>File Download</div>
+                                                    <div id={data.hundeggerFileReferenceId} name={data.transactionType} style={{cursor: "pointer", color:'#004388', fontSize:"13px", fontWeight:'bold', textDecoration:"underline"}} onClick={()=>this.downHundeggerFile(data)}>File Download</div>
                                                 </td>
                                             ):(
                                                 <td></td>

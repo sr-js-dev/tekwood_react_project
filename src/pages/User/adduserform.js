@@ -28,6 +28,7 @@ class Adduserform extends Component {
             selectrolvalue:"Select...",
             selectrollabel:"Select...",
             val1:'',
+            val2: '',
             selectflag:true
         };
     }
@@ -49,6 +50,7 @@ class Adduserform extends Component {
                 "lastName": data.lastname,
                 "email": data.email1,
                 "initialCredits":data.credit,
+                "CustomerId": data.customer,
                 "ResetPasswordBaseUrl": 'https://portal.tekwoods.nl/reset-password',
                 "roles": [
                     data.roles
@@ -70,6 +72,7 @@ class Adduserform extends Component {
                 "firstName": data.firstname,
                 "lastName": data.lastname,
                 "initialCredits":data.credit,
+                "CustomerId": data.customer,
                 "ResetPasswordBaseUrl": 'https://portal.tekwoods.nl/reset-password',
                 "roles": [
                     data.roles
@@ -103,6 +106,14 @@ class Adduserform extends Component {
             if(roles){
                 roledata=roles[0].name;
             }
+        }
+        let defaultCustomerData = {};
+        if(this.props.userUpdateData.customer){
+            defaultCustomerData = {"value": this.props.userUpdateData.customer.id, "label": this.props.userUpdateData.customer.name}
+        }
+        let customerData = []
+        if(this.props.customerData){
+            customerData = this.props.customerData.map( s => ({value:s.id,label:s.name}) );
         }
         return (
             <Modal
@@ -181,6 +192,18 @@ class Adduserform extends Component {
                             }
                         </Col>
                     </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Label column sm="3">
+                            {trls('Customer')}     
+                        </Form.Label>
+                        <Col sm="9" className="product-text">
+                            { updateData&&this.props.mode==="view" ? (
+                                <Form.Control type="text" name="customer" readOnly defaultValue={updateData.customer.name} required placeholder="Email" />
+                            ) : <div/>
+                            }
+                            
+                        </Col>
+                    </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextSupplier">
                         <Form.Label column sm="3">
                             {trls('Roles')} 
@@ -188,18 +211,6 @@ class Adduserform extends Component {
                         <Col sm="9" className="product-text">
                             { updateData&&this.props.mode==="view" ? (
                                 <Form.Control type="email" name="email1" readOnly defaultValue={roledata} required placeholder="Email" />
-                            ) : <div/>
-                            }
-                            
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="formPlaintextPassword">
-                        <Form.Label column sm="3">
-                            {trls('Active')}     
-                        </Form.Label>
-                        <Col sm="9" className="product-text">
-                            { updateData&&this.props.mode==="view" ? (
-                                <Form.Check inline name="Intrastat" type="checkbox" disabled defaultChecked={updateData.isActive} id="Intrastat" />
                             ) : <div/>
                             }
                             
@@ -243,15 +254,36 @@ class Adduserform extends Component {
                             }
                         </Col>
                     </Form.Group>
-                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                    <Form.Group as={Row} controlId="formPlaintextSupplier">
                         <Form.Label column sm="3">
-                            {trls('Credits')}     
+                            {trls('Customer')} 
                         </Form.Label>
                         <Col sm="9" className="product-text">
-                            { updateData&&this.props.mode==="update" ? (
-                                <Form.Control type="number" name="credit" defaultValue={updateData.availableCredits} required placeholder={trls('Credits')}/>
-                            ) : <Form.Control type="number" name="credit" required placeholder={trls('Credits')}/>
-                            }
+                            {this.props.mode==="update"?(
+                                <Select
+                                    name="customer"
+                                    options={customerData}
+                                    placeholder={trls('Select')}
+                                    onChange={val => this.setState({val2: val})}
+                                    defaultValue={defaultCustomerData}
+                                />
+                            ):<Select
+                                name="customer"
+                                options={customerData}
+                                placeholder={trls('Select')}
+                                onChange={val => this.setState({val2: val})}
+                            />}
+                            
+                             {!this.props.disabled&&this.props.mode==="add" && (
+                                <input
+                                    onChange={val=>console.log()}
+                                    tabIndex={-1}
+                                    autoComplete="off"
+                                    style={{ opacity: 0, height: 0 }}
+                                    value={this.state.val2}
+                                    required
+                                    />
+                                )}
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextSupplier">
@@ -289,7 +321,7 @@ class Adduserform extends Component {
                     </Form.Group>
                    
                     <Form.Group style={{textAlign:"center"}}>
-                        <Button type="submit">{trls('Save')}</Button>
+                        <Button type="submit"><i className="fas fa-save" style={{paddingRight:5}}></i>{trls('Save')}</Button>
                     </Form.Group>
                 </Form>
                 }

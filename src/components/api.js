@@ -17,5 +17,10 @@ export default {
     CompletePayment: `${BASEURL}/api/hundegger/CompletePayment/`,
     DownLoadFile: `${BASEURL}/api/hundegger/Download/`,
     GetCreditsHistory: `${BASEURL}/api/hundegger/GetCreditHistory`,
+    GetCustomerData: `${BASEURL}/api/customers/Search`,
+    PostCustomer: `${BASEURL}/api/customers/Create`,
+    DeactivateCustomer: `${BASEURL}/api/customers/Deactivate/`,
+    PostUpdateCustomer: `${BASEURL}/api/customers/Update/`,
   };
+  
   

@@ -13,6 +13,7 @@ import { BallBeat } from 'react-pure-loaders';
 import { getUserToken } from '../../components/auth';
 import * as authAction  from '../../actions/authAction';
 import { trls } from '../../components/translate';
+
 const mapStateToProps = state => ({ ...state.auth });
 
 const mapDispatchToProps = dispatch => ({
@@ -27,16 +28,20 @@ class Userregister extends Component {
             userData:[],
             flag:'',
             userUpdateData:[],
-            loading:true
+            loading:true,
+            customerData: []
         };
       }
     componentDidMount() {
         this._isMounted=true
-        this.getUserData()
+        this.getUserData();
+        this.getCustomerData();
     }
+
     componentWillUnmount() {
         this._isMounted = false
     }
+
     getUserData () {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetUserData, headers)
@@ -44,12 +49,27 @@ class Userregister extends Component {
             Axios.get(API.GetUserData+"?excludeInactiveUser=true&pageNumber=1&pageSize="+result.data.totalCount, headers)
             .then(result => {
                 if(this._isMounted){
+                    console.log('4444', result)
                     this.setState({userData:result.data.data})
                     this.setState({loading:false})
                 }
             });
         });
     }
+
+    getCustomerData = () => {
+        var headers = SessionManager.shared().getAuthorizationHeader();
+        Axios.get(API.GetCustomerData+"?excludeInactiveCustomer=true&pageNumber=1&pageSize=10", headers)
+        .then(result => {
+            Axios.get(API.GetCustomerData+"?excludeInactiveCustomer=true&pageNumber=1&pageSize="+result.data.totalCount, headers)
+            .then(result => {
+                if(this._isMounted){
+                    this.setState({customerData:result.data.data})
+                }
+            });
+        });
+    }
+
     userUpdate = (event) => {
         let userID=event.currentTarget.id;
         var settings = {
@@ -67,6 +87,7 @@ class Userregister extends Component {
             this.setState({modalShow:true, mode:"update",userID:userID, flag:true})
         });
     }
+
     viewUserData = (event) => {
         var settings = {
             "url": API.GetUserDataById+event.currentTarget.id,
@@ -83,6 +104,7 @@ class Userregister extends Component {
             this.setState({modalShow:true, mode:"view", flag:true})
         });
     }
+
     userDelete = (event) => {
         var settings = {
             "url": API.DeactivateUser+this.state.userId,
@@ -98,6 +120,7 @@ class Userregister extends Component {
             this.getUserData();
         });
     }
+
     loginAsUser = (e) =>{
         this.setState({username:e.currentTarget.id})
         confirmAlert({
@@ -118,6 +141,7 @@ class Userregister extends Component {
           });
         
     }
+
     userDeleteConfirm = (event) => {
         this.setState({userId:event.currentTarget.id})
         confirmAlert({
@@ -137,6 +161,7 @@ class Userregister extends Component {
             ]
           });
     }
+
     render () {
         let userData=this.state.userData;
         return (
@@ -147,7 +172,7 @@ class Userregister extends Component {
                 <div className="orders">
                     <div className="orders__filters justify-content-between">
                         <Form inline style={{width:"100%"}}>
-                            <Button variant="primary" onClick={()=>this.setState({modalShow:true, mode:"add", flag:false})}>{trls('Add_User')}</Button> 
+                            <Button variant="primary" onClick={()=>this.setState({modalShow:true, mode:"add", flag:false})}><i className="fas fa-plus" style={{paddingRight:5}}/>{trls('Add_User')}</Button> 
                             <Adduserform
                                 show={this.state.modalShow}
                                 mode={this.state.mode}
@@ -155,19 +180,21 @@ class Userregister extends Component {
                                 onGetUser={() => this.getUserData()}
                                 userUpdateData={this.state.userUpdateData}
                                 userID={this.state.userID}
+                                customerData={this.state.customerData}
                             />  
                         </Form>
                     </div>
                     <div className="table-responsive credit-history">
                         <table className="place-and-orders__table table table--striped prurprice-dataTable"  >
                             <thead>
-                            <tr>
-                                <th>{trls('FirstName')}</th>
-                                <th>{trls('LastName')}</th>
-                                <th>{trls('Email')}</th>
-                                <th>{trls('Active')}</th>
-                                <th style={{width:"20%"}}>{trls('State')}</th>
-                            </tr>
+                                <tr>
+                                    <th>{trls('FirstName')}</th>
+                                    <th>{trls('LastName')}</th>
+                                    <th>{trls('Email')}</th>
+                                    <th>{trls('Company')}</th>
+                                    <th>{trls('Active')}</th>
+                                    <th style={{width:"20%"}}>{trls('Action')}</th>
+                                </tr>
                             </thead>
                             {userData &&(<tbody >
                                 {
@@ -176,13 +203,22 @@ class Userregister extends Component {
                                         <td>{data.firstName}</td>
                                         <td>{data.lastName}</td>
                                         <td>{data.email}</td>
-                                        <td><Form.Check inline name="Intrastat" type="checkbox" disabled defaultChecked={data.isActive} id="Intrastat" /></td>
+                                        <td>{data.customer.name}</td>
+                                        {data.isActive?(
+                                            <td style={{display:"flex"}}>
+                                                <i className="fas fa-circle active-icon"></i><div>Active</div>
+                                            </td>
+                                            ):
+                                            <td style={{display:"flex"}}>
+                                                <i className="fas fa-circle inactive-icon"></i><div>Inactive</div>
+                                            </td>
+                                        }
                                         <td >
                                             <Row style={{justifyContent:"center"}}>
-                                                <img src={require("../../assets/images/icon-cancelled.svg")}id={data.id} className="statu-item" alt="cancelled" onClick={this.userDeleteConfirm}/>
-                                                <img src={require("../../assets/images/icon-draft.svg")} id={data.id} className="statu-item" onClick={this.userUpdate} alt="Draft"/>
-                                                <img src={require("../../assets/images/icon-open-box.svg")} id={data.id} className="statu-item" onClick={this.viewUserData} alt="Draft"/>
-                                                <img src={require("../../assets/images/icon-shipped.svg")} id={data.userName} className="statu-item" onClick={this.loginAsUser} alt="Draft"/>
+                                                <i id={data.id} className="fas fa-trash-alt statu-item" onClick={this.userDeleteConfirm}></i>
+                                                <i id={data.id} className="fas fa-edit statu-item" onClick={this.userUpdate}></i>
+                                                <i id={data.id} className="fas fa-eye statu-item" onClick={this.viewUserData}></i>
+                                                <i id={data.id} className="fas fa-exchange-alt statu-item" onClick={this.loginAsUser}></i>
                                             </Row>
                                         </td>
                                     </tr>

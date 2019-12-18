@@ -580,7 +580,7 @@ table {
 		left: 0;
 		top: 0;
 		width: auto;
-		height: calc(100%);
+		height: auto;
 		padding: 0;
 		background-color: rgba(45, 175, 229, .05);
 		-ms-flex-preferred-size: 320px;

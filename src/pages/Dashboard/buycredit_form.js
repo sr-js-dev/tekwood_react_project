@@ -17,7 +17,10 @@ class Buycreditform extends Component {
         super(props);
         this.state = {  
             number:'',
-            pricePerCredit:'',
+            pricePercentData: [],
+            creditAmount: 0,
+            vatAmount: 0,
+            totalAmount: 0
         };
     }
     componentWillUnmount() {
@@ -30,13 +33,17 @@ class Buycreditform extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.get(API.GetSettingData, headers)
         .then(result => {
-            this.setState({pricePerCredit:result.data.pricePerCredit})
+            this.setState({pricePercentData:result.data})
         });
     }
     changeNumber = (ev) => {
+        let pricePercentData = this.state.pricePercentData;
         this._isMounted=true
         if(this._isMounted){
             this.setState({number:ev.target.value})
+            this.setState({creditAmount: ev.target.value*pricePercentData.pricePerCredit})
+            this.setState({vatAmount: ev.target.value*pricePercentData.vatPercentage*pricePercentData.pricePerCredit/100})
+            this.setState({totalAmount: ev.target.value*pricePercentData.vatPercentage*pricePercentData.pricePerCredit/100 + ev.target.value*pricePercentData.pricePerCredit})
         }
        
     }
@@ -53,7 +60,6 @@ class Buycreditform extends Component {
         var headers = SessionManager.shared().getAuthorizationHeader();
         Axios.post(API.PostSisowData, params, headers)
         .then(result => {
-            console.log('1122233', result)
             window.open(result.data.transaction.issuerUrl);
             this.props.onHide();
         })
@@ -82,7 +88,7 @@ class Buycreditform extends Component {
                             {trls('Number_of_Credits')}
                         </Form.Label>
                         <Col sm="8">
-                            <Form.Control type="text" name="number" required placeholder={trls('Number_of_Credits')} value={this.state.number} onChange={this.changeNumber} />
+                            <Form.Control type="number" name="number" required placeholder={trls('Number_of_Credits')} value={this.state.number} onChange={this.changeNumber} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} controlId="formPlaintextPassword">
@@ -90,7 +96,23 @@ class Buycreditform extends Component {
                             {trls('Credits_Amount')} 
                         </Form.Label>
                         <Col sm="8" >
-                            <Form.Control type="text" readOnly name="amount" value={this.state.number*this.state.pricePerCredit} required placeholder="Credits Amount" />
+                            <Form.Control type="text" readOnly name="amount" value={this.state.creditAmount} required placeholder="Credits Amount" />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Label column sm="4">
+                            {trls('VAT_amount')} 
+                        </Form.Label>
+                        <Col sm="8" >
+                            <Form.Control type="text" readOnly name="amount" value={this.state.vatAmount} required placeholder={trls('VAT_amount')} />
+                        </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPlaintextPassword">
+                        <Form.Label column sm="4">
+                            {trls('Total_amount')} 
+                        </Form.Label>
+                        <Col sm="8" >
+                            <Form.Control type="text" readOnly name="amount" value={this.state.totalAmount} required placeholder={trls('Total_amount')} />
                         </Col>
                     </Form.Group>
                     <Form.Group style={{textAlign:"center"}}>
