@@ -98,26 +98,33 @@ class Getfileform extends Component {
         });
     }
     completePayment = () => {
-        let params=[];
-        if(this.state.ncCheckflag){
-            params = {
-                referenceId: this.state.referenceId,
-                HundeggerTypes: [0]
+        let creditsNeededToBuyFileHundeggerNc = this.state.creditsNeededToBuyFileHundeggerNc;
+        let availableCredits = this.props.availableCredits;
+        if(parseFloat(creditsNeededToBuyFileHundeggerNc)>parseFloat(availableCredits)){
+            this.props.postUploadError("Not enough credits. Please buy credit!")
+        }else{
+            let params=[];
+            if(this.state.ncCheckflag){
+                params = {
+                    referenceId: this.state.referenceId,
+                    HundeggerTypes: [0]
+                }
+            }else if(this.state.ncHamCheckflag){
+                params = {
+                    referenceId: this.state.referenceId,
+                    HundeggerTypes: [1]
+                }
             }
-        }else if(this.state.ncHamCheckflag){
-            params = {
-                referenceId: this.state.referenceId,
-                HundeggerTypes: [1]
-            }
+            var headers = SessionManager.shared().getAuthorizationHeader();
+            Axios.post(API.CompletePayment, params, headers)
+            .then(result => {
+                this.setState({downloadflag:true})
+                this.setState({confirmshow:true})
+            })
+            .catch(err => {
+            });
         }
-        var headers = SessionManager.shared().getAuthorizationHeader();
-        Axios.post(API.CompletePayment, params, headers)
-        .then(result => {
-            this.setState({downloadflag:true})
-            this.setState({confirmshow:true})
-        })
-        .catch(err => {
-        });
+        
     }
 
     downHundeggerFile = () => {
@@ -199,6 +206,7 @@ class Getfileform extends Component {
         this.props.onHide();
         this.props.onGetCradit();
         this.props.onGetCraditHistory();
+        this.props.removeState();
     }
     render(){   
         let hundeggerFileDetails=this.state.downHundeggerFileList;
@@ -238,7 +246,6 @@ class Getfileform extends Component {
                            )}
                         </Col>
                     </Form.Group>
-                    <ListErrors errors={this.props.error} />
                     {this.state.approve&&(
                         <Form.Group as={Row} controlId="formPlaintextPasswordw">
                             <Form.Check type="checkbox" name="nc" label={trls('CreditsNeededToBuyFileHundeggerNcHam')} style={{fontSize:"14px",marginLeft:"40px"}} checked={this.state.ncCheckflag} onChange={this.nchandleChange} />
