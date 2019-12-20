@@ -40,7 +40,6 @@ class Login extends React.Component {
                   <Col  className="login-form-div">
                     <img src='https://www.tekwoods.nl/wordpress/wp-content/uploads/Logo_TW_RGB-1-300x100.png' alt="appzmakerz" style={{marginTop:"70px", width: "60%"}}></img>
                      <form className="login-form" onSubmit = { this.handleSubmit }>
-                     <ListErrors errors={this.props.error} />
                         <fieldset>  
                             <fieldset className="form-group">
                                 <input type="text" name="username" className="orders__filters-search input-email" placeholder={trls("Username")}/>
@@ -53,12 +52,14 @@ class Login extends React.Component {
                                     {trls("Forgot_password")}
                                 </Link>
                             </p>
+                            <div style={{margin:"auto", width: "60%"}}>
+                              <ListErrors errors={this.props.error}/>
+                            </div>
                             <button type="submit" className="btn-small place-and-orders__add-row-btn add-row sign-in">{trls("Sign_in")}</button>
                         </fieldset>
                     </form>
                   </Col>
                 </Row>
-                
             </div>
           </div>
         </div>

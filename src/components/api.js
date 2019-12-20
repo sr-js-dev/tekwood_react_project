@@ -21,6 +21,7 @@ export default {
     PostCustomer: `${BASEURL}/api/customers/Create`,
     DeactivateCustomer: `${BASEURL}/api/customers/Deactivate/`,
     PostUpdateCustomer: `${BASEURL}/api/customers/Update/`,
+    AddBonusCredits: `${BASEURL}/api/customers/AddBonusCredits/`,
   };
   
   

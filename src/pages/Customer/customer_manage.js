@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Addcustomerform from './addcustomer_form';
 import Updatecustomerform from './updatecustomer_form';
 import Viewcustomerform from './viewcustomer_form';
+import Addbonusform from './addbonus_form';
 import $ from 'jquery';
 import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
@@ -29,7 +30,8 @@ class Customermanage extends Component {
             customerData:[],
             updateCustomerData:[],
             viewCustomerData: [],
-            loading:true
+            loading:true,
+            customerId: ''
         };
     }
 
@@ -102,6 +104,10 @@ class Customermanage extends Component {
             }
           });
     }
+
+    addBonus = (val) => {
+        this.setState({customerId: val, modalbounsShow: true})
+    }
     render () {
         let customerData=this.state.customerData;
         return (
@@ -129,6 +135,12 @@ class Customermanage extends Component {
                                 onHide={() => this.setState({modalviewShow: false})}
                                 viewCustomerData={this.state.viewCustomerData}
                             />
+                            <Addbonusform
+                                show={this.state.modalbounsShow}
+                                onHide={() => this.setState({modalbounsShow: false})}
+                                onGetCustomerData={() => this.getCustomerData()}
+                                customerId={this.state.customerId}
+                            />
                         </Form>
                     </div>
                     <div className="table-responsive credit-history">
@@ -142,6 +154,7 @@ class Customermanage extends Component {
                                 <th>{trls('Country')}</th>
                                 <th>{trls('AvailableCredits')}</th>
                                 <th>{trls('Active')}</th>
+                                <th>{trls('Add_bonus')}</th>
                                 <th>{trls('Action')}</th>
                             </tr>
                             </thead>
@@ -164,6 +177,11 @@ class Customermanage extends Component {
                                                 <i className="fas fa-circle inactive-icon"></i><div>Inactive</div>
                                             </td>
                                         }
+                                        <td >
+                                            <Row style={{justifyContent:"center"}}>
+                                                <i id={data.id} className="fas fa-calculator statu-item" onClick={()=>this.addBonus(data.id)}></i>
+                                            </Row>
+                                        </td>
                                         <td >
                                             <Row style={{justifyContent:"center"}}>
                                                 <i id={data.id} className="fas fa-trash-alt statu-item" onClick={this.userDeleteConfirm}></i>

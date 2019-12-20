@@ -100,8 +100,8 @@ class Getfileform extends Component {
     completePayment = () => {
         let creditsNeededToBuyFileHundeggerNc = this.state.creditsNeededToBuyFileHundeggerNc;
         let availableCredits = this.props.availableCredits;
-        if(parseFloat(creditsNeededToBuyFileHundeggerNc)>parseFloat(availableCredits)){
-            this.props.postUploadError("Not enough credits. Please buy credit!")
+        if(parseFloat(creditsNeededToBuyFileHundeggerNc)>parseFloat(availableCredits) || availableCredits===""){
+            this.props.postUploadError(trls("Not_enough_credits"))
         }else{
             let params=[];
             if(this.state.ncCheckflag){

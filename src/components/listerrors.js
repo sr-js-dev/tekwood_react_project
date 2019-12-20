@@ -6,7 +6,7 @@ class ListErrors extends React.Component {
     const errors = this.props.errors;
     if (errors) {
       return (
-        <div className="alert alert-danger list-error">
+        <div className="alert alert-danger list-error" style={this.props.style}>
             <strong><i className="fas fa-exclamation-triangle"></i>  {errors}</strong>
         </div>
       );

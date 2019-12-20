@@ -104,9 +104,17 @@ class Dashboard extends Component {
         formatDate = dd+'-'+mm+'-'+yyyy;
         return formatDate;
     }
+
     downHundeggerFile = (data) => {
         window.location = API.DownLoadFile+data.hundeggerFileReferenceId+"/"+data.transactionType
     }
+
+    showGetCredit = () => {
+        if(Auth.getUserRole()!=="Customer"){
+            this.setState({modalShow: true})
+        }
+    }
+
     render(){   
         let customerData = this.state.customerData;
         return (
@@ -145,7 +153,7 @@ class Dashboard extends Component {
                                 <h6 className="dashboard__top-long-title">{trls('Buy_Credits')}</h6>
                             </div>
                             <div className="dashboard__top-long-img">
-                                <img src={require("../../assets/images/icon-payment-white.svg")} style={{cursor: "pointer"}} alt="payment" onClick={()=>this.setState({modalShow:true})}/>
+                                <img src={require("../../assets/images/icon-payment-white.svg")} style={{cursor: "pointer"}} alt="payment" onClick={()=>this.showGetCredit()}/>
                             </div>
                         </div>
                         <div className="dashboard__top-long">

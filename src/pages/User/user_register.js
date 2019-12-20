@@ -163,7 +163,6 @@ class Userregister extends Component {
 
     render () {
         let userData=this.state.userData;
-        console.log('2222', userData)
         return (
             <div className="order_div">
                 <div className="content__header content__header--with-line">

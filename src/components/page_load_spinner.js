@@ -27,4 +27,5 @@ class Pageloadspinner extends React.Component {
     }
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Pageloadspinner);

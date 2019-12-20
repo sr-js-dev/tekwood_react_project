@@ -5,6 +5,8 @@ import SessionManager from '../../components/session_manage';
 import API from '../../components/api'
 import Axios from 'axios';
 import { trls } from '../../components/translate';
+import * as Auth   from '../../components/auth';
+
 const mapStateToProps = state => ({ 
     ...state.auth,
 });
@@ -30,11 +32,13 @@ class Buycreditform extends Component {
         this.getPricePerCredit();
     }
     getPricePerCredit = () => {
-        var headers = SessionManager.shared().getAuthorizationHeader();
-        Axios.get(API.GetSettingData, headers)
-        .then(result => {
-            this.setState({pricePercentData:result.data})
-        });
+        if(Auth.getUserRole()!=="Customer"){
+            var headers = SessionManager.shared().getAuthorizationHeader();
+            Axios.get(API.GetSettingData, headers)
+            .then(result => {
+                this.setState({pricePercentData:result.data})
+            });
+        }
     }
     changeNumber = (ev) => {
         let pricePercentData = this.state.pricePercentData;
@@ -116,7 +120,7 @@ class Buycreditform extends Component {
                         </Col>
                     </Form.Group>
                     <Form.Group style={{textAlign:"center"}}>
-                        <Button type="submit" style={{width:"100px"}}>{trls('Buy')}</Button>
+                        <Button type="submit">{trls('Buy')}</Button>
                     </Form.Group>
                 </Form>
             </Modal.Body>

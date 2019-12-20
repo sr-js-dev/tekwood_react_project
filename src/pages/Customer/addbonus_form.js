@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
     blankdispatch: () =>
               dispatch(authAction.blankdispatch()),
 });
-class Updatecustomerform extends Component {
+class Addbonusform extends Component {
     _isMounted = false;
     constructor(props) {
         super(props);
@@ -39,7 +39,7 @@ class Updatecustomerform extends Component {
             data[key] = clientFormData.get(key);
         }
         var headers = SessionManager.shared().getAuthorizationHeader();
-        Axios.put(API.PostUpdateCustomer+this.props.updateCustomerData.id, data, headers)
+        Axios.post(API.AddBonusCredits+this.props.customerId+'?noOfCredits='+data.noOfCredits, data, headers)
         .then(result => {
             this.props.onHide();
             this.props.onGetCustomerData()
@@ -54,7 +54,6 @@ class Updatecustomerform extends Component {
     }
     
     render(){
-        let updateCustomerData = this.props.updateCustomerData
         return (
             <Modal
                 show={this.props.show}
@@ -66,49 +65,17 @@ class Updatecustomerform extends Component {
             >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    {trls('Edit_Customer')}
+                    {trls('Add_bonus')}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form className="container product-form" onSubmit = { this.handleSubmit }>
                     <Form.Group as={Row} controlId="email">
                         <Form.Label column sm="3">
-                        {trls('CustomerName')}   
+                            {trls('Bonus')}   
                         </Form.Label>
                         <Col sm="9" className="product-text input-div">
-                            <Form.Control type="text" name="name" className="input-text" defaultValue={updateCustomerData.name} required placeholder={trls('CustomerName')} />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="email">
-                        <Form.Label column sm="3">
-                        {trls('Address')}   
-                        </Form.Label>
-                        <Col sm="9" className="product-text input-div">
-                            <Form.Control type="text" name="address" className="input-text" defaultValue={updateCustomerData.address} required placeholder={trls('Address')} />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="email">
-                        <Form.Label column sm="3">
-                        {trls('ZipCode')}   
-                        </Form.Label>
-                        <Col sm="9" className="product-text input-div">
-                            <Form.Control type="text" name="zipCode" className="input-text" defaultValue={updateCustomerData.zipCode} required placeholder={trls('ZipCode')} />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="email">
-                        <Form.Label column sm="3">
-                        {trls('City')}   
-                        </Form.Label>
-                        <Col sm="9" className="product-text input-div">
-                            <Form.Control type="text" name="city" className="input-text" defaultValue={updateCustomerData.city} required placeholder={trls('City')} />
-                        </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="email">
-                        <Form.Label column sm="3">
-                        {trls('Country')}   
-                        </Form.Label>
-                        <Col sm="9" className="product-text input-div">
-                            <Form.Control type="text" name="country" className="input-text" defaultValue={updateCustomerData.country} required placeholder={trls('Country')} />
+                            <Form.Control type="number" name="noOfCredits" className="input-text" required placeholder={trls('Bonus')} />
                         </Col>
                     </Form.Group>
                     <Form.Group style={{textAlign:"center"}}>
@@ -120,4 +87,4 @@ class Updatecustomerform extends Component {
         );
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Updatecustomerform);
+export default connect(mapStateToProps, mapDispatchToProps)(Addbonusform);

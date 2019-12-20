@@ -9,12 +9,10 @@ import './assets/css/style.min.css';
 import './assets/css/bootstrap.min.css';
 import './assets/css/style.app.css';
 import { getAuth } from './components/auth';
-const isAuthenticated = getAuth(); 
+// const isAuthenticated = getAuth(); 
 const store = configureStore()
-if(!isAuthenticated){
   window.localStorage.setItem('tekwoods_lang',  'nl_BE');
   window.localStorage.setItem('tekwoods_label',  'NL');
-}
 window.React = React
 ReactDOM.render(
     <Provider store={store}>

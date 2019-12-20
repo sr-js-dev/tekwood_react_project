@@ -74,7 +74,9 @@ export const fetchLoginAsData = (params) => {
         $.ajax(settings).done(function (response) {
         })
         .then(response => {
+            console.log('123123', response.claims)
             window.localStorage.setItem('imperson_flag', true);
+            window.localStorage.setItem('tek_impersonauth', response.token);
             window.localStorage.setItem('tek_userID', response.claims.UserId);
             window.localStorage.setItem('tek_role', response.claims.Role);
             window.localStorage.setItem('tek_UserName', response.claims.UserName);

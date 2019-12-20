@@ -99,7 +99,10 @@ export const TRANSLATIONS = {
     VatPercentage: 'BTWPercentage',
     VAT_amount: 'BTW Amount',
     Total_amount: 'Total Amount',
-    Purchase_credits: 'Purchase credits'
+    Purchase_credits: 'Purchase credits',
+    Not_enough_credits: 'Not enough credits. Please buy credit!',
+    Add_bonus: 'AddBonus',
+    Bonus: 'Bouns'
   }, 
   nl_BE: {
     Username: 'Gebruikersnaam',
@@ -198,9 +201,12 @@ export const TRANSLATIONS = {
     Show_page:'Pagina weergegeven',
     Company: 'Bedrijf',
     User: 'Gebruiker',
-    VatPercentage: 'BTWPercentage',
-    VAT_amount: 'BTW Bedrag',
-    Total_amount: 'Totaal Bedrag' ,
-    Purchase_credits: 'Aankoop credits'
+    VatPercentage: 'BTW percentage',
+    VAT_amount: 'BTW bedrag',
+    Total_amount: 'Totaal bedrag' ,
+    Purchase_credits: 'Aankoop credits',
+    Not_enough_credits: 'Niet genoeg credits. Koop nieuwe credits om verder te gaan!',
+    Add_bonus: 'ToevoegenBonus',
+    Bonus: 'Bonus'
   }
 };
