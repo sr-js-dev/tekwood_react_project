@@ -110,9 +110,7 @@ class Dashboard extends Component {
     }
 
     showGetCredit = () => {
-        if(Auth.getUserRole()!=="Customer"){
-            this.setState({modalShow: true})
-        }
+        this.setState({modalShow: true})
     }
 
     render(){   
