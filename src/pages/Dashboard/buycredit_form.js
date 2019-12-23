@@ -32,13 +32,11 @@ class Buycreditform extends Component {
         this.getPricePerCredit();
     }
     getPricePerCredit = () => {
-        if(Auth.getUserRole()!=="Customer"){
-            var headers = SessionManager.shared().getAuthorizationHeader();
-            Axios.get(API.GetSettingData, headers)
-            .then(result => {
-                this.setState({pricePercentData:result.data})
-            });
-        }
+        var headers = SessionManager.shared().getAuthorizationHeader();
+        Axios.get(API.GetSettingData, headers)
+        .then(result => {
+            this.setState({pricePercentData:result.data})
+        });
     }
     changeNumber = (ev) => {
         let pricePercentData = this.state.pricePercentData;
