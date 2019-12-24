@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { BallBeat } from 'react-pure-loaders';
 import SessionManager from '../../components/session_manage';
 import * as authAction  from '../../actions/authAction';
 import API from '../../components/api'
@@ -37,7 +38,8 @@ class Getfileform extends Component {
             ncCheckflag: false,
             ncHamCheckflag: false,
             ncapproveflag: "",
-            ncHamapproveflag: ""
+            ncHamapproveflag: "",
+            loading: false
         };
         this.onFormSubmit = this.onFormSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -149,23 +151,28 @@ class Getfileform extends Component {
     }
     
     fileUpload(file){
+        this.setState({loading: true});
         var formData = new FormData();
         formData.append('file', file);// file from input
         var headers = {
             "headers": {
                 "Authorization": "Bearer "+Auth.getUserToken(),
             }
-        }
+        };
         Axios.post(API.PostHundeggerFile, formData, headers)
         .then(result => {
-            this.setState({creditsNeededToBuyFileHundeggerNc:result.data.creditsNeededToBuyHundeggerNc})
-            this.setState({creditsNeededToBuyFileHundeggerNcHam:result.data.creditsNeededToBuyHundeggerNcHam})
-            this.setState({referenceId:result.data.referenceId});
-            this.setState({uploadflag:0})
-            this.setState({approve:true})
+            this.setState({
+                creditsNeededToBuyFileHundeggerNc:result.data.creditsNeededToBuyHundeggerNc,
+                creditsNeededToBuyFileHundeggerNcHam:result.data.creditsNeededToBuyHundeggerNcHam,
+                referenceId:result.data.referenceId,
+                uploadflag:0,
+                approve:true,
+                loading: false
+            })
             this.getHundegger();
         })
         .catch(err => {
+            this.setState({loading: false});
         });
     }
     openUploadFile = () =>{
@@ -316,6 +323,14 @@ class Getfileform extends Component {
                     ) : <div></div>
                     } 
                 </Form>
+                { this.state.loading && (
+                    <div className="col-md-4 offset-md-4 col-xs-12 loading" style={{textAlign:"center"}}>
+                        <BallBeat
+                            color={'#222A42'}
+                            loading={this.state.loading}
+                        />
+                    </div>
+                )}
             </Modal.Body>
             </Modal>
         );
